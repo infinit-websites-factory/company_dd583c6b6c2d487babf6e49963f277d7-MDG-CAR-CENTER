@@ -27,32 +27,32 @@ interface LanguageContextType {
 }
 
 const PHONE_NUMBERS = {
-  es: "+34747775728",
-  en: "+34747775728",
-  fr: "+34747775728",
+  es: "+34933704030",
+  en: "+34933704030",
+  fr: "+34933704030",
 };
 
 const ADDRESSES: Record<Language, AddressInfo> = {
   es: {
     street: "Carretera Ca l'Alaio, 3",
     city: "08820 El Prat de Llobregat, Barcelona, España",
-    full: "Carretera Ca l'Alaio, 3, 08820 El Prat de Llobregat, Barcelona, España",
-    mapsUrl: "https://maps.app.goo.gl/KPTob6R2WPd9uDtd7",
-    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.053040855266!2d2.0815250758755677!3d41.32945997130732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49f8445d66b77%3A0xf63709398a17e367!2sLuxury%20Car!5e0!3m2!1sen!2sin!4v1772612177733!5m2!1sen!2sin"
+    full: "Carretera Ca l'Alaio, 3 - El Prat de Llobregat - 08820 Barcelona",
+    mapsUrl: "https://maps.app.goo.gl/j94p4AomKP1eQmBe9",
+    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.0405601081934!2d2.0816076758755564!3d41.32973137130727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49eb971dab66f%3A0x3978cef3b06e5d0a!2sEDITION%20CARS%20SL.!5e0!3m2!1sen!2sin!4v1780290117324!5m2!1sen!2sin"
   },
   en: {
     street: "Carretera Ca l'Alaio, 3",
     city: "08820 El Prat de Llobregat, Barcelona, Spain",
-    full: "Carretera Ca l'Alaio, 3, 08820 El Prat de Llobregat, Barcelona, Spain",
-    mapsUrl: "https://maps.app.goo.gl/KPTob6R2WPd9uDtd7",
-    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.053040855266!2d2.0815250758755677!3d41.32945997130732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49f8445d66b77%3A0xf63709398a17e367!2sLuxury%20Car!5e0!3m2!1sen!2sin!4v1772612177733!5m2!1sen!2sin"
+    full: "Carretera Ca l'Alaio, 3 - El Prat de Llobregat - 08820 Barcelona",
+    mapsUrl: "https://maps.app.goo.gl/j94p4AomKP1eQmBe9",
+    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.0405601081934!2d2.0816076758755564!3d41.32973137130727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49eb971dab66f%3A0x3978cef3b06e5d0a!2sEDITION%20CARS%20SL.!5e0!3m2!1sen!2sin!4v1780290117324!5m2!1sen!2sin"
   },
   fr: {
     street: "Carretera Ca l'Alaio, 3",
     city: "08820 El Prat de Llobregat, Barcelone, Espagne",
-    full: "Carretera Ca l'Alaio, 3, 08820 El Prat de Llobregat, Barcelone, Espagne",
-    mapsUrl: "https://maps.app.goo.gl/KPTob6R2WPd9uDtd7",
-    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.053040855266!2d2.0815250758755677!3d41.32945997130732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49f8445d66b77%3A0xf63709398a17e367!2sLuxury%20Car!5e0!3m2!1sen!2sin!4v1772612177733!5m2!1sen!2sin"
+    full: "Carretera Ca l'Alaio, 3 - El Prat de Llobregat - 08820 Barcelona",
+    mapsUrl: "https://maps.app.goo.gl/j94p4AomKP1eQmBe9",
+    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.0405601081934!2d2.0816076758755564!3d41.32973137130727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49eb971dab66f%3A0x3978cef3b06e5d0a!2sEDITION%20CARS%20SL.!5e0!3m2!1sen!2sin!4v1780290117324!5m2!1sen!2sin"
   }
 };
 
@@ -63,9 +63,12 @@ const CURRENCIES: Record<Language, { code: string; symbol: string }> = {
 };
 
 const formatPhoneNumber = (phone: string, language: Language): string => {
-  const digits = phone.substring(1);
-  // Spanish format: +34 747 77 57 28
-  return `+34 ${digits.substring(2, 5)} ${digits.substring(5, 7)} ${digits.substring(7, 9)} ${digits.substring(9)}`;
+  // Returns: 93 370 40 30
+  const digits = phone.replace('+34', '');
+  if (digits.length === 9) {
+    return `${digits.substring(0, 2)} ${digits.substring(2, 5)} ${digits.substring(5, 7)} ${digits.substring(7)}`;
+  }
+  return digits;
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -86,7 +89,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getWhatsAppNumber = () => {
-    return PHONE_NUMBERS[language].substring(1);
+    return "34610202100";
   };
 
   const getAddress = () => {

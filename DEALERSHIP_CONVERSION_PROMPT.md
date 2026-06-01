@@ -10,21 +10,21 @@ Use this prompt template every time you need to convert this car dealership webs
 I need you to convert this car dealership website to a new dealership. Make all necessary changes throughout the codebase based on the following information:
 
 **DEALERSHIP DETAILS:**
-- Existing website: 
-- Dealership Name: LUXURY CAR
-- Phone Number: +34747775728
-- Email Address: 
-- Street Address: 83HM+QJ El Prat de Llobregat, Spain
-- City/Postal: 83HM+QJ El Prat de Llobregat, Spain
+- Existing website: https://www.editioncars.es/
+- Dealership Name: EDITION CARS
+- Phone Number:  93 370 40 30 / 610 20 21 00 
+- Email Address: info@editioncars.es
+- Street Address: Carretera Ca l'Alaio, 3 - El Prat de Llobregat - 08820 Barcelona
+- City/Postal:  Carretera Ca l'Alaio, 3 - El Prat de Llobregat - 08820 Barcelona
 - Facebook URL: None
 - Instagram URL: 
-- Google Maps Location URL: https://maps.app.goo.gl/KPTob6R2WPd9uDtd7
+- Google Maps Location URL: https://maps.app.goo.gl/j94p4AomKP1eQmBe9
 data=!3m1!4b1!4m6!3m5!1s0xd422d0aae13ce4b:0xeb0c0a1870db7983!8m2!3d40.5432558!4d-3.6105019!16s%2Fg%2F11vwy0my2t?entry=tts&g_ep=EgoyMDI1MTAyNy4wIPu8ASoASAFQAw%3D%3D&skid=54bf610b-042c-4933-a6b1-db155b5e0a36
-- Google Maps Embed URL: <iframe src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.053040855266!2d2.0815250758755677!3d41.32945997130732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49f8445d66b77%3A0xf63709398a17e367!2sLuxury%20Car!5e0!3m2!1sen!2sin!4v1772612177733!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-- Google Rating: 4.4
+- Google Maps Embed URL: <iframe src="<iframe src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.0405601081934!2d2.0816076758755564!3d41.32973137130727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49eb971dab66f%3A0x3978cef3b06e5d0a!2sEDITION%20CARS%20SL.!5e0!3m2!1sen!2sin!4v1780290117324!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+- Google Rating: 4.1
 
 **BRANDING:**
-- Primary Color Hex: #1e429f
+- Primary Color Hex: #010307
 
 **CONFIGURATION:**
 - Profile ID: a5dd8bbf-2f7b-4b79-8246-f6fa76ecd0f9
@@ -45,6 +45,17 @@ data=!3m1!4b1!4m6!3m5!1s0xd422d0aae13ce4b:0xeb0c0a1870db7983!8m2!3d40.5432558!4d
 11. Update the domain for fetching the stock or submiting a contact form to API_BASE_URL
 12. Use CRUL to read the copy in the homepage of the existing website and update the homepage accordingly
 13. Update api/preview.ts file with the correct Profile ID (line 3) and domain name from the existing website (lines 122, 123, 129, 137-138)
+14. redesign goolge review section with premium verion , add background image with dark overlay , redesign the cards of google reviews make it stylish - dark premium design think out pf the box and redesign it , one review at a time with the auto coursol 
+15. add colors to these cards present on service page differn differnt colors full with premum modern look use some styles popups shadeows flexex
+16. cross check all the inforamtion in footer section is correct and accurate , in header section full address should be ther cross check hours and the phone number
+17. redesign the FAQ section , add icons to it , cross check all the questions and answers it should be related to the current website . only 5 Faq if more than that we have then add a button to see the other remaining questions
+18.  add background image to this section on servicio page and financian page  and bring text at centre give a dark overlay to background image and restyle the text we have to look premium add some icons and styles
+19. use shadow effects , differnt layouts , cards styles , flip flop , pop up , diffenrt themans , backgorund images
+20.download all the images they have on thier official website and replace it with ours i want same images to same sections as they have
+21.¡Descubre nuestros vehículos! - can you add light capacity background image to this section , aslo add the coursol to see the cars means 4 cars shoudl be visible and to see fifith one we should use coursol and addround shaped cousol buttons to the top eight corner of the section
+22. i want the car stock page , finacne , service , contact page in white theme now dark theme 
+23. cross check the footer - ots looking too much long , add colours to all logos present , cross check all services options make them correct and clickable , text should be visible more increase capacity , add icons , fill them will design ,logo should be effective
+24. i want menu bar horizontal with centred 
 
 INSTURCTIONS:
 When download or storing the assets of the website, use the src/assets folder

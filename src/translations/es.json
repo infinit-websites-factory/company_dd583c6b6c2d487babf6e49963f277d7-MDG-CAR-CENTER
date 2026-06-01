@@ -1,36 +1,36 @@
 {
   "seo": {
     "home": {
-      "title": "INFINIT Cars | Vehículos Premium de Ocasión en {city}",
+      "title": "EDITION CARS | Vehículos Premium de Ocasión en {city}",
       "description": "Concesionario premium especializado en vehículos de alta gama, ocasión y seminuevos en {city}. Garantía, financiación y servicio VIP. La mejor calidad y precio."
     },
     "stock": {
-      "title": "Stock de Vehículos Premium | INFINIT Cars {city}",
+      "title": "Stock de Vehículos Premium | EDITION CARS {city}",
       "description": "Explora nuestro stock de coches de alta gama de ocasión y seminuevos en {city}. BMW, Mercedes, Audi, Porsche y más. Garantía incluida."
     },
     "vehicle_detail": {
-      "title": "{vehicle} | INFINIT Cars {city}",
-      "description": "Compra tu {vehicle} en INFINIT Cars {city}. Garantía de 12 meses ampliable a 3 años, financiación a medida y servicio VIP."
+      "title": "{vehicle} | EDITION CARS {city}",
+      "description": "Compra tu {vehicle} en EDITION CARS {city}. Garantía de 12 meses ampliable a 3 años, financiación a medida y servicio VIP."
     },
     "sell": {
-      "title": "Vende tu Coche al Mejor Precio | INFINIT Cars {city}",
+      "title": "Vende tu Coche al Mejor Precio | EDITION CARS {city}",
       "description": "Tasación gratuita y sin compromiso de tu vehículo en {city}. Valoración en 24 horas, proceso rápido y seguro. Compramos todo tipo de coches."
     },
     "financing": {
-      "title": "Financiación de Vehículos Premium | INFINIT Cars {city}",
+      "title": "Financiación de Vehículos Premium | EDITION CARS {city}",
       "description": "Financiación a medida para tu coche de ocasión en {city}. Cuotas reducidas, aprobación en 24h y condiciones transparentes."
     },
     "services": {
-      "title": "Servicios Premium para tu Vehículo | INFINIT Cars {city}",
-      "description": "Servicio VIP, garantía hasta 3 años, envío a toda España, financiación y tasación de vehículos. Descubre todo lo que INFINIT Cars ofrece en {city}."
+      "title": "Servicios Premium para tu Vehículo | EDITION CARS {city}",
+      "description": "Servicio VIP, garantía hasta 3 años, envío a toda España, financiación y tasación de vehículos. Descubre todo lo que EDITION CARS ofrece en {city}."
     },
     "contact": {
-      "title": "Contacto | INFINIT Cars {city}",
-      "description": "Contacta con INFINIT Cars en {city}. Llámanos, escríbenos o visítanos. Estamos aquí para ayudarte con la compra, venta o financiación de tu vehículo."
+      "title": "Contacto | EDITION CARS {city}",
+      "description": "Contacta con EDITION CARS en {city}. Llámanos, escríbenos o visítanos. Estamos aquí para ayudarte con la compra, venta o financiación de tu vehículo."
     },
     "not_found": {
-      "title": "Página no encontrada | INFINIT Cars",
-      "description": "La página que buscas no existe. Vuelve a la página principal de INFINIT Cars."
+      "title": "Página no encontrada | EDITION CARS",
+      "description": "La página que buscas no existe. Vuelve a la página principal de EDITION CARS."
     }
   },
   "common": {
@@ -65,7 +65,7 @@
     "placeholder": "Buscar por marca, modelo..."
   },
   "services": {
-    "title": "Nuestros servicios en Luxury Car",
+    "title": "Nuestros servicios en EDITION CARS",
     "subtitle": "Comercialización e importación de vehículos premium a la carta, de ocasión, seminuevos y Km0.",
     "vip": {
       "title": "Servicio VIP",
@@ -108,7 +108,7 @@
       },
       "trade_in": {
         "question": "¿Aceptáis mi vehículo actual como parte de pago?",
-        "answer": "Sí, en Luxury Car aceptamos vehículos como parte de pago. Realizamos una tasación profesional gratuita y sin compromiso, considerando marca, modelo, año, kilometraje, estado general e historial de mantenimiento. Te ofrecemos un precio justo y transparente que se descuenta directamente del precio de tu nuevo vehículo."
+        "answer": "Sí, en Edition Cars aceptamos vehículos como parte de pago. Realizamos una tasación profesional gratuita y sin compromiso, considerando marca, modelo, año, kilometraje, estado general e historial de mantenimiento. Te ofrecemos un precio justo y transparente que se descuenta directamente del precio de tu nuevo vehículo."
       },
       "schedule": {
         "question": "¿Cuáles son vuestros horarios de atención?",
@@ -143,7 +143,7 @@
       "terms_conditions": "Términos y Condiciones",
       "cookies": "Cookies"
     },
-    "copyright": "© 2026 Luxury Car. Desarrollado por"
+    "copyright": "© 2026 EDITION CARS SL. Desarrollado por"
   },
   "contact_page": {
     "title": "Contacta con nosotros",
@@ -250,40 +250,34 @@
     "reviews_count": "reseñas",
     "testimonials": [
       {
-        "name": "Jordi M.",
+        "name": "Carlos M.",
         "rating": 5,
-        "date": "Hace 2 semanas",
-        "review": "Compré un BMW Serie 5 seminuevo en Luxury Car y la experiencia fue excepcional. Desde el primer contacto, el equipo me atendió con total profesionalidad, explicándome cada detalle del vehículo y su historial completo. El coche estaba impecable y el precio muy competitivo respecto a otros concesionarios. Totalmente recomendable."
+        "date": "Hace 1 semana",
+        "review": "Excelente experiencia en Edition Cars. Compré un BMW Serie 3 y el proceso fue impecable desde el principio. El equipo fue muy profesional y transparente con toda la información del vehículo. Totalmente recomendable."
       },
       {
         "name": "Marta G.",
         "rating": 5,
-        "date": "Hace 1 mes",
-        "review": "Buscaba un Mercedes GLC de ocasión y encontré exactamente lo que necesitaba en Luxury Car. El asesoramiento fue excepcional, me ayudaron a elegir el modelo ideal según mis necesidades y la financiación se gestionó en tiempo récord. El estado del vehículo superó con creces mis expectativas."
+        "date": "Hace 2 semanas",
+        "review": "Muy satisfecha con mi compra. Encontré exactamente el Mercedes que buscaba y me ayudaron con la financiación sin ningún problema. El coche estaba en perfectas condiciones, tal como lo describían."
       },
       {
-        "name": "Pedro S.",
+        "name": "David S.",
         "rating": 4,
-        "date": "Hace 3 semanas",
-        "review": "Proceso de compra profesional y transparente. Me mantuvieron informado en todo momento sobre el estado de mi Audi Q5. El coche llegó a casa en perfectas condiciones con el transporte incluido. Buena experiencia, sin duda repetiré."
+        "date": "Hace 1 mes",
+        "review": "Buen servicio y trato muy amable. El proceso de compra fue rápido y sin complicaciones. El vehículo llegó en perfectas condiciones. Repetiría sin duda."
       },
       {
         "name": "Laura R.",
         "rating": 5,
-        "date": "Hace 2 meses",
-        "review": "Muy satisfecha con mi compra de un Volvo XC60 en Luxury Car. El equipo se tomó el tiempo de entender mis necesidades y me presentaron opciones que se ajustaban perfectamente a mi presupuesto. La atención fue cercana, profesional y sin presiones. Lo recomiendo sin dudarlo."
+        "date": "Hace 3 semanas",
+        "review": "Compré un Audi Q5 y quedé encantada. El equipo de Edition Cars se tomó el tiempo para explicarme todo con detalle. Precio justo y servicio de primera. 100% recomendable."
       },
       {
-        "name": "Marc T.",
+        "name": "Jordi P.",
         "rating": 4,
-        "date": "Hace 1 mes",
-        "review": "Gran selección de vehículos premium y un trato muy correcto. Compré un Porsche Cayenne y la gestión fue rápida. El vehículo estaba exactamente como lo describieron en las fotos y especificaciones. Repetiría sin duda."
-      },
-      {
-        "name": "Ana B.",
-        "rating": 5,
-        "date": "Hace 3 meses",
-        "review": "Una experiencia de compra de 10. Adquirí un Range Rover Evoque y todo el proceso fue impecable: asesoramiento personalizado, documentación rápida y entrega puntual. El equipo de Luxury Car transmite confianza y seriedad. Muy recomendable para quien busca un vehículo de calidad."
+        "date": "Hace 2 meses",
+        "review": "Gran selección de coches de ocasión y trato muy correcto. La gestión de la documentación fue rápida y eficiente. El vehículo estaba exactamente como lo describieron."
       }
     ]
   },
@@ -310,7 +304,7 @@
       },
       "section_1_3": {
         "title": "1.3 Propiedad Intelectual e Industrial",
-        "content": "Todos los contenidos del sitio web (textos, imágenes, logotipos, diseños, etc.) son propiedad de Luxury Car o de terceros autorizados. Queda prohibida su reproducción, distribución o modificación sin autorización expresa."
+        "content": "Todos los contenidos del sitio web (textos, imágenes, logotipos, diseños, etc.) son propiedad de EDITION CARS o de terceros autorizados. Queda prohibida su reproducción, distribución o modificación sin autorización expresa."
       },
       "section_1_4": {
         "title": "1.4 Responsabilidad",
@@ -465,7 +459,7 @@
   },
   "services_page": {
     "hero": {
-      "title": "Servicios en Luxury Car",
+      "title": "Servicios en EDITION CARS",
       "subtitle": "Comercializamos e importamos vehículos premium a la carta, de ocasión, seminuevos y de KM 0 en"
     },
     "main_services": {
@@ -492,7 +486,7 @@
       "button": "Tasar mi vehículo"
     },
     "alt_texts": {
-      "hero": "Vehículo premium con logo de Luxury Car",
+      "hero": "Vehículo premium con logo de EDITION CARS",
       "sell": "Porsche deportivo gris en pista - Servicios de tasación de vehículos premium"
     }
   },
@@ -762,7 +756,7 @@
       "success": "¡Reserva confirmada! Nos pondremos en contacto contigo pronto."
     },
     "appointment": {
-      "modal_title": "Reserva tu cita en Luxury Car",
+      "modal_title": "Reserva tu cita en EDITION CARS",
       "date_label": "Fecha de la cita",
       "time_label": "Hora",
       "time_placeholder": "Selecciona una hora",

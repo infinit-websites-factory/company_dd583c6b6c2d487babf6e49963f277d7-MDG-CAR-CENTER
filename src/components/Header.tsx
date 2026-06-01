@@ -1,18 +1,12 @@
-import { Phone, MapPin, Menu } from "lucide-react";
+import { Phone, MapPin, Mail, Clock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import luxuryCarLogo from "@/assets/logoo.webp";
-import { useState } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import editionCarsLogo from "@/assets/edition-cars-logo.jpg";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const { getPhoneNumber, getAddress, t } = useLanguage();
-  const [isOpen, setIsOpen] = useState(false);
   const address = getAddress();
+  const location = useLocation();
 
   const navigationLinks = [
     { href: "/", label: t('header.home') },
@@ -23,92 +17,85 @@ const Header = () => {
     { href: "/contact", label: t('header.contact') },
   ];
 
+  const isActive = (href: string) =>
+    href === "/" ? location.pathname === "/" : location.pathname.startsWith(href);
+
   return (
-    <header className="bg-background text-white border-b border-[#1F232A]">
-      <div className="container mx-auto max-w-7xl px-4 flex h-[70px] items-center justify-between">
-        {/* Left: Logo */}
-        <a href="/" className="hover:opacity-80 transition-opacity pr-3">
-          <img
-            src={luxuryCarLogo}
-            alt="Luxury Car Logo"
-            className="h-[46px] object-contain"
-          />
-        </a>
-
-        {/* Center: Contact Info */}
-        <div className="hidden md:flex items-center self-stretch">
-          <a
-            href={`tel:${getPhoneNumber()}`}
-            className="group flex items-center gap-3 self-stretch px-5 border-x border-[#1F232A] transition-colors hover:bg-[#171B21]"
-          >
-            <Phone size={16} className="shrink-0 text-white/60 transition-colors group-hover:text-white" />
-            <span className="text-sm leading-6 text-white/60 transition-colors group-hover:text-white">{getPhoneNumber()}</span>
-          </a>
-          <a
-            href={address.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-3 self-stretch px-5 border-r border-[#1F232A] transition-colors hover:bg-[#171B21]"
-          >
-            <MapPin size={16} className="shrink-0 text-white/60 transition-colors group-hover:text-white" />
-            <span className="text-sm leading-6 text-white/60 transition-colors group-hover:text-white hidden lg:inline">{address.city}</span>
-          </a>
+    <header className="bg-[#101318] text-white border-b border-[#1F232A] sticky top-0 z-50">
+      {/* Top bar: contact info */}
+      <div className="border-b border-[#1F232A] bg-[#0a0d11]">
+        <div className="container mx-auto max-w-7xl px-4 flex h-10 items-center justify-between">
+          <div className="flex items-center gap-6 text-xs text-white/40">
+            <a href={`tel:+34933704030`} className="flex items-center gap-1.5 hover:text-white/70 transition-colors">
+              <Phone size={11} />
+              <span>93 370 40 30</span>
+            </a>
+            <a href={`tel:+34610202100`} className="flex items-center gap-1.5 hover:text-white/70 transition-colors">
+              <Phone size={11} />
+              <span>610 20 21 00</span>
+            </a>
+            <a href="mailto:info@editioncars.es" className="hidden md:flex items-center gap-1.5 hover:text-white/70 transition-colors">
+              <Mail size={11} />
+              <span>info@editioncars.es</span>
+            </a>
+          </div>
+          <div className="flex items-center gap-4 text-xs text-white/40">
+            <a href={address.mapsUrl} target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-1.5 hover:text-white/70 transition-colors">
+              <MapPin size={11} />
+              <span>{address.full}</span>
+            </a>
+            <div className="flex items-center gap-1.5">
+              <Clock size={11} />
+              <span>Lun–Sáb: 10:00–14:00, 16:00–20:00</span>
+            </div>
+          </div>
         </div>
-
-        {/* Right: Menu Button */}
-        <button
-          onClick={() => setIsOpen(true)}
-          className="group flex items-center gap-3 self-stretch px-5 border-x border-[#1F232A] transition-colors hover:bg-[#171B21] ml-auto"
-          aria-label="Open menu"
-        >
-          <span className="text-sm font-medium text-white/60 transition-colors group-hover:text-white hidden sm:inline">{t('common.menu')}</span>
-          <Menu size={18} className="text-white" />
-        </button>
       </div>
 
-      {/* Slide-out Menu */}
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent side="right" className="bg-background text-white border-l border-[#1F232A] w-[300px] sm:w-[350px]">
-          <SheetHeader>
-            <SheetTitle className="text-white text-left text-xl font-heading">{t('common.menu')}</SheetTitle>
-          </SheetHeader>
-          <nav className="flex flex-col mt-8 -mx-6">
+      {/* Main header: logo + horizontal centered nav */}
+      <div className="container mx-auto max-w-7xl px-4">
+        <div className="flex h-[70px] items-center justify-between gap-6">
+          {/* Logo */}
+          <a href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
+            <img
+              src={editionCarsLogo}
+              alt="EDITION CARS"
+              className="h-[46px] w-auto object-contain"
+            />
+          </a>
+
+          {/* Centered horizontal nav */}
+          <nav className="hidden md:flex items-center justify-center gap-1 flex-1">
             {navigationLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-lg text-white/90 hover:text-primary hover:bg-white/[0.03] transition-colors py-3.5 px-6"
-                onClick={() => setIsOpen(false)}
+                className={`px-4 py-2 text-sm font-medium transition-colors rounded-sm ${
+                  isActive(link.href)
+                    ? "text-white bg-white/10"
+                    : "text-white/60 hover:text-white hover:bg-white/5"
+                }`}
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          {/* Contact Info in Menu */}
-          <div className="-mx-6 mt-8 pt-8 border-t border-[#1F232A] px-6">
-            <p className="text-white/50 text-sm mb-4">{t('footer.contact_title')}</p>
-            <div className="space-y-3">
-              <a
-                href={`tel:${getPhoneNumber()}`}
-                className="flex items-center gap-3 text-white/90 hover:text-primary transition-colors"
-              >
-                <Phone size={16} className="text-primary" />
-                <span>{getPhoneNumber()}</span>
-              </a>
-              <a
-                href={address.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-white/90 hover:text-primary transition-colors"
-              >
-                <MapPin size={16} className="text-primary" />
-                <span className="text-sm">{address.full}</span>
-              </a>
-            </div>
-          </div>
-        </SheetContent>
-      </Sheet>
+          {/* CTA */}
+          <a
+            href="tel:+34933704030"
+            className="hidden md:flex items-center gap-2 px-4 py-2 bg-white text-[#010307] text-sm font-semibold rounded-sm hover:bg-white/90 transition-colors flex-shrink-0"
+          >
+            <Phone size={14} />
+            <span>Llámanos</span>
+          </a>
+
+          {/* Mobile: phone icon */}
+          <a href="tel:+34933704030" className="md:hidden flex items-center gap-2 text-white/70 hover:text-white transition-colors">
+            <Phone size={18} />
+          </a>
+        </div>
+      </div>
     </header>
   );
 };

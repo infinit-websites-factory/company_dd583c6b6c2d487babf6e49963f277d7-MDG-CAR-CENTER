@@ -122,7 +122,7 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <SEO page="contact" />
       <Header />
 
@@ -147,9 +147,9 @@ const Contact = () => {
       </div>
 
       {/* Contact Form Section */}
-      <section className="py-8 px-4 bg-background">
+      <section className="py-8 px-4 bg-gray-50">
         <div className="container mx-auto max-w-2xl">
-          <Card className="bg-[#101318] border border-[#1F232A] -mt-48 relative z-10">
+          <Card className="bg-white border border-gray-200 shadow-xl -mt-48 relative z-10">
             <CardContent className="p-8">
               {isSubmitted ? (
                 <div className="text-center py-12">
@@ -158,10 +158,10 @@ const Contact = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
                     {t('contact_page.success.title')}
                   </h3>
-                  <p className="text-muted-foreground mb-6">
+                  <p className="text-gray-500 mb-6">
                     {t('contact_page.success.description')}
                   </p>
                   <Button
@@ -177,7 +177,7 @@ const Contact = () => {
                         acceptPrivacy: false
                       });
                     }}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                    className="bg-gray-900 hover:bg-black text-white"
                   >
                     {t('contact_page.success.send_another')}
                   </Button>
@@ -186,26 +186,26 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="nombre" className="text-white/50">{t('contact_page.form.name')}</Label>
+                      <Label htmlFor="nombre" className="text-gray-600">{t('contact_page.form.name')}</Label>
                       <Input
                         id="nombre"
                         name="nombre"
                         value={formData.nombre}
                         onChange={handleInputChange}
                         required
-                        className="bg-[#101318] border-[#1F232A]"
+                        className="bg-white border-gray-200 text-gray-900"
                         placeholder={t('contact_page.form.name_placeholder')}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="apellido" className="text-white/50">{t('contact_page.form.surname')}</Label>
+                      <Label htmlFor="apellido" className="text-gray-600">{t('contact_page.form.surname')}</Label>
                       <Input
                         id="apellido"
                         name="apellido"
                         value={formData.apellido}
                         onChange={handleInputChange}
                         required
-                        className="bg-[#101318] border-[#1F232A]"
+                        className="bg-white border-gray-200 text-gray-900"
                         placeholder={t('contact_page.form.surname_placeholder')}
                       />
                     </div>
@@ -213,7 +213,7 @@ const Contact = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-white/50">{t('contact_page.form.email')}</Label>
+                      <Label htmlFor="email" className="text-gray-600">{t('contact_page.form.email')}</Label>
                       <Input
                         id="email"
                         name="email"
@@ -221,12 +221,12 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="bg-[#101318] border-[#1F232A]"
+                        className="bg-white border-gray-200 text-gray-900"
                         placeholder={t('contact_page.form.email_placeholder')}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="telefono" className="text-white/50">{t('contact_page.form.phone')}</Label>
+                      <Label htmlFor="telefono" className="text-gray-600">{t('contact_page.form.phone')}</Label>
                       <div className="flex">
                         <div className="flex items-center px-3 bg-[#101318] border border-r-0 border-[#1F232A] rounded-l-md">
                           <span className="text-sm text-red-600 font-semibold">{getFlag()}</span>
@@ -246,7 +246,7 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="mensaje" className="text-white/50">{t('contact_page.form.message')}</Label>
+                    <Label htmlFor="mensaje" className="text-gray-600">{t('contact_page.form.message')}</Label>
                     <Textarea
                       id="mensaje"
                       name="mensaje"
@@ -255,7 +255,7 @@ const Contact = () => {
                       required
                       rows={5}
                       placeholder={t('contact_page.form.message_placeholder')}
-                      className="bg-[#101318] border-[#1F232A]"
+                      className="bg-white border-gray-200 text-gray-900"
                     />
                   </div>
 
@@ -268,7 +268,7 @@ const Contact = () => {
                           setFormData({ ...formData, acceptMarketing: checked as boolean })
                         }
                       />
-                      <Label htmlFor="acceptMarketing" className="text-sm text-white/50">
+                      <Label htmlFor="acceptMarketing" className="text-sm text-gray-600">
                         {t('contact_page.form.accept_marketing')}{" "}
                         <button
                           type="button"
@@ -400,7 +400,7 @@ const Contact = () => {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title={`${t('contact_page.location.title')} - Luxury Car, ${address.city}`}
+                  title={`${t('contact_page.location.title')} - EDITION CARS, ${address.city}`}
                 ></iframe>
               </div>
             </div>
@@ -422,7 +422,7 @@ const Contact = () => {
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">{t('legal.privacy_policy.section_2_1.title')}</h3>
               <div className="bg-muted/50 p-4 rounded-lg">
-                <p><strong>{t('legal.privacy_policy.section_2_1.company_name')}:</strong> Luxury Car</p>
+                <p><strong>{t('legal.privacy_policy.section_2_1.company_name')}:</strong> EDITION CARS</p>
                 <p><strong>{t('legal.privacy_policy.section_2_1.address')}:</strong> {address.full}</p>
                 <p><strong>{t('legal.privacy_policy.section_2_1.phone')}:</strong> {getPhoneNumber()}</p>
               </div>

@@ -116,20 +116,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Build title parts, filtering out undefined/empty values
     const titleParts = [vehicle.brand, vehicle.model, vehicle.year].filter(Boolean);
-    const pageTitle = `${titleParts.join(' ')} - ${formattedPrice} | Luxury Car`;
+    const pageTitle = `${titleParts.join(' ')} - ${formattedPrice} | EDITION CARS`;
 
     // Build description parts
     const descParts = [vehicle.brand, vehicle.model, vehicle.year].filter(Boolean);
-    const pageDescription = `${descParts.join(' ')} - ${mileageText}, ${vehicle.fuel}, ${vehicle.transmission}. Vehículo de alta gama disponible en Luxury Car El Prat de Llobregat.`;
+    const pageDescription = `${descParts.join(' ')} - ${mileageText}, ${vehicle.fuel}, ${vehicle.transmission}. Vehículo de alta gama disponible en EDITION CARS El Prat de Llobregat.`;
 
-    const pageUrl = `https://luxurycar.infinit.cc/buy/${id}`;
-    let carImage = vehicle.images && vehicle.images.length > 0 ? vehicle.images[0] : 'https://luxurycar.infinit.cc/placeholder.svg';
+    const pageUrl = `https://www.editioncars.es/stock/${id}`;
+    let carImage = vehicle.images && vehicle.images.length > 0 ? vehicle.images[0] : 'https://www.editioncars.es/placeholder.svg';
 
     // Use Vercel Image Optimization to resize images for WhatsApp compatibility (max 600KB recommended)
     // Resize to 1600px width to ensure file size stays under 600KB
     if (carImage && carImage.includes('alxproduction.blob.core.windows.net')) {
       const encodedUrl = encodeURIComponent(carImage);
-      carImage = `https://luxurycar.infinit.cc/_vercel/image?url=${encodedUrl}&w=1600&q=80`;
+      carImage = `https://www.editioncars.es/_vercel/image?url=${encodedUrl}&w=1600&q=80`;
     }
 
     // Serve static HTML with meta tags for previews (only bots reach this function now)
@@ -137,8 +137,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="https://luxurycar.infinit.cc/favicon.png" />
-    <link rel="shortcut icon" type="image/png" href="https://luxurycar.infinit.cc/favicon.png" />
+    <link rel="icon" type="image/png" href="https://www.editioncars.es/edition-cars-favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="https://www.editioncars.es/edition-cars-favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${pageTitle}</title>
     <meta name="description" content="${pageDescription}" />
@@ -154,7 +154,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="${titleParts.join(' ')}" />
-    <meta property="og:site_name" content="Luxury Car" />
+    <meta property="og:site_name" content="EDITION CARS" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

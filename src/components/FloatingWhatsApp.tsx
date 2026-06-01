@@ -2,9 +2,9 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import whatsappLogo from "@/assets/whatsapp-logo.png";
 
 const WHATSAPP_MESSAGES: Record<string, string> = {
-  es: "Hola Luxury Car",
-  en: "Hello Luxury Car",
-  fr: "Bonjour Luxury Car",
+  es: "Hola EDITION CARS",
+  en: "Hello EDITION CARS",
+  fr: "Bonjour EDITION CARS",
 };
 
 const WHATSAPP_ARIA: Record<string, string> = {

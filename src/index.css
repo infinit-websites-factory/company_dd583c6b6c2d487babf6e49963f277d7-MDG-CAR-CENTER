@@ -25,10 +25,10 @@
     --popover: 223 14% 11%;
     --popover-foreground: 0 0% 98%;
 
-    /* Dealer's brand color — replaced during conversion */
-    --primary: 223 68% 37%;
+    /* EDITION CARS brand color — near-black premium (#010307 ≈ hsl(220 75% 2%)) */
+    --primary: 220 75% 2%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 223 68% 32%;
+    --primary-hover: 220 60% 8%;
 
     --secondary: 223 14% 11%;
     --secondary-foreground: 0 0% 98%;
@@ -36,7 +36,7 @@
     --muted: 223 14% 11%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 223 68% 37%;
+    --accent: 220 75% 2%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -44,7 +44,7 @@
 
     --border: 223 12% 15%;
     --input: 223 12% 15%;
-    --ring: 223 68% 37%;
+    --ring: 220 75% 2%;
 
     /* Navigation colors */
     --nav-background: 223 16% 7.5%;
@@ -52,11 +52,11 @@
     --nav-muted: 0 0% 70%;
 
     /* Premium gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(223 68% 50%));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(220 60% 12%));
     --gradient-hero: linear-gradient(135deg, hsl(223 16% 7.5%), hsl(223 14% 13%));
 
     /* Shadows */
-    --shadow-luxury: 0 10px 40px -10px hsl(var(--primary) / 0.2);
+    --shadow-luxury: 0 10px 40px -10px hsl(0 0% 0% / 0.4);
     --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.15);
 
     /* Sharp radius for premium feel */
@@ -64,12 +64,12 @@
 
     --sidebar-background: 223 16% 7.5%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 223 68% 37%;
+    --sidebar-primary: 220 75% 2%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 223 14% 11%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 223 12% 15%;
-    --sidebar-ring: 223 68% 37%;
+    --sidebar-ring: 220 75% 2%;
   }
 }
 
