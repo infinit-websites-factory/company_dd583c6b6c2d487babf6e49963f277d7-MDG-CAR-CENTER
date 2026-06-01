@@ -67,7 +67,7 @@ export interface Vehicle {
 }
 
 // Default fallback profile ID
-const DEFAULT_PROFILE_ID = 'a5dd8bbf-2f7b-4b79-8246-f6fa76ecd0f9';
+const DEFAULT_PROFILE_ID = '630688fb-a7f8-44b8-ac55-4d853dc8cfa7';
 
 // UUID v4 regex pattern
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
