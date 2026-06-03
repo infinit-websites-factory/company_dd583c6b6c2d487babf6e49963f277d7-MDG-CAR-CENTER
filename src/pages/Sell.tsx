@@ -369,7 +369,7 @@ Kilometraje: ${formData.kilometraje} km`;
                             <Button
                               type="button"
                               variant="outline"
-                              className={`h-10 ${formData.tipoVehiculo === "industrial" ? "bg-[#171B21] hover:bg-[#171B21] hover:text-foreground border-white/20 text-foreground" : "bg-backgroundhover:bg-[#101318] hover:text-foreground border-[#1F232A] text-foreground"}`}
+                              className={`h-10 ${formData.tipoVehiculo === "industrial" ? "bg-gray-900 text-white border-gray-900 hover:bg-gray-800" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
                               onClick={() => handleSelectChange("tipoVehiculo", "industrial")}
                             >
                               {t("sell_page.form.vehicle_type_industrial")}
