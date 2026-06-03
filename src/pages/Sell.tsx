@@ -272,9 +272,9 @@ Kilometraje: ${formData.kilometraje} km`;
 
                 {/* Benefits checklist */}
                 <div className="space-y-5">
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition-colors shadow-sm">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-amber-400" />
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-amber-50 border border-amber-100 hover:bg-amber-100/60 transition-colors shadow-sm">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-200 flex items-center justify-center">
+                      <Sparkles className="w-5 h-5 text-amber-600" />
                     </div>
                     <div>
                       <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.best_price.title")}</h3>
@@ -282,9 +282,9 @@ Kilometraje: ${formData.kilometraje} km`;
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition-colors shadow-sm">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-amber-400" />
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-blue-50 border border-blue-100 hover:bg-blue-100/60 transition-colors shadow-sm">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-200 flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-blue-600" />
                     </div>
                     <div>
                       <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.fast_process.title")}</h3>
@@ -292,9 +292,9 @@ Kilometraje: ${formData.kilometraje} km`;
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition-colors shadow-sm">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <Shield className="w-5 h-5 text-amber-400" />
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-green-50 border border-green-100 hover:bg-green-100/60 transition-colors shadow-sm">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-200 flex items-center justify-center">
+                      <Shield className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
                       <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.no_commitment.title")}</h3>
@@ -302,9 +302,9 @@ Kilometraje: ${formData.kilometraje} km`;
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition-colors shadow-sm">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5 text-amber-400" />
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-purple-50 border border-purple-100 hover:bg-purple-100/60 transition-colors shadow-sm">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-200 flex items-center justify-center">
+                      <CheckCircle2 className="w-5 h-5 text-purple-600" />
                     </div>
                     <div>
                       <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.any_vehicle.title")}</h3>
