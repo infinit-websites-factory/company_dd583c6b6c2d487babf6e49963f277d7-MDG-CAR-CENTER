@@ -258,57 +258,57 @@ Kilometraje: ${formData.kilometraje} km`;
               {/* Left side - Title, subtitle, and benefits */}
               <div className="lg:col-span-2 space-y-8">
                 <div className="space-y-4">
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-amber-400 text-sm font-medium">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-600 text-sm font-medium">
                     <Car className="w-4 h-4" />
                     {t("sell_page.hero.title")}
                   </div>
-                  <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+                  <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
                     {t("sell_page.hero.title")}
                   </h1>
-                  <p className="text-xl text-white/50 leading-relaxed">
+                  <p className="text-xl text-gray-500 leading-relaxed">
                     {t("sell_page.hero.subtitle")}
                   </p>
                 </div>
 
                 {/* Benefits checklist */}
                 <div className="space-y-5">
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#1F232A] hover:bg-white/10 transition-colors">
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition-colors shadow-sm">
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
                       <Sparkles className="w-5 h-5 text-amber-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg text-white mb-0.5">{t("sell_page.benefits.best_price.title")}</h3>
-                      <p className="text-white/35 text-sm">{t("sell_page.benefits.best_price.description")}</p>
+                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.best_price.title")}</h3>
+                      <p className="text-gray-500 text-sm">{t("sell_page.benefits.best_price.description")}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#1F232A] hover:bg-white/10 transition-colors">
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition-colors shadow-sm">
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
                       <Clock className="w-5 h-5 text-amber-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg text-white mb-0.5">{t("sell_page.benefits.fast_process.title")}</h3>
-                      <p className="text-white/35 text-sm">{t("sell_page.benefits.fast_process.description")}</p>
+                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.fast_process.title")}</h3>
+                      <p className="text-gray-500 text-sm">{t("sell_page.benefits.fast_process.description")}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#1F232A] hover:bg-white/10 transition-colors">
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition-colors shadow-sm">
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
                       <Shield className="w-5 h-5 text-amber-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg text-white mb-0.5">{t("sell_page.benefits.no_commitment.title")}</h3>
-                      <p className="text-white/35 text-sm">{t("sell_page.benefits.no_commitment.description")}</p>
+                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.no_commitment.title")}</h3>
+                      <p className="text-gray-500 text-sm">{t("sell_page.benefits.no_commitment.description")}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#1F232A] hover:bg-white/10 transition-colors">
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition-colors shadow-sm">
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
                       <CheckCircle2 className="w-5 h-5 text-amber-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg text-white mb-0.5">{t("sell_page.benefits.any_vehicle.title")}</h3>
-                      <p className="text-white/35 text-sm">{t("sell_page.benefits.any_vehicle.description")}</p>
+                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.any_vehicle.title")}</h3>
+                      <p className="text-gray-500 text-sm">{t("sell_page.benefits.any_vehicle.description")}</p>
                     </div>
                   </div>
                 </div>
