@@ -378,7 +378,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               required
                               disabled={!formData.tipoVehiculo}
                             >
-                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-400 ${errors.marca ? "border-red-500" : "border-gray-200"}`}>
+                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.marca ? "border-red-500" : "border-gray-200"}`}>
                                 <SelectValue placeholder={t("sell_page.form.brand_placeholder")} />
                               </SelectTrigger>
                               <SelectContent>
@@ -426,7 +426,7 @@ Kilometraje: ${formData.kilometraje} km`;
                                 }}
                                 required
                               >
-                                <SelectTrigger className={`bg-white data-[placeholder]:text-gray-400 ${errors.carroceria ? "border-red-500" : "border-gray-200"}`}>
+                                <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.carroceria ? "border-red-500" : "border-gray-200"}`}>
                                   <SelectValue placeholder={t("sell_page.form.body_type_placeholder")} />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -469,7 +469,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               }}
                               required
                             >
-                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-400 ${errors.tipoCambio ? "border-red-500" : "border-gray-200"}`}>
+                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.tipoCambio ? "border-red-500" : "border-gray-200"}`}>
                                 <SelectValue placeholder={t("sell_page.form.transmission_placeholder")} />
                               </SelectTrigger>
                               <SelectContent>
@@ -489,7 +489,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               }}
                               required
                             >
-                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-400 ${errors.combustible ? "border-red-500" : "border-gray-200"}`}>
+                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.combustible ? "border-red-500" : "border-gray-200"}`}>
                                 <SelectValue placeholder={t("sell_page.form.fuel_placeholder")} />
                               </SelectTrigger>
                               <SelectContent>
@@ -517,7 +517,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               }}
                               required
                             >
-                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-400 ${errors.ano ? "border-red-500" : "border-gray-200"}`}>
+                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.ano ? "border-red-500" : "border-gray-200"}`}>
                                 <SelectValue placeholder={t("sell_page.form.year_placeholder")} />
                               </SelectTrigger>
                               <SelectContent>
@@ -592,7 +592,7 @@ Kilometraje: ${formData.kilometraje} km`;
                             }}
                             required
                           >
-                            <SelectTrigger className={`bg-white data-[placeholder]:text-gray-400 ${errors.cuandoVender ? "border-red-500" : "border-gray-200"}`}>
+                            <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.cuandoVender ? "border-red-500" : "border-gray-200"}`}>
                               <SelectValue placeholder={t("sell_page.form.when_to_sell_placeholder")} />
                             </SelectTrigger>
                             <SelectContent>
@@ -615,7 +615,7 @@ Kilometraje: ${formData.kilometraje} km`;
                             }}
                             required
                           >
-                            <SelectTrigger className={`bg-white data-[placeholder]:text-gray-400 ${errors.interesIntercambio ? "border-red-500" : "border-gray-200"}`}>
+                            <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.interesIntercambio ? "border-red-500" : "border-gray-200"}`}>
                               <SelectValue placeholder={t("sell_page.form.interested_trade_placeholder")} />
                             </SelectTrigger>
                             <SelectContent>
