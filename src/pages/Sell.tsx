@@ -251,17 +251,7 @@ Kilometraje: ${formData.kilometraje} km`;
 
       <main className="flex-1">
         {/* Hero Section with Form */}
-        <section className="relative pt-8 pb-20 px-4 overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0">
-            <img
-              src={sellBg}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
-          </div>
+        <section className="relative pt-8 pb-20 px-4 overflow-hidden bg-[#f3f4f6]">
 
           <div className="container mx-auto max-w-7xl relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
