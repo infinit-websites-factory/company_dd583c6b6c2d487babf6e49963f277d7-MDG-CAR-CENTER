@@ -338,64 +338,53 @@ Gastos hipoteca/alquiler mensual: ${formData.gastosHipotecaAlquiler ? formatPric
 
       <main className="flex-1">
         {/* Hero Section with Form */}
-        <section className="relative pt-8 pb-20 px-4 overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0">
-            <img
-              src={financingBg}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
-          </div>
-
+        <section className="relative pt-8 pb-20 px-4 overflow-hidden bg-[#f3f4f6]">
           <div className="container mx-auto max-w-7xl relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
               {/* Left side - Title, subtitle, and benefits */}
               <div className="lg:col-span-2 space-y-8">
                 <div className="space-y-4">
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-amber-400 text-sm font-medium">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-600 text-sm font-medium">
                     <Sparkles className="w-4 h-4" />
                     {t('financing_page.hero.title')}
                   </div>
-                  <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+                  <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
                     {t('financing_page.hero.title')}
                   </h1>
-                  <p className="text-xl text-white/50 leading-relaxed">
+                  <p className="text-xl text-gray-500 leading-relaxed">
                     {t('financing_page.hero.subtitle')}
                   </p>
                 </div>
 
                 {/* Benefits checklist */}
                 <div className="space-y-5">
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#1F232A] hover:bg-white/10 transition-colors">
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-100 transition-colors shadow-sm">
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <Shield className="w-5 h-5 text-amber-400" />
+                      <Shield className="w-5 h-5 text-amber-500" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg text-white mb-0.5">{t('financing_page.benefits.reduced_payments.title')}</h3>
-                      <p className="text-white/35 text-sm">{t('financing_page.benefits.reduced_payments.description')}</p>
+                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t('financing_page.benefits.reduced_payments.title')}</h3>
+                      <p className="text-amber-700/70 text-sm">{t('financing_page.benefits.reduced_payments.description')}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#1F232A] hover:bg-white/10 transition-colors">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-amber-400" />
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-blue-50 border border-blue-200 hover:bg-blue-100 transition-colors shadow-sm">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-blue-500" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg text-white mb-0.5">{t('financing_page.benefits.fast_approval.title')}</h3>
-                      <p className="text-white/35 text-sm">{t('financing_page.benefits.fast_approval.description')}</p>
+                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t('financing_page.benefits.fast_approval.title')}</h3>
+                      <p className="text-blue-700/70 text-sm">{t('financing_page.benefits.fast_approval.description')}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#1F232A] hover:bg-white/10 transition-colors">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5 text-amber-400" />
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition-colors shadow-sm">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg text-white mb-0.5">{t('financing_page.benefits.no_surprises.title')}</h3>
-                      <p className="text-white/35 text-sm">{t('financing_page.benefits.no_surprises.description')}</p>
+                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t('financing_page.benefits.no_surprises.title')}</h3>
+                      <p className="text-emerald-700/70 text-sm">{t('financing_page.benefits.no_surprises.description')}</p>
                     </div>
                   </div>
                 </div>
