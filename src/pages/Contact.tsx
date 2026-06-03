@@ -230,7 +230,7 @@ const Contact = () => {
                     <div className="space-y-2">
                       <Label htmlFor="telefono" className="text-gray-600">{t('contact_page.form.phone')}</Label>
                       <div className="flex">
-                        <div className="flex items-center px-3 bg-[#101318] border border-r-0 border-[#1F232A] rounded-l-md">
+                        <div className="flex items-center px-3 bg-white border border-r-0 border-gray-200 rounded-l-md">
                           <span className="text-sm text-red-600 font-semibold">{getFlag()}</span>
                         </div>
                         <Input
@@ -240,7 +240,7 @@ const Contact = () => {
                           value={formData.telefono}
                           onChange={handleInputChange}
                           required
-                          className="bg-[#101318] border-[#1F232A] rounded-l-none"
+                          className="bg-white border-gray-200 text-gray-900 rounded-l-none"
                           placeholder={t('contact_page.form.phone_placeholder')}
                         />
                       </div>
