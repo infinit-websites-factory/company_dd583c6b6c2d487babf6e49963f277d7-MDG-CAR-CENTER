@@ -13,7 +13,7 @@
       "description": "Compra tu {vehicle} en EDITION CARS {city}. Garantía de 12 meses ampliable a 3 años, financiación a medida y servicio VIP."
     },
     "sell": {
-      "title": "Vende tu Coche al Mejor Precio | EDITION CARS {city}",
+      "title": "Tasación Gratuita de tu Coche | EDITION CARS {city}",
       "description": "Tasación gratuita y sin compromiso de tu vehículo en {city}. Valoración en 24 horas, proceso rápido y seguro. Compramos todo tipo de coches."
     },
     "financing": {
@@ -48,7 +48,7 @@
   "header": {
     "home": "Inicio",
     "vehicles": "Vehículos de ocasión",
-    "sell_your_car": "Vende tu coche",
+    "sell_your_car": "Tasación gratuita",
     "financing": "Financiación",
     "services": "Servicios",
     "contact": "Contacto",
@@ -492,8 +492,8 @@
   },
   "sell_page": {
     "hero": {
-      "title": "Tasa y vende fácilmente",
-      "subtitle": "Consigue la mejor oferta del mercado."
+      "title": "Tasación gratuita de tu vehículo",
+      "subtitle": "Obtén una valoración profesional y gratuita de tu coche en menos de 24 horas. Sin compromiso."
     },
     "benefits": {
       "best_price": {

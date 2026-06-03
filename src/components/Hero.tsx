@@ -1,8 +1,6 @@
 import heroImg1 from "@/assets/img1.jpg";
 import heroImg2 from "@/assets/img2.jpg";
 import heroImg3 from "@/assets/img3.jpg";
-import heroImg4 from "@/assets/img4.jpg";
-import heroImg5 from "@/assets/img5.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
@@ -10,7 +8,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const heroImages = [heroImg1, heroImg2, heroImg3, heroImg4, heroImg5];
+// Only images downloaded from editioncars.es — no old template images
+const heroImages = [heroImg1, heroImg2, heroImg3];
 
 const Hero = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -55,7 +54,7 @@ const Hero = () => {
         />
       ))}
       {/* Dark cinematic overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/60"></div>
 
       {/* Carousel Controls — minimal */}
       <button

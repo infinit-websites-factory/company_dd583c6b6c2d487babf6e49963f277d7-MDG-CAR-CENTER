@@ -1,18 +1,5 @@
-import { useState, useMemo } from 'react';
-import type { Vehicle } from '@/services/carsApi';
-
-// Valid fuel values that we have translations for
-const VALID_FUEL_VALUES = [
-  'Diésel',
-  'Gasolina',
-  'Eléctrico',
-  'Hidrógeno',
-  'Biocombustibles',
-  'GNC',
-  'GLP',
-  'Híbrido',
-  'Otro'
-];
+import { useState, useMemo, useCallback } from 'react';
+import type { Vehicle, FetchCarsParams } from '@/services/carsApi';
 
 export interface VehicleFilterState {
   searchTerm: string;
@@ -26,169 +13,175 @@ export interface VehicleFilterState {
   sortBy: string;
 }
 
-export const useVehicleFilters = (vehicles: Vehicle[]) => {
-  const [filters, setFilters] = useState<VehicleFilterState>({
-    searchTerm: '',
-    selectedBrand: '',
-    selectedBodyType: '',
-    selectedTransmission: '',
-    selectedFuel: '',
-    priceRange: [0, 100000],
-    mileageRange: [0, 300000],
-    yearRange: [2000, new Date().getFullYear()],
-    sortBy: 'updated_desc', // Default to most recent
-  });
+// These MUST match the slider max values in VehicleFilters.tsx
+// (price max=100000, mileage max=300000)
+export const FILTER_DEFAULTS: VehicleFilterState = {
+  searchTerm: '',
+  selectedBrand: '',
+  selectedBodyType: '',
+  selectedTransmission: '',
+  selectedFuel: '',
+  priceRange: [0, 100000],
+  mileageRange: [0, 300000],
+  yearRange: [2000, new Date().getFullYear()],
+  sortBy: 'updated_desc',
+};
 
-  // Extract unique values for filter options
-  const filterOptions = useMemo(() => {
-    // Filter out unknown, undefined, null, and empty values, then normalize brands
-    const brands = [...new Set(vehicles
+// Maps UI sort value → API order_by param
+const SORT_TO_API: Record<string, string> = {
+  updated_desc: '-created_at',
+  updated_asc: 'created_at',
+  price_asc: 'price_cents',
+  price_desc: '-price_cents',
+  year_desc: '-registration_date',
+  year_asc: 'registration_date',
+  mileage_asc: 'odometer',
+  mileage_desc: '-odometer',
+  brand_asc: 'make',
+};
+
+// Maps UI fuel label (Spanish) → API fuel_type value (English)
+const FUEL_TO_API: Record<string, string> = {
+  'Diésel': 'Diesel',
+  'Gasolina': 'Petrol',
+  'Eléctrico': 'Electric',
+  'Híbrido': 'Hybrid',
+  'GNC': 'CNG',
+  'GLP': 'LPG',
+  'Hidrógeno': 'Hydrogen',
+  'Biocombustibles': 'Biofuels',
+};
+
+/**
+ * Converts the UI filter state to API query params.
+ * Only includes params that differ from defaults (avoids unnecessary query strings).
+ */
+export const filtersToApiParams = (filters: VehicleFilterState): FetchCarsParams => {
+  const params: FetchCarsParams = {};
+
+  if (filters.sortBy && SORT_TO_API[filters.sortBy]) {
+    params.order_by = SORT_TO_API[filters.sortBy];
+  }
+
+  if (filters.searchTerm.trim()) {
+    params.search = filters.searchTerm.trim();
+  }
+
+  if (filters.selectedBrand) {
+    params.make = filters.selectedBrand;
+  }
+
+  if (filters.selectedBodyType) {
+    params.body_type = filters.selectedBodyType;
+  }
+
+  if (filters.selectedTransmission) {
+    params.transmission = filters.selectedTransmission;
+  }
+
+  if (filters.selectedFuel) {
+    // Send English API value if we have a mapping, otherwise send as-is
+    params.fuel_type = FUEL_TO_API[filters.selectedFuel] ?? filters.selectedFuel;
+  }
+
+  // Price in cents — only send if not at default bounds
+  if (filters.priceRange[0] > 0) {
+    params.price_from = filters.priceRange[0] * 100;
+  }
+  if (filters.priceRange[1] < FILTER_DEFAULTS.priceRange[1]) {
+    params.price_to = filters.priceRange[1] * 100;
+  }
+
+  // Mileage
+  if (filters.mileageRange[0] > 0) {
+    params.mileage_from = filters.mileageRange[0];
+  }
+  if (filters.mileageRange[1] < FILTER_DEFAULTS.mileageRange[1]) {
+    params.mileage_to = filters.mileageRange[1];
+  }
+
+  // Year
+  if (filters.yearRange[0] > FILTER_DEFAULTS.yearRange[0]) {
+    params.year_from = filters.yearRange[0];
+  }
+  if (filters.yearRange[1] < FILTER_DEFAULTS.yearRange[1]) {
+    params.year_to = filters.yearRange[1];
+  }
+
+  return params;
+};
+
+/**
+ * Derives filter dropdown options from an unfiltered vehicle list.
+ * Used to ensure dropdowns always show all available values.
+ */
+export const deriveFilterOptions = (vehicles: Vehicle[]) => {
+  const brands = [...new Set(
+    vehicles
       .map(v => v.brand)
-      .filter(brand => brand && brand.toLowerCase() !== 'unknown' && brand.trim())
-      .map(brand => brand.toUpperCase())
-    )].sort();
-    
-    const bodyTypes = [...new Set(vehicles
+      .filter(b => b && b.toLowerCase() !== 'unknown')
+      .map(b => b.toUpperCase())
+  )].sort();
+
+  const bodyTypes = [...new Set(
+    vehicles
       .map(v => v.type)
-      .filter(type => type && type.toLowerCase() !== 'unknown' && type.trim())
-    )].sort();
-    
-    const transmissions = [...new Set(vehicles
+      .filter(t => t && t.toLowerCase() !== 'unknown')
+  )].sort();
+
+  const transmissions = [...new Set(
+    vehicles
       .map(v => v.transmission)
-      .filter(transmission => transmission && transmission.toLowerCase() !== 'unknown' && transmission.trim())
-    )].sort();
-    
-    const fuels = [...new Set(vehicles
+      .filter(t => t && t.toLowerCase() !== 'unknown')
+  )].sort();
+
+  const fuels = [...new Set(
+    vehicles
       .map(v => v.fuel)
-      .filter(fuel => 
-        fuel && 
-        fuel.toLowerCase() !== 'unknown' && 
-        fuel.toLowerCase() !== 'desconocido' &&
-        fuel.trim() &&
-        VALID_FUEL_VALUES.includes(fuel)
-      )
-    )].sort();
-    
-    return { brands, bodyTypes, transmissions, fuels };
-  }, [vehicles]);
+      .filter(f => f && f.toLowerCase() !== 'unknown' && f.toLowerCase() !== 'desconocido')
+  )].sort();
 
-  // Filter and sort vehicles
+  return { brands, bodyTypes, transmissions, fuels };
+};
+
+/**
+ * Backward-compatible hook — still used by pages that do local filtering.
+ */
+export const useVehicleFilters = (vehicles: Vehicle[]) => {
+  const [filters, setFilters] = useState<VehicleFilterState>(FILTER_DEFAULTS);
+
+  const filterOptions = useMemo(() => deriveFilterOptions(vehicles), [vehicles]);
+
+  // Client-side filtered list (kept for backward compatibility)
   const filteredVehicles = useMemo(() => {
-    let filtered = vehicles.filter(vehicle => {
-      // Search term filter
+    return vehicles.filter(vehicle => {
       if (filters.searchTerm) {
-        const searchLower = filters.searchTerm.toLowerCase();
-        const matchesSearch = 
-          vehicle.brand.toLowerCase().includes(searchLower) ||
-          vehicle.model.toLowerCase().includes(searchLower) ||
-          `${vehicle.brand} ${vehicle.model}`.toLowerCase().includes(searchLower);
-        
-        if (!matchesSearch) return false;
+        const q = filters.searchTerm.toLowerCase();
+        if (!`${vehicle.brand} ${vehicle.model}`.toLowerCase().includes(q)) return false;
       }
-
-      // Brand filter (normalize for comparison)
-      if (filters.selectedBrand && vehicle.brand.toUpperCase() !== filters.selectedBrand) {
-        return false;
-      }
-
-      // Body type filter
-      if (filters.selectedBodyType && vehicle.type !== filters.selectedBodyType) {
-        return false;
-      }
-
-      // Transmission filter
-      if (filters.selectedTransmission && vehicle.transmission !== filters.selectedTransmission) {
-        return false;
-      }
-
-      // Fuel filter
-      if (filters.selectedFuel && vehicle.fuel !== filters.selectedFuel) {
-        return false;
-      }
-
-      // Price range filter
-      if (vehicle.price < filters.priceRange[0] || 
-          (filters.priceRange[1] < 100000 && vehicle.price > filters.priceRange[1])) {
-        return false;
-      }
-
-      // Mileage range filter
-      if (vehicle.mileage < filters.mileageRange[0] || 
-          (filters.mileageRange[1] < 300000 && vehicle.mileage > filters.mileageRange[1])) {
-        return false;
-      }
-
-      // Year range filter
-      if (vehicle.year < filters.yearRange[0] || vehicle.year > filters.yearRange[1]) {
-        return false;
-      }
-
+      if (filters.selectedBrand && vehicle.brand.toUpperCase() !== filters.selectedBrand) return false;
+      if (filters.selectedBodyType && vehicle.type !== filters.selectedBodyType) return false;
+      if (filters.selectedTransmission && vehicle.transmission !== filters.selectedTransmission) return false;
+      if (filters.selectedFuel && vehicle.fuel !== filters.selectedFuel) return false;
+      if (vehicle.price < filters.priceRange[0]) return false;
+      if (filters.priceRange[1] < FILTER_DEFAULTS.priceRange[1] && vehicle.price > filters.priceRange[1]) return false;
+      if (vehicle.mileage < filters.mileageRange[0]) return false;
+      if (filters.mileageRange[1] < FILTER_DEFAULTS.mileageRange[1] && vehicle.mileage > filters.mileageRange[1]) return false;
+      if (vehicle.year < filters.yearRange[0] || vehicle.year > filters.yearRange[1]) return false;
       return true;
     });
-
-    // Apply sorting with status priority (Published before Reserved)
-    if (filters.sortBy) {
-      filtered = [...filtered].sort((a, b) => {
-        // First, sort by status (Published vehicles first)
-        const statusOrder = (status: string) => status === 'Published' ? 0 : 1;
-        const statusDiff = statusOrder(a.status) - statusOrder(b.status);
-        if (statusDiff !== 0) return statusDiff;
-
-        // Then apply the selected sorting criteria
-        switch (filters.sortBy) {
-          case 'updated_desc':
-            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-          case 'updated_asc':
-            return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-          case 'price_asc':
-            return a.price - b.price;
-          case 'price_desc':
-            return b.price - a.price;
-          case 'year_desc':
-            return b.year - a.year;
-          case 'year_asc':
-            return a.year - b.year;
-          case 'mileage_asc':
-            return a.mileage - b.mileage;
-          case 'mileage_desc':
-            return b.mileage - a.mileage;
-          case 'brand_asc':
-            return a.brand.localeCompare(b.brand);
-          default:
-            return 0;
-        }
-      });
-    }
-
-    return filtered;
   }, [vehicles, filters]);
 
-  const updateFilter = <K extends keyof VehicleFilterState>(
-    key: K, 
+  const updateFilter = useCallback(<K extends keyof VehicleFilterState>(
+    key: K,
     value: VehicleFilterState[K]
   ) => {
     setFilters(prev => ({ ...prev, [key]: value }));
-  };
+  }, []);
 
-  const clearFilters = () => {
-    setFilters({
-      searchTerm: '',
-      selectedBrand: '',
-      selectedBodyType: '',
-      selectedTransmission: '',
-      selectedFuel: '',
-      priceRange: [0, 100000],
-      mileageRange: [0, 300000],
-      yearRange: [2000, new Date().getFullYear()],
-      sortBy: 'updated_desc', // Keep default sort when clearing
-    });
-  };
+  const clearFilters = useCallback(() => {
+    setFilters(FILTER_DEFAULTS);
+  }, []);
 
-  return {
-    filters,
-    updateFilter,
-    clearFilters,
-    filteredVehicles,
-    filterOptions,
-  };
+  return { filters, updateFilter, clearFilters, filteredVehicles, filterOptions };
 };

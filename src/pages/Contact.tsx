@@ -128,7 +128,7 @@ const Contact = () => {
 
       {/* Hero Section with Form */}
       <div
-        className="relative bg-background pt-8"
+        className="relative pt-8"
         style={{
           backgroundImage: `url(${contactBackground})`,
           backgroundRepeat: 'no-repeat',
@@ -136,11 +136,13 @@ const Contact = () => {
           backgroundPosition: 'center center'
         }}
       >
-        <div className="px-4 lg:pt-12 pt-6 pb-32 lg:pb-40 mx-auto max-w-screen-sm text-center lg:px-6">
-          <h1 className="mb-4 text-4xl tracking-tight font-extrabold text-white">
+        {/* Dark overlay so text is always readable */}
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative z-10 px-4 lg:pt-12 pt-6 pb-32 lg:pb-40 mx-auto max-w-screen-sm text-center lg:px-6">
+          <h1 className="mb-4 text-4xl tracking-tight font-extrabold text-white drop-shadow-lg">
             {t('contact_page.title')}
           </h1>
-          <p className="mb-8 font-light text-white sm:text-xl pb-5 md:pb-0">
+          <p className="mb-8 text-white/90 sm:text-xl pb-5 md:pb-0 drop-shadow font-medium">
             {t('contact_page.subtitle')}
           </p>
         </div>

@@ -1,217 +1,302 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useCallback, useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Loader2, AlertCircle } from "lucide-react";
 import VehicleCard from "@/components/VehicleCard";
 import VehicleFilters from "@/components/VehicleFilters";
-import { fetchCars, transformApiCarToVehicle, type Vehicle } from "@/services/carsApi";
-import { useVehicleFilters } from "@/hooks/useVehicleFilters";
+import {
+  fetchCarsPaginated,
+  fetchCars,
+  transformApiCarToVehicle,
+  type Vehicle,
+} from "@/services/carsApi";
+import {
+  VehicleFilterState,
+  FILTER_DEFAULTS,
+  useVehicleFilters,
+  filtersToApiParams,
+  deriveFilterOptions,
+} from "@/hooks/useVehicleFilters";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AlertCircle } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+const PAGE_SIZE = 30;
 
 const Stock = () => {
   const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialSearch = searchParams.get('search') || '';
+  const initialSearch = searchParams.get("search") || "";
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  const { 
-    data: carsResponse, 
-    isLoading, 
-    isError, 
-    error 
-  } = useQuery({
-    queryKey: ['cars'],
-    queryFn: () => fetchCars(),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: 2
-  });
+  // Use the existing hook for filter state management
+  const { filters, updateFilter, clearFilters } = useVehicleFilters([]);
 
-  const vehicles: Vehicle[] = carsResponse
-    ? carsResponse.items.map(transformApiCarToVehicle)
-    : [];
+  // Debounce rapidly-changing inputs — selects do NOT need debouncing
+  const debouncedSearch = useDebouncedValue(filters.searchTerm, 400);
+  const debouncedPrice = useDebouncedValue(filters.priceRange, 400);
+  const debouncedMileage = useDebouncedValue(filters.mileageRange, 400);
+  const debouncedYear = useDebouncedValue(filters.yearRange, 400);
 
-  const totalVehicles = carsResponse?.total || 0;
+  // Compose the effective API params (debounced values override)
+  const apiFilters: VehicleFilterState = {
+    ...filters,
+    searchTerm: debouncedSearch,
+    priceRange: debouncedPrice,
+    mileageRange: debouncedMileage,
+    yearRange: debouncedYear,
+  };
+  const apiParams = filtersToApiParams(apiFilters);
 
-  const {
-    filters,
-    updateFilter,
-    clearFilters,
-    filteredVehicles,
-    filterOptions,
-  } = useVehicleFilters(vehicles);
-
-  // Set initial search from URL parameter only once, then remove it from the URL
+  // Read initial search from URL once, then clean URL
   useEffect(() => {
     if (!initialSearch) return;
-
-    updateFilter('searchTerm', initialSearch);
-
+    updateFilter("searchTerm", initialSearch);
     const next = new URLSearchParams(searchParams);
-    next.delete('search');
+    next.delete("search");
     setSearchParams(next, { replace: true });
-  }, [initialSearch, updateFilter, setSearchParams, searchParams]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Unfiltered fetch — only to populate dropdown options
+  const { data: allCarsData } = useQuery({
+    queryKey: ["cars-all-for-filters"],
+    queryFn: () => fetchCars(),
+    staleTime: 10 * 60 * 1000,
+    retry: 1,
+  });
+  const allVehicles: Vehicle[] = allCarsData
+    ? allCarsData.items.map(transformApiCarToVehicle)
+    : [];
+  const filterOptions = deriveFilterOptions(allVehicles);
+
+  // Infinite query for the filtered, paginated listing
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["cars-paginated", apiParams],
+    queryFn: ({ pageParam = 1 }) =>
+      fetchCarsPaginated({ ...apiParams, page: pageParam as number, size: PAGE_SIZE }),
+    getNextPageParam: (lastPage) =>
+      lastPage.page < lastPage.pages ? lastPage.page + 1 : undefined,
+    initialPageParam: 1,
+    staleTime: 5 * 60 * 1000,
+    retry: 2,
+  });
+
+  // Flatten all pages into one array
+  const vehicles: Vehicle[] = data
+    ? data.pages.flatMap((page) => page.items.map(transformApiCarToVehicle))
+    : [];
+  const totalVehicles = data?.pages[0]?.total ?? 0;
+
+  // IntersectionObserver — fires 200px before sentinel reaches viewport
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+      if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    },
+    [hasNextPage, isFetchingNextPage, fetchNextPage]
+  );
+
+  useEffect(() => {
+    const node = loadMoreRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(handleObserver, {
+      rootMargin: "200px",
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [handleObserver]);
 
   const sortOptions = [
-    { value: 'updated_desc', label: t('stock_page.sort_options.updated_desc') },
-    { value: 'updated_asc', label: t('stock_page.sort_options.updated_asc') },
-    { value: 'price_asc', label: t('stock_page.sort_options.price_asc') },
-    { value: 'price_desc', label: t('stock_page.sort_options.price_desc') },
-    { value: 'year_desc', label: t('stock_page.sort_options.year_desc') },
-    { value: 'year_asc', label: t('stock_page.sort_options.year_asc') },
-    { value: 'mileage_asc', label: t('stock_page.sort_options.mileage_asc') },
-    { value: 'mileage_desc', label: t('stock_page.sort_options.mileage_desc') },
-    { value: 'brand_asc', label: t('stock_page.sort_options.brand_asc') },
+    { value: "updated_desc", label: t("stock_page.sort_options.updated_desc") },
+    { value: "updated_asc", label: t("stock_page.sort_options.updated_asc") },
+    { value: "price_asc", label: t("stock_page.sort_options.price_asc") },
+    { value: "price_desc", label: t("stock_page.sort_options.price_desc") },
+    { value: "year_desc", label: t("stock_page.sort_options.year_desc") },
+    { value: "year_asc", label: t("stock_page.sort_options.year_asc") },
+    { value: "mileage_asc", label: t("stock_page.sort_options.mileage_asc") },
+    { value: "mileage_desc", label: t("stock_page.sort_options.mileage_desc") },
+    { value: "brand_asc", label: t("stock_page.sort_options.brand_asc") },
   ];
 
-  if (isError) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <SEO page="stock" />
-        <Header />
-        <main>
-          <div className="container mx-auto px-4 pt-8 pb-16">
-            <div className="text-center mb-8">
-              <h1 className="text-4xl font-heading font-normal mb-4">{t('stock_page.title')}</h1>
-              <p className="text-sm text-white/30 max-w-2xl mx-auto font-body font-light tracking-wide">
-                {t('stock_page.subtitle')}
-              </p>
-            </div>
-          </div>
-
-          <div className="container mx-auto px-4 pb-16">
-            <Alert className="max-w-md mx-auto">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                {t('vehicle_gallery.error_loading')}
-              </AlertDescription>
-            </Alert>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+  const hasActiveFilters =
+    filters.searchTerm ||
+    filters.selectedBrand ||
+    filters.selectedBodyType ||
+    filters.selectedTransmission ||
+    filters.selectedFuel ||
+    filters.priceRange[0] > 0 ||
+    filters.priceRange[1] < FILTER_DEFAULTS.priceRange[1] ||
+    filters.mileageRange[0] > 0 ||
+    filters.mileageRange[1] < FILTER_DEFAULTS.mileageRange[1];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50">
+      <SEO page="stock" />
       <Header />
+
       <main>
-        <div className="container mx-auto px-4 pt-8 pb-16">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-heading font-normal mb-4">{t('stock_page.title')}</h1>
-            <p className="text-sm text-white/30 max-w-2xl mx-auto font-body font-light tracking-wide">
-              {t('stock_page.subtitle')}
+        {/* Page header */}
+        <div className="bg-white border-b border-gray-200 py-8">
+          <div className="container mx-auto px-4 max-w-7xl text-center">
+            <h1 className="text-4xl font-heading font-semibold text-gray-900 mb-2">
+              {t("stock_page.title")}
+            </h1>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              {t("stock_page.subtitle")}
             </p>
           </div>
         </div>
-        
-        {/* Main Content with Sidebar Layout */}
-        <div className="container mx-auto px-4 pb-16">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-              {/* Filters Sidebar */}
-              <div className="lg:col-span-1">
-                <div className="sticky top-4">
-                  <VehicleFilters
+
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Sticky filter sidebar */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-4">
+                <VehicleFilters
                   searchTerm={filters.searchTerm}
-                  onSearchChange={(value) => updateFilter('searchTerm', value)}
+                  onSearchChange={(v) => updateFilter("searchTerm", v)}
                   selectedBrand={filters.selectedBrand}
-                  onBrandChange={(value) => updateFilter('selectedBrand', value)}
+                  onBrandChange={(v) => updateFilter("selectedBrand", v)}
                   selectedBodyType={filters.selectedBodyType}
-                  onBodyTypeChange={(value) => updateFilter('selectedBodyType', value)}
+                  onBodyTypeChange={(v) => updateFilter("selectedBodyType", v)}
                   selectedTransmission={filters.selectedTransmission}
-                  onTransmissionChange={(value) => updateFilter('selectedTransmission', value)}
+                  onTransmissionChange={(v) => updateFilter("selectedTransmission", v)}
                   selectedFuel={filters.selectedFuel}
-                  onFuelChange={(value) => updateFilter('selectedFuel', value)}
+                  onFuelChange={(v) => updateFilter("selectedFuel", v)}
                   priceRange={filters.priceRange}
-                  onPriceRangeChange={(value) => updateFilter('priceRange', value)}
+                  onPriceRangeChange={(v) => updateFilter("priceRange", v)}
                   mileageRange={filters.mileageRange}
-                  onMileageRangeChange={(value) => updateFilter('mileageRange', value)}
+                  onMileageRangeChange={(v) => updateFilter("mileageRange", v)}
                   yearRange={filters.yearRange}
-                  onYearRangeChange={(value) => updateFilter('yearRange', value)}
+                  onYearRangeChange={(v) => updateFilter("yearRange", v)}
                   onClearFilters={clearFilters}
                   brands={filterOptions.brands}
                   bodyTypes={filterOptions.bodyTypes}
                   transmissions={filterOptions.transmissions}
-                    fuels={filterOptions.fuels}
-                  />
+                  fuels={filterOptions.fuels}
+                />
+              </div>
+            </div>
+
+            {/* Results area */}
+            <div className="lg:col-span-3">
+              {/* Sort + results count bar */}
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
+                <p className="text-sm text-gray-500">
+                  {isLoading ? (
+                    "Cargando vehículos..."
+                  ) : (
+                    <>
+                      <span className="font-semibold text-gray-900">{totalVehicles}</span>{" "}
+                      {totalVehicles !== 1
+                        ? t("stock_page.results_count_plural")
+                        : t("stock_page.results_count")}
+                      {hasActiveFilters && (
+                        <> · <span className="text-gray-400">{t("stock_page.found")}</span></>
+                      )}
+                    </>
+                  )}
+                </p>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-500">{t("stock_page.sort_by")}</span>
+                  <Select
+                    value={filters.sortBy}
+                    onValueChange={(v) => updateFilter("sortBy", v)}
+                  >
+                    <SelectTrigger className="w-52 bg-white border-gray-200 text-gray-900">
+                      <SelectValue placeholder={t("stock_page.sort_placeholder")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {sortOptions.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 
-              {/* Vehicles Content */}
-              <div className="lg:col-span-3">
-                {/* Results Count and Sort Controls */}
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-sm text-muted-foreground">
-                    {(filters.searchTerm || filters.selectedBrand || filters.selectedBodyType || filters.selectedTransmission || filters.selectedFuel) ? (
-                      <>
-                        {filteredVehicles.length} {filteredVehicles.length !== 1 ? t('stock_page.results_count_plural') : t('stock_page.results_count')} {t('stock_page.found')}
-                      </>
-                    ) : (
-                      <>
-                        {totalVehicles} {totalVehicles !== 1 ? t('stock_page.results_count_plural') : t('stock_page.results_count')}
-                      </>
-                    )}
-                  </h2>
+              {/* Error state */}
+              {isError && (
+                <Alert className="mb-6">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    {t("vehicle_gallery.error_loading")}
+                  </AlertDescription>
+                </Alert>
+              )}
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-muted-foreground">{t('stock_page.sort_by')}</span>
-                    <Select value={filters.sortBy} onValueChange={(value) => updateFilter('sortBy', value)}>
-                      <SelectTrigger className="w-48">
-                        <SelectValue placeholder={t('stock_page.sort_placeholder')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {sortOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                
-                {/* Vehicles Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {isLoading ? (
-                    Array.from({ length: 12 }).map((_, index) => (
-                      <div key={index} className="space-y-3">
-                        <Skeleton className="h-48 w-full rounded-lg" />
-                        <div className="space-y-2">
-                          <Skeleton className="h-4 w-3/4" />
-                          <Skeleton className="h-4 w-1/2" />
-                          <Skeleton className="h-8 w-full" />
-                        </div>
+              {/* Vehicle grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                {isLoading
+                  ? Array.from({ length: 12 }).map((_, i) => (
+                      <div key={i} className="space-y-3">
+                        <Skeleton className="h-48 w-full rounded-lg bg-gray-200" />
+                        <Skeleton className="h-4 w-3/4 bg-gray-200" />
+                        <Skeleton className="h-4 w-1/2 bg-gray-200" />
+                        <Skeleton className="h-8 w-full bg-gray-200" />
                       </div>
                     ))
-                  ) : filteredVehicles.length > 0 ? (
-                    filteredVehicles.map((vehicle) => (
+                  : vehicles.length > 0
+                  ? vehicles.map((vehicle) => (
                       <VehicleCard key={vehicle.id} {...vehicle} />
                     ))
-                  ) : (
-                    <div className="col-span-full text-center py-12">
-                      <p className="text-lg text-muted-foreground mb-4">
-                        {t('stock_page.no_results')}
-                      </p>
-                      <button
-                        onClick={clearFilters}
-                        className="text-primary hover:underline"
-                      >
-                        {t('stock_page.clear_filters')}
-                      </button>
-                    </div>
-                  )}
-                </div>
+                  : !isLoading && (
+                      <div className="col-span-full text-center py-16">
+                        <p className="text-gray-500 text-lg mb-4">
+                          {t("stock_page.no_results")}
+                        </p>
+                        <button
+                          onClick={clearFilters}
+                          className="text-gray-900 underline hover:no-underline text-sm"
+                        >
+                          {t("stock_page.clear_filters")}
+                        </button>
+                      </div>
+                    )}
+              </div>
+
+              {/* Infinite scroll sentinel */}
+              <div ref={loadMoreRef} className="flex justify-center py-8">
+                {isFetchingNextPage && (
+                  <div className="flex items-center gap-2 text-gray-400 text-sm">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span>Cargando más vehículos...</span>
+                  </div>
+                )}
+                {!hasNextPage && vehicles.length > 0 && !isLoading && (
+                  <p className="text-gray-400 text-sm">
+                    Mostrando {vehicles.length} de {totalVehicles} vehículos
+                  </p>
+                )}
               </div>
             </div>
           </div>
         </div>
       </main>
+
       <Footer />
     </div>
   );

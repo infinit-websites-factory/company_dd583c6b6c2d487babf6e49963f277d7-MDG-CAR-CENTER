@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import FAQ from "@/components/FAQ";
 import SEO from "@/components/SEO";
 import heroImage from "@/assets/servicios-hero.png";
-import servicios2Image from "@/assets/servicios-2.png";
+import servicios2Image from "@/assets/img3.jpg";
 
 const mainServices = [
   {
@@ -68,26 +68,17 @@ const Services = () => {
       <SEO page="services" />
       <Header />
 
-      {/* Hero Section — full-width image with dark overlay */}
-      <section className="relative min-h-[420px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="EDITION CARS Servicios"
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.4)_100%)]" />
-        </div>
-        <div className="relative z-10 text-center px-4 py-24">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full text-white/70 text-sm mb-6 backdrop-blur-sm">
+      {/* Hero Section — clean dark background, no image */}
+      <section className="bg-[#101318] py-20 px-4">
+        <div className="container mx-auto max-w-3xl text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full text-white/60 text-sm mb-6">
             <Wrench className="w-4 h-4" />
             <span>Nuestros servicios</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 max-w-3xl mx-auto leading-tight">
+          <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 leading-tight">
             Servicios Premium para tu Vehículo
           </h1>
-          <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
             Más de una década ofreciendo la mejor experiencia de compra-venta de vehículos premium en {cityName}.
           </p>
         </div>

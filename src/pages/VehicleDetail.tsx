@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, Share2, MapPin, Phone, Calendar, Mail, User, X } from "lucide-react";
-import { fetchCars, transformApiCarToVehicle, type Vehicle, CONTACT_FORM_API_URL, PROFILE_ID } from "@/services/carsApi";
+import { fetchCarById, transformApiCarToVehicle, type Vehicle, CONTACT_FORM_API_URL, PROFILE_ID } from "@/services/carsApi";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -80,21 +80,22 @@ const VehicleDetail = () => {
     mensaje: ""
   });
   const {
-    data: carsData,
+    data: carData,
     isLoading,
-    error
+    isError,
   } = useQuery({
-    queryKey: ['cars'],
-    queryFn: fetchCars,
+    queryKey: ['car', id],
+    queryFn: () => fetchCarById(id!),
+    enabled: !!id,
     staleTime: 5 * 60 * 1000,
-    retry: 2
+    retry: 2,
   });
-  const vehicle: Vehicle | undefined = carsData ? transformApiCarToVehicle(carsData.items.find(car => car.id === id)!) : undefined;
+  const vehicle: Vehicle | undefined = carData ? transformApiCarToVehicle(carData) : undefined;
   useEffect(() => {
-    if (!isLoading && !vehicle) {
+    if (isError) {
       navigate('/stock');
     }
-  }, [vehicle, isLoading, navigate]);
+  }, [isError, navigate]);
   if (isLoading || !vehicle) {
     return <div className="min-h-screen bg-background">
         <Header />

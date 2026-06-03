@@ -6,7 +6,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import heroBg from "@/assets/hero-banner.png";
 
 const VISIBLE_COUNT = 4;
 
@@ -40,20 +39,15 @@ const VehicleGallery = () => {
   const canNext = page < totalPages - 1;
 
   return (
-    <section className="relative py-24 overflow-hidden">
-      {/* Light-capacity background image */}
-      <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-[#101318]/92" />
-      </div>
+    <section className="relative py-24 overflow-hidden bg-[#f4f5f7]">
 
       <div className="relative z-10 container mx-auto px-4">
         {/* Header with carousel nav in top right */}
         <div className="flex items-end justify-between mb-14 max-w-7xl mx-auto">
           <div>
-            <p className="text-white/40 text-sm tracking-[0.2em] uppercase mb-3">Catálogo</p>
-            <h2 className="text-4xl font-heading font-semibold text-white">{t('vehicle_gallery.title')}</h2>
-            <p className="text-white/50 mt-3 max-w-xl">
+            <p className="text-gray-400 text-sm tracking-[0.2em] uppercase mb-3">Catálogo</p>
+            <h2 className="text-4xl font-heading font-semibold text-gray-900">{t('vehicle_gallery.title')}</h2>
+            <p className="text-gray-500 mt-3 max-w-xl">
               {t('vehicle_gallery.subtitle')}
             </p>
           </div>
@@ -66,8 +60,8 @@ const VehicleGallery = () => {
                 disabled={!canPrev}
                 className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${
                   canPrev
-                    ? "border-white/30 text-white hover:bg-white hover:text-[#101318] hover:border-white"
-                    : "border-white/10 text-white/20 cursor-not-allowed"
+                    ? "border-gray-400 text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900"
+                    : "border-gray-200 text-gray-300 cursor-not-allowed"
                 }`}
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -77,13 +71,13 @@ const VehicleGallery = () => {
                 disabled={!canNext}
                 className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${
                   canNext
-                    ? "border-white/30 text-white hover:bg-white hover:text-[#101318] hover:border-white"
-                    : "border-white/10 text-white/20 cursor-not-allowed"
+                    ? "border-gray-400 text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900"
+                    : "border-gray-200 text-gray-300 cursor-not-allowed"
                 }`}
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
-              <span className="text-white/30 text-xs ml-2">
+              <span className="text-gray-400 text-xs ml-2">
                 {page + 1} / {totalPages}
               </span>
             </div>
@@ -91,7 +85,7 @@ const VehicleGallery = () => {
         </div>
 
         {isError && (
-          <Alert className="max-w-md mx-auto bg-[#171B21] border-[#1F232A] text-white/60 mb-8">
+          <Alert className="max-w-md mx-auto mb-8">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>{t('vehicle_gallery.error_loading')}</AlertDescription>
           </Alert>
@@ -101,11 +95,11 @@ const VehicleGallery = () => {
           {isLoading ? (
             Array.from({ length: 4 }).map((_, index) => (
               <div key={index} className="space-y-3">
-                <Skeleton className="h-48 w-full bg-white/5" />
+                <Skeleton className="h-48 w-full bg-gray-200" />
                 <div className="space-y-2">
-                  <Skeleton className="h-4 w-3/4 bg-white/5" />
-                  <Skeleton className="h-4 w-1/2 bg-white/5" />
-                  <Skeleton className="h-8 w-full bg-white/5" />
+                  <Skeleton className="h-4 w-3/4 bg-gray-200" />
+                  <Skeleton className="h-4 w-1/2 bg-gray-200" />
+                  <Skeleton className="h-8 w-full bg-gray-200" />
                 </div>
               </div>
             ))
@@ -126,7 +120,7 @@ const VehicleGallery = () => {
                     key={i}
                     onClick={() => setPage(i)}
                     className={`rounded-full transition-all duration-300 ${
-                      i === page ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/20 hover:bg-white/40"
+                      i === page ? "w-6 h-2 bg-gray-900" : "w-2 h-2 bg-gray-300 hover:bg-gray-500"
                     }`}
                   />
                 ))}
@@ -134,7 +128,7 @@ const VehicleGallery = () => {
             )}
             <a
               href="/stock"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-white text-[#010307] text-sm font-semibold rounded-sm hover:bg-white/90 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-gray-900 text-white text-sm font-semibold rounded-sm hover:bg-black transition-colors"
             >
               {t('vehicle_gallery.view_cars')}
               <ChevronRight className="w-4 h-4" />

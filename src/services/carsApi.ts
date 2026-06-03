@@ -105,20 +105,94 @@ export const PROFILE_ID = getProfileIdFromSubdomain();
 const API_BASE_URL = 'https://multipost-public.app.infinit.cc';
 const API_URL = `${API_BASE_URL}/api/public/inventory/profiles/${PROFILE_ID}`;
 export const CONTACT_FORM_API_URL = `${API_BASE_URL}/api/interactions/contact-form`;
+const GOOGLE_REVIEWS_URL = `${API_BASE_URL}/api/public/dealers/by-profile/${PROFILE_ID}/google-reviews`;
 
-export const fetchCars = async (): Promise<PaginatedCarsApiResponse> => {
-  const response = await fetch(API_URL, {
+// --- Google Reviews types ---
+export interface GoogleReviewAuthor {
+  displayName: string;
+  photoUri: string;
+  uri: string;
+}
+
+export interface GoogleReviewItem {
+  name: string;
+  rating: number;
+  text: { text: string; languageCode: string };
+  originalText: { text: string; languageCode: string };
+  publishTime: string;
+  relativePublishTimeDescription: string;
+  authorAttribution: GoogleReviewAuthor;
+  googleMapsUri: string;
+}
+
+export interface GoogleReviewsData {
+  google_rating: number;
+  google_review_count: number;
+  google_reviews_sample: GoogleReviewItem[];
+}
+
+export const fetchGoogleReviews = async (): Promise<GoogleReviewsData> => {
+  const response = await fetch(GOOGLE_REVIEWS_URL, {
     method: 'GET',
-    headers: {
-      'accept': 'application/json',
-      'cache-control': 'no-cache',
-    },
+    headers: { 'accept': 'application/json' },
   });
+  if (!response.ok) throw new Error(`Reviews API failed: ${response.status}`);
+  const json = await response.json();
+  return json.result.data as GoogleReviewsData;
+};
 
-  if (!response.ok) {
-    throw new Error(`API call failed with status: ${response.status}`);
-  }
+// --- Paginated fetch params ---
+export interface FetchCarsParams {
+  page?: number;
+  size?: number;
+  order_by?: string;
+  search?: string;
+  make?: string;
+  body_type?: string;
+  transmission?: string;
+  fuel_type?: string;
+  price_from?: number; // in cents
+  price_to?: number;   // in cents
+  mileage_from?: number;
+  mileage_to?: number;
+  year_from?: number;
+  year_to?: number;
+}
 
+// Fetch all cars (legacy — used by VehicleGallery homepage section)
+export const fetchCars = async (): Promise<PaginatedCarsApiResponse> => {
+  const response = await fetch(`${API_URL}?size=100`, {
+    method: 'GET',
+    headers: { 'accept': 'application/json', 'cache-control': 'no-cache' },
+  });
+  if (!response.ok) throw new Error(`API call failed with status: ${response.status}`);
+  return response.json();
+};
+
+// Fetch cars with server-side pagination, filtering and sorting
+export const fetchCarsPaginated = async (params: FetchCarsParams): Promise<PaginatedCarsApiResponse> => {
+  const url = new URL(API_URL);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      url.searchParams.set(key, String(value));
+    }
+  });
+  const response = await fetch(url.toString(), {
+    method: 'GET',
+    headers: { 'accept': 'application/json' },
+  });
+  if (!response.ok) throw new Error(`API call failed with status: ${response.status}`);
+  return response.json();
+};
+
+// Fetch a single car directly by ID (no cache dependency)
+export const fetchCarById = async (id: string): Promise<CarApiResponse> => {
+  const url = `${API_URL}/cars/${id}`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: { 'accept': 'application/json' },
+  });
+  if (!response.ok) throw new Error(`Car not found: ${response.status}`);
   return response.json();
 };
 

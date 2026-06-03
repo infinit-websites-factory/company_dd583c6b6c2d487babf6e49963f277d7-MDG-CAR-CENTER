@@ -14,6 +14,7 @@ const Header = () => {
     { href: "/sell", label: t('header.sell_your_car') },
     { href: "/financing", label: t('header.financing') },
     { href: "/services", label: t('header.services') },
+    { href: "/nosotros", label: "Nosotros" },
     { href: "/contact", label: t('header.contact') },
   ];
 
@@ -25,22 +26,22 @@ const Header = () => {
       {/* Top bar: contact info */}
       <div className="border-b border-[#1F232A] bg-[#0a0d11]">
         <div className="container mx-auto max-w-7xl px-4 flex h-10 items-center justify-between">
-          <div className="flex items-center gap-6 text-xs text-white/40">
-            <a href={`tel:+34933704030`} className="flex items-center gap-1.5 hover:text-white/70 transition-colors">
+          <div className="flex items-center gap-6 text-xs text-white/80">
+            <a href={`tel:+34933704030`} className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Phone size={11} />
               <span>93 370 40 30</span>
             </a>
-            <a href={`tel:+34610202100`} className="flex items-center gap-1.5 hover:text-white/70 transition-colors">
+            <a href={`tel:+34610202100`} className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Phone size={11} />
               <span>610 20 21 00</span>
             </a>
-            <a href="mailto:info@editioncars.es" className="hidden md:flex items-center gap-1.5 hover:text-white/70 transition-colors">
+            <a href="mailto:info@editioncars.es" className="hidden md:flex items-center gap-1.5 hover:text-white transition-colors">
               <Mail size={11} />
               <span>info@editioncars.es</span>
             </a>
           </div>
-          <div className="flex items-center gap-4 text-xs text-white/40">
-            <a href={address.mapsUrl} target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-1.5 hover:text-white/70 transition-colors">
+          <div className="flex items-center gap-4 text-xs text-white/80">
+            <a href={address.mapsUrl} target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-1.5 hover:text-white transition-colors">
               <MapPin size={11} />
               <span>{address.full}</span>
             </a>
