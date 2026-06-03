@@ -65,9 +65,9 @@ const VehicleFilters = ({
     safeYearRange[0] > 2000 || safeYearRange[1] < new Date().getFullYear();
 
   return (
-    <div className="bg-background border border-[#1F232A] p-6 space-y-6">
+    <div className="bg-white border border-gray-200 shadow-sm rounded-xl p-6 space-y-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold">{t('filters.title')}</h3>
+                <h3 className="text-lg font-semibold text-gray-900">{t('filters.title')}</h3>
                 {hasActiveFilters && (
                   <Button
                     variant="ghost"
@@ -83,12 +83,12 @@ const VehicleFilters = ({
 
               {/* Search */}
               <div className="space-y-2">
-                <label className="text-sm font-medium">{t('filters.search_label')}</label>
+                <label className="text-sm font-semibold text-gray-700">{t('filters.search_label')}</label>
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={16} />
                   <Input
                     placeholder={t('search.placeholder')}
-                    className="pl-10"
+                    className="pl-10 bg-white border-gray-200 text-gray-800"
                     value={searchTerm}
                     onChange={(e) => onSearchChange(e.target.value)}
                   />
@@ -97,9 +97,9 @@ const VehicleFilters = ({
 
               {/* Brand Filter */}
               <div className="space-y-2">
-                <label className="text-sm font-medium">{t('filters.brand')}</label>
+                <label className="text-sm font-semibold text-gray-700">{t('filters.brand')}</label>
                 <Select value={selectedBrand} onValueChange={(value) => onBrandChange(value === 'all' ? '' : value)}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-white border-gray-200 text-gray-800">
                     <SelectValue placeholder={t('filters.brand_all')} />
                   </SelectTrigger>
                   <SelectContent>
@@ -115,9 +115,9 @@ const VehicleFilters = ({
 
               {/* Body Type Filter */}
               <div className="space-y-2">
-                <label className="text-sm font-medium">{t('filters.body_type')}</label>
+                <label className="text-sm font-semibold text-gray-700">{t('filters.body_type')}</label>
                 <Select value={selectedBodyType} onValueChange={(value) => onBodyTypeChange(value === 'all' ? '' : value)}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-white border-gray-200 text-gray-800">
                     <SelectValue placeholder={t('filters.body_type_all')} />
                   </SelectTrigger>
                   <SelectContent>
@@ -133,9 +133,9 @@ const VehicleFilters = ({
 
               {/* Transmission Filter */}
               <div className="space-y-2">
-                <label className="text-sm font-medium">{t('filters.transmission')}</label>
+                <label className="text-sm font-semibold text-gray-700">{t('filters.transmission')}</label>
                 <Select value={selectedTransmission} onValueChange={(value) => onTransmissionChange(value === 'all' ? '' : value)}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-white border-gray-200 text-gray-800">
                     <SelectValue placeholder={t('filters.transmission_all')} />
                   </SelectTrigger>
                   <SelectContent>
@@ -151,9 +151,9 @@ const VehicleFilters = ({
 
               {/* Fuel Filter */}
               <div className="space-y-2">
-                <label className="text-sm font-medium">{t('filters.fuel')}</label>
+                <label className="text-sm font-semibold text-gray-700">{t('filters.fuel')}</label>
                 <Select value={selectedFuel} onValueChange={(value) => onFuelChange(value === 'all' ? '' : value)}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-white border-gray-200 text-gray-800">
                     <SelectValue placeholder={t('filters.fuel_all')} />
                   </SelectTrigger>
                   <SelectContent>
@@ -169,7 +169,7 @@ const VehicleFilters = ({
 
               {/* Price Range */}
               <div className="space-y-3">
-                <label className="text-sm font-medium">{t('filters.price')}</label>
+                <label className="text-sm font-semibold text-gray-700">{t('filters.price')}</label>
                 <div className="px-2">
                   <Slider
                     value={safePriceRange}
@@ -187,7 +187,7 @@ const VehicleFilters = ({
 
               {/* Mileage Range */}
               <div className="space-y-3">
-                <label className="text-sm font-medium">{t('filters.mileage')}</label>
+                <label className="text-sm font-semibold text-gray-700">{t('filters.mileage')}</label>
                 <div className="px-2">
                   <Slider
                     value={safeMileageRange}
@@ -205,7 +205,7 @@ const VehicleFilters = ({
 
               {/* Year Range */}
               <div className="space-y-3">
-                <label className="text-sm font-medium">{t('filters.year')}</label>
+                <label className="text-sm font-semibold text-gray-700">{t('filters.year')}</label>
                 <div className="px-2">
                   <Slider
                     value={safeYearRange}
