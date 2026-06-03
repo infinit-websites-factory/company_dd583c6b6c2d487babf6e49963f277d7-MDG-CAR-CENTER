@@ -298,17 +298,8 @@ const Contact = () => {
       </section>
 
       {/* Contact Information */}
-      <section
-        className="relative py-20 px-4"
-        style={{
-          backgroundImage: `url(${contactBackground})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-        }}
-      >
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="container mx-auto max-w-5xl relative z-10">
+      <section className="py-20 px-4 bg-gray-50">
+        <div className="container mx-auto max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {contactInfo.map((info, index) => {
               const IconComponent = info.icon;
@@ -320,20 +311,20 @@ const Contact = () => {
                   rel={info.icon === MapPin ? "noopener noreferrer" : undefined}
                   className="group block"
                 >
-                  <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 hover:bg-white/15 hover:border-white/30 transition-all duration-300 hover:-translate-y-1 h-full">
+                  <div className="bg-white border border-gray-200 rounded-2xl p-8 hover:border-gray-300 hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full shadow-sm">
                     <div className="flex items-start gap-6">
                       <div className="w-14 h-14 shrink-0 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
                         <IconComponent className="w-7 h-7 text-primary-foreground" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-lg font-bold text-white mb-1">
+                        <h3 className="text-lg font-bold text-gray-900 mb-1">
                           {info.title}
                         </h3>
-                        <p className="text-white/60 text-sm leading-relaxed">
+                        <p className="text-gray-500 text-sm leading-relaxed">
                           {info.description}
                         </p>
-                        <div className="mt-4 pt-4 border-t border-[#1F232A]">
-                          <span className="text-white font-semibold text-lg group-hover:text-primary transition-colors">
+                        <div className="mt-4 pt-4 border-t border-gray-100">
+                          <span className="text-gray-900 font-semibold text-lg group-hover:text-primary transition-colors">
                             {info.contact}
                           </span>
                         </div>
@@ -348,12 +339,12 @@ const Contact = () => {
       </section>
 
       {/* Location Section */}
-      <section className="py-16 px-4 bg-[#101318]">
+      <section className="py-16 px-4 bg-white">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             {/* Address Information */}
             <div className="space-y-8">
-              <h2 className="text-3xl font-bold text-foreground">
+              <h2 className="text-3xl font-bold text-gray-900">
                 {t('contact_page.location.title')}
               </h2>
 
@@ -363,10 +354,10 @@ const Contact = () => {
                     <MapPin className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {t('contact_page.location.address_title')}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-gray-500 leading-relaxed">
                       {address.street}<br />
                       {address.city}
                     </p>
@@ -378,10 +369,10 @@ const Contact = () => {
                     <Clock className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {t('contact_page.location.hours_title')}
                     </h3>
-                    <div className="space-y-1 text-muted-foreground">
+                    <div className="space-y-1 text-gray-500">
                       <p>{t('contact_page.location.hours.weekday')}</p>
                       <p>{t('contact_page.location.hours.saturday')}</p>
                       <p>{t('contact_page.location.hours.sunday')}</p>
@@ -393,7 +384,7 @@ const Contact = () => {
 
             {/* Google Map */}
             <div className="w-full">
-              <div className="border border-[#1F232A] overflow-hidden">
+              <div className="border border-gray-200 overflow-hidden rounded-xl">
                 <iframe
                   src={address.mapsEmbedUrl}
                   width="100%"

@@ -358,22 +358,20 @@ Kilometraje: ${formData.kilometraje} km`;
                         <div className="space-y-2">
                           <Label className="text-gray-600">{t("sell_page.form.vehicle_type")} {t("sell_page.form.required")}</Label>
                           <div className="grid grid-cols-2 gap-3">
-                            <Button
+                            <button
                               type="button"
-                              variant="outline"
-                              className={`h-10 ${formData.tipoVehiculo === "turismo" ? "bg-gray-900 text-white border-gray-900" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
+                              className={`h-10 rounded-md border px-4 text-sm font-medium transition-colors ${formData.tipoVehiculo === "turismo" ? "bg-gray-900 text-white border-gray-900" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
                               onClick={() => handleSelectChange("tipoVehiculo", "turismo")}
                             >
                               {t("sell_page.form.vehicle_type_tourism")}
-                            </Button>
-                            <Button
+                            </button>
+                            <button
                               type="button"
-                              variant="outline"
-                              className={`h-10 ${formData.tipoVehiculo === "industrial" ? "bg-gray-900 text-white border-gray-900 hover:bg-gray-800" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
+                              className={`h-10 rounded-md border px-4 text-sm font-medium transition-colors ${formData.tipoVehiculo === "industrial" ? "bg-gray-900 text-white border-gray-900" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
                               onClick={() => handleSelectChange("tipoVehiculo", "industrial")}
                             >
                               {t("sell_page.form.vehicle_type_industrial")}
-                            </Button>
+                            </button>
                           </div>
                         </div>
 
