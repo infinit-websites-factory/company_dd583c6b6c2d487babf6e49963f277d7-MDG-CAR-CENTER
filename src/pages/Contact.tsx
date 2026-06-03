@@ -357,7 +357,7 @@ const Contact = () => {
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {t('contact_page.location.address_title')}
                     </h3>
-                    <p className="text-gray-500 leading-relaxed">
+                    <p className="text-gray-700 leading-relaxed">
                       {address.street}<br />
                       {address.city}
                     </p>
@@ -372,7 +372,7 @@ const Contact = () => {
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {t('contact_page.location.hours_title')}
                     </h3>
-                    <div className="space-y-1 text-gray-500">
+                    <div className="space-y-1 text-gray-700">
                       <p>{t('contact_page.location.hours.weekday')}</p>
                       <p>{t('contact_page.location.hours.saturday')}</p>
                       <p>{t('contact_page.location.hours.sunday')}</p>

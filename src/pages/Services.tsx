@@ -87,20 +87,15 @@ const Services = () => {
       {/* Main Services — with background image */}
       <section
         className="relative py-24 px-4"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-        }}
+        style={{ backgroundColor: '#ffffff' }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/90" />
+        <div className="absolute inset-0" />
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
               Todo lo que necesitas en un solo lugar
             </h2>
-            <p className="text-white/50 max-w-xl mx-auto">
+            <p className="text-gray-500 max-w-xl mx-auto">
               Descubre la gama completa de servicios que EDITION CARS pone a tu disposición.
             </p>
           </div>
@@ -112,16 +107,15 @@ const Services = () => {
                   key={index}
                   className={`group relative border ${service.border} bg-gradient-to-br ${service.gradient} backdrop-blur-sm rounded-2xl p-7 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 overflow-hidden`}
                 >
-                  <div className="absolute inset-0 bg-black/30 rounded-2xl" />
                   <div className="relative z-10">
                     <div className={`w-14 h-14 ${service.iconBg} rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
                       <IconComponent className={`w-7 h-7 ${service.iconColor}`} />
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-3 leading-tight">{service.title}</h3>
-                    <p className="text-white/55 text-sm leading-relaxed mb-5">{service.description}</p>
+                    <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight">{service.title}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-5">{service.description}</p>
                     <ul className="space-y-2">
                       {service.features.map((f, i) => (
-                        <li key={i} className="flex items-center gap-2 text-xs text-white/50">
+                        <li key={i} className="flex items-center gap-2 text-xs text-gray-500">
                           <CheckCircle2 className={`w-3.5 h-3.5 flex-shrink-0 ${service.iconColor}`} />
                           {f}
                         </li>
