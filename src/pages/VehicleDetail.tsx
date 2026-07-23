@@ -226,7 +226,9 @@ const VehicleDetail = () => {
         lead_phone_number: appointmentFormData.telefono,
         lead_email: appointmentFormData.email,
         message: `CITA - ${formattedDate} ${appointmentFormData.hora}\n${appointmentFormData.mensaje}`,
-        interest_car_id: id
+        interest_car_id: id,
+        meeting_date: appointmentFormData.fecha,
+        meeting_time: appointmentFormData.hora
       };
 
       const response = await fetch(CONTACT_FORM_API_URL, {
