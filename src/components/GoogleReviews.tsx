@@ -6,11 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchGoogleReviews, type GoogleReviewItem } from "@/services/carsApi";
 
 const avatarColors = [
-  "from-blue-600 to-blue-800",
-  "from-purple-600 to-purple-800",
-  "from-emerald-600 to-emerald-800",
-  "from-rose-600 to-rose-800",
-  "from-amber-600 to-amber-800",
+  "from-[#ffff00] to-[#e6b800]",
+  "from-[#e6e600] to-[#b3b300]",
+  "from-[#ffff00] to-[#ccaa00]",
+  "from-[#f5e000] to-[#d4b800]",
+  "from-[#ffee00] to-[#e6c200]",
 ];
 
 const StarRating = ({ rating }: { rating: number }) => (
@@ -85,13 +85,13 @@ const ReviewCard = ({
         <div
           className={`w-12 h-12 rounded-full bg-gradient-to-br ${color} flex items-center justify-center flex-shrink-0 shadow-lg ${review.authorAttribution.photoUri ? "hidden" : ""}`}
         >
-          <span className="text-white font-bold text-lg">{initial}</span>
+          <span className="text-black font-bold text-lg">{initial}</span>
         </div>
         <div className="flex-1">
           <div className="font-semibold text-white">
             {review.authorAttribution.displayName}
           </div>
-          <div className="text-white/40 text-sm mt-0.5">
+          <div className="text-white/85 text-sm mt-0.5">
             {review.relativePublishTimeDescription}
           </div>
         </div>
@@ -114,8 +114,8 @@ const GoogleReviews = () => {
   });
 
   const reviews: GoogleReviewItem[] = data?.google_reviews_sample ?? [];
-  const overallRating = data?.google_rating ?? 4.1;
-  const reviewCount = data?.google_review_count ?? 62;
+  const overallRating = data?.google_rating ?? 5.0;
+  const reviewCount = data?.google_review_count ?? 36;
 
   const navigate = useCallback((next: number, dir: "left" | "right") => {
     setDirection(dir);
@@ -152,7 +152,7 @@ const GoogleReviews = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
             <img src={googleLogo} alt="Google" className="w-5 h-5" />
-            <span className="text-white/60 text-sm">
+            <span className="text-white/85 text-sm">
               Reseñas verificadas en Google
             </span>
           </div>
@@ -160,12 +160,12 @@ const GoogleReviews = () => {
             Lo que dicen nuestros clientes
           </h2>
           <div className="flex items-center justify-center gap-3">
-            <span className="text-5xl font-bold text-white">
+            <span className="text-5xl font-bold text-[#ffff00]">
               {overallRating}
             </span>
             <div>
               <StarRating rating={overallRating} />
-              <p className="text-white/40 text-sm mt-1">
+              <p className="text-white/85 text-sm mt-1">
                 Basado en {reviewCount}+ reseñas
               </p>
             </div>
@@ -174,7 +174,7 @@ const GoogleReviews = () => {
 
         {/* Reviews */}
         {reviews.length === 0 ? (
-          <div className="text-center text-white/40 py-8">
+          <div className="text-center text-white/85 py-8">
             {isError
               ? "No se pudieron cargar las reseñas en este momento."
               : "Cargando reseñas..."}
@@ -188,13 +188,13 @@ const GoogleReviews = () => {
                 <>
                   <button
                     onClick={prev}
-                    className="absolute -left-14 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:bg-white/15 hover:border-white/40 transition-all z-10 hidden md:flex"
+                    className="absolute -left-14 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center text-white/85 hover:text-white hover:bg-white/15 hover:border-white/40 transition-all z-10 hidden md:flex"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={next}
-                    className="absolute -right-14 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:bg-white/15 hover:border-white/40 transition-all z-10 hidden md:flex"
+                    className="absolute -right-14 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center text-white/85 hover:text-white hover:bg-white/15 hover:border-white/40 transition-all z-10 hidden md:flex"
                   >
                     <ChevronRight className="w-5 h-5" />
                   </button>
@@ -214,7 +214,7 @@ const GoogleReviews = () => {
               {reviews.length > 1 && (
                 <button
                   onClick={prev}
-                  className="md:hidden w-9 h-9 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/60 hover:text-white transition-all"
+                  className="md:hidden w-9 h-9 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/85 hover:text-white transition-all"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
@@ -239,7 +239,7 @@ const GoogleReviews = () => {
               {reviews.length > 1 && (
                 <button
                   onClick={next}
-                  className="md:hidden w-9 h-9 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/60 hover:text-white transition-all"
+                  className="md:hidden w-9 h-9 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/85 hover:text-white transition-all"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>

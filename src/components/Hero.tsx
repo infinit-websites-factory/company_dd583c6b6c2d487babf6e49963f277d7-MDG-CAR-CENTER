@@ -1,22 +1,15 @@
 import heroImg1 from "@/assets/img1.jpg";
 import heroImg2 from "@/assets/img2.jpg";
 import heroImg3 from "@/assets/img3.jpg";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { MapPin, ArrowDown, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "react-router-dom";
 
-// Only images downloaded from editioncars.es — no old template images
+// Only images downloaded from mdgcarcenter.com — no old template images
 const heroImages = [heroImg1, heroImg2, heroImg3];
 
 const Hero = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
-  const navigate = useNavigate();
-  const { getCityName, t } = useLanguage();
-  const cityName = getCityName();
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % heroImages.length);
@@ -31,17 +24,8 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [nextSlide]);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/stock?search=${encodeURIComponent(searchTerm.trim())}`);
-    } else {
-      navigate('/stock');
-    }
-  };
-
   return (
-    <section className="relative h-[600px] md:h-[85vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[600px] md:min-h-[85vh] flex items-center overflow-hidden">
       {/* Background Image Carousel — slow crossfade */}
       {heroImages.map((img, index) => (
         <div
@@ -53,20 +37,20 @@ const Hero = () => {
           }}
         />
       ))}
-      {/* Dark cinematic overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/60"></div>
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-[#0B0B0C]"></div>
 
       {/* Carousel Controls — minimal */}
       <button
         onClick={prevSlide}
-        className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-20 w-10 h-10 border border-white/15 bg-transparent flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-all duration-500"
+        className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-20 w-10 h-10 border border-white/15 bg-transparent flex items-center justify-center text-white/85 hover:text-white hover:border-white/30 transition-all duration-500"
         aria-label="Previous slide"
       >
         <ChevronLeft size={18} />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-20 w-10 h-10 border border-white/15 bg-transparent flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-all duration-500"
+        className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-20 w-10 h-10 border border-white/15 bg-transparent flex items-center justify-center text-white/85 hover:text-white hover:border-white/30 transition-all duration-500"
         aria-label="Next slide"
       >
         <ChevronRight size={18} />
@@ -86,34 +70,56 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* Content — serif, centered, spacious */}
-      <div className="relative z-10 text-center text-white container mx-auto px-4 w-full flex flex-col items-center">
-        <div className="w-12 h-[1px] bg-white/20 mb-10"></div>
-        <p className="text-[11px] md:text-xs font-body uppercase tracking-[0.3em] text-white/40 mb-6 font-medium">
-          {t('hero.subtitle')} {cityName}
-        </p>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-normal mb-12 leading-[1.1] tracking-tight text-white">
-          {t('hero.title')}
+      {/* Content — copy-rich, centered */}
+      <div className="relative z-10 py-20 sm:py-28 text-center max-w-5xl mx-auto px-4 w-full">
+        {/* Location pill */}
+        <span className="bg-white/10 backdrop-blur-md text-[#ffff00] border border-[#ffff00]/30 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-4">
+          <MapPin className="w-3.5 h-3.5" />
+          Purullena, Granada
+        </span>
+
+        {/* Headline */}
+        <h1 className="text-4xl sm:text-6xl font-heading font-black text-white tracking-tight leading-tight mb-4">
+          Vehículos de ocasión Premium y <span className="text-[#ffff00]">Certificados</span>
         </h1>
 
-        {/* Search Bar — sharp, minimal */}
-        <form onSubmit={handleSearch} className="w-full max-w-lg">
-          <div className="flex gap-0 overflow-hidden border border-white/15 bg-[#101318] backdrop-blur-sm">
-            <div className="flex-1 relative">
-              <Input
-                type="text"
-                placeholder={t('search.placeholder')}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-transparent border-0 text-white placeholder:text-white/30 h-12 pl-5 focus-visible:ring-0 focus-visible:ring-offset-0 font-body text-sm font-light tracking-wide"
-              />
-            </div>
-            <Button type="submit" className="rounded-none px-6 h-12 text-[11px]">
-              <Search className="h-4 w-4 mr-2" />
-              {t('common.search')}
-            </Button>
-          </div>
-        </form>
+        {/* Sub-headline */}
+        <p className="text-slate-200 text-base sm:text-lg max-w-2xl mx-auto font-normal leading-relaxed mb-8">
+          Explora nuestro stock seleccionado a mano en Purullena. Cada vehículo se
+          revisa a fondo, se certifica y se entrega con garantía para que conduzcas
+          con total tranquilidad.
+        </p>
+
+        {/* CTA buttons */}
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link
+            to="/stock"
+            className="bg-[#ffff00] text-black font-extrabold text-sm uppercase tracking-wider px-6 py-3.5 rounded-xl shadow-lg hover:bg-yellow-300 hover:scale-105 transition-all inline-flex items-center gap-2"
+          >
+            Ver catálogo
+            <ArrowDown className="w-4 h-4" />
+          </Link>
+          <Link
+            to="/presupuestos"
+            className="bg-white/10 backdrop-blur-md text-white border border-white/30 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-xl hover:bg-white hover:text-black transition-all inline-flex items-center gap-2"
+          >
+            <Sparkles className="w-4 h-4" />
+            Pide tu coche a medida
+          </Link>
+        </div>
+
+        {/* Trust bar */}
+        <div className="flex flex-wrap justify-center gap-6 text-xs sm:text-sm font-semibold text-zinc-300 mt-8 pt-6 border-t border-white/10 max-w-2xl mx-auto">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="text-[#ffff00]">✓</span> Vehículos revisados a fondo
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="text-[#ffff00]">✓</span> Garantía incluida
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="text-[#ffff00]">✓</span> Financiación disponible
+          </span>
+        </div>
       </div>
     </section>
   );

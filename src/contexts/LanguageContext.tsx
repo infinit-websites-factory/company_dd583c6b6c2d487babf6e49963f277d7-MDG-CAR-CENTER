@@ -27,32 +27,35 @@ interface LanguageContextType {
 }
 
 const PHONE_NUMBERS = {
-  es: "+34933704030",
-  en: "+34933704030",
-  fr: "+34933704030",
+  es: "+34858711456",
+  en: "+34858711456",
+  fr: "+34858711456",
 };
+
+const MDG_MAPS_URL = "https://www.google.es/maps/place/mdg+car+center/@37.3173657,-3.1955497,17z/data=!3m1!4b1!4m6!3m5!1s0xd6e29d5807258d3:0x588dc54ac7e99612!8m2!3d37.3173615!4d-3.1929748!16s%2Fg%2F11s693c34x";
+const MDG_MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3173.0618960455804!2d-3.1929748!3d37.3173615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6e29d5807258d3%3A0x588dc54ac7e99612!2smdg%20car%20center!5e0!3m2!1sen!2sin!4v1785145661591!5m2!1sen!2sin";
 
 const ADDRESSES: Record<Language, AddressInfo> = {
   es: {
-    street: "Carretera Ca l'Alaio, 3",
-    city: "08820 El Prat de Llobregat, Barcelona, España",
-    full: "Carretera Ca l'Alaio, 3 - El Prat de Llobregat - 08820 Barcelona",
-    mapsUrl: "https://maps.app.goo.gl/j94p4AomKP1eQmBe9",
-    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.0405601081934!2d2.0816076758755564!3d41.32973137130727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49eb971dab66f%3A0x3978cef3b06e5d0a!2sEDITION%20CARS%20SL.!5e0!3m2!1sen!2sin!4v1780290117324!5m2!1sen!2sin"
+    street: "Av. Andalucía, 12",
+    city: "Purullena, Granada, España",
+    full: "Av. Andalucía, 12, Purullena, Granada, España",
+    mapsUrl: MDG_MAPS_URL,
+    mapsEmbedUrl: MDG_MAPS_EMBED_URL
   },
   en: {
-    street: "Carretera Ca l'Alaio, 3",
-    city: "08820 El Prat de Llobregat, Barcelona, Spain",
-    full: "Carretera Ca l'Alaio, 3 - El Prat de Llobregat - 08820 Barcelona",
-    mapsUrl: "https://maps.app.goo.gl/j94p4AomKP1eQmBe9",
-    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.0405601081934!2d2.0816076758755564!3d41.32973137130727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49eb971dab66f%3A0x3978cef3b06e5d0a!2sEDITION%20CARS%20SL.!5e0!3m2!1sen!2sin!4v1780290117324!5m2!1sen!2sin"
+    street: "Av. Andalucía, 12",
+    city: "Purullena, Granada, Spain",
+    full: "Av. Andalucía, 12, Purullena, Granada, Spain",
+    mapsUrl: MDG_MAPS_URL,
+    mapsEmbedUrl: MDG_MAPS_EMBED_URL
   },
   fr: {
-    street: "Carretera Ca l'Alaio, 3",
-    city: "08820 El Prat de Llobregat, Barcelone, Espagne",
-    full: "Carretera Ca l'Alaio, 3 - El Prat de Llobregat - 08820 Barcelona",
-    mapsUrl: "https://maps.app.goo.gl/j94p4AomKP1eQmBe9",
-    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.0405601081934!2d2.0816076758755564!3d41.32973137130727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49eb971dab66f%3A0x3978cef3b06e5d0a!2sEDITION%20CARS%20SL.!5e0!3m2!1sen!2sin!4v1780290117324!5m2!1sen!2sin"
+    street: "Av. Andalucía, 12",
+    city: "Purullena, Grenade, Espagne",
+    full: "Av. Andalucía, 12, Purullena, Granada, Espagne",
+    mapsUrl: MDG_MAPS_URL,
+    mapsEmbedUrl: MDG_MAPS_EMBED_URL
   }
 };
 
@@ -63,10 +66,10 @@ const CURRENCIES: Record<Language, { code: string; symbol: string }> = {
 };
 
 const formatPhoneNumber = (phone: string, language: Language): string => {
-  // Returns: 93 370 40 30
+  // Returns: 858 711 456
   const digits = phone.replace('+34', '');
   if (digits.length === 9) {
-    return `${digits.substring(0, 2)} ${digits.substring(2, 5)} ${digits.substring(5, 7)} ${digits.substring(7)}`;
+    return `${digits.substring(0, 3)} ${digits.substring(3, 6)} ${digits.substring(6)}`;
   }
   return digits;
 };
@@ -89,7 +92,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getWhatsAppNumber = () => {
-    return "34610202100";
+    return "34633406310";
   };
 
   const getAddress = () => {
@@ -97,7 +100,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getCityName = () => {
-    return "El Prat de Llobregat";
+    return "Purullena";
   };
 
   const getCurrency = () => {

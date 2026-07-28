@@ -1,36 +1,36 @@
 {
   "seo": {
     "home": {
-      "title": "EDITION CARS | Vehículos Premium de Ocasión en {city}",
+      "title": "MDG CAR CENTER | Vehículos Premium de Ocasión en {city}",
       "description": "Concesionario premium especializado en vehículos de alta gama, ocasión y seminuevos en {city}. Garantía, financiación y servicio VIP. La mejor calidad y precio."
     },
     "stock": {
-      "title": "Stock de Vehículos Premium | EDITION CARS {city}",
+      "title": "Stock de Vehículos Premium | MDG CAR CENTER {city}",
       "description": "Explora nuestro stock de coches de alta gama de ocasión y seminuevos en {city}. BMW, Mercedes, Audi, Porsche y más. Garantía incluida."
     },
     "vehicle_detail": {
-      "title": "{vehicle} | EDITION CARS {city}",
-      "description": "Compra tu {vehicle} en EDITION CARS {city}. Garantía de 12 meses ampliable a 3 años, financiación a medida y servicio VIP."
+      "title": "{vehicle} | MDG CAR CENTER {city}",
+      "description": "Compra tu {vehicle} en MDG CAR CENTER {city}. Garantía de 12 meses ampliable a 3 años, financiación a medida y servicio VIP."
     },
     "sell": {
-      "title": "Tasación Gratuita de tu Coche | EDITION CARS {city}",
+      "title": "Tasación Gratuita de tu Coche | MDG CAR CENTER {city}",
       "description": "Tasación gratuita y sin compromiso de tu vehículo en {city}. Valoración en 24 horas, proceso rápido y seguro. Compramos todo tipo de coches."
     },
     "financing": {
-      "title": "Financiación de Vehículos Premium | EDITION CARS {city}",
+      "title": "Financiación de Vehículos Premium | MDG CAR CENTER {city}",
       "description": "Financiación a medida para tu coche de ocasión en {city}. Cuotas reducidas, aprobación en 24h y condiciones transparentes."
     },
     "services": {
-      "title": "Servicios Premium para tu Vehículo | EDITION CARS {city}",
-      "description": "Servicio VIP, garantía hasta 3 años, envío a toda España, financiación y tasación de vehículos. Descubre todo lo que EDITION CARS ofrece en {city}."
+      "title": "Servicios Premium para tu Vehículo | MDG CAR CENTER {city}",
+      "description": "Servicio VIP, garantía hasta 3 años, envío a toda España, financiación y tasación de vehículos. Descubre todo lo que MDG CAR CENTER ofrece en {city}."
     },
     "contact": {
-      "title": "Contacto | EDITION CARS {city}",
-      "description": "Contacta con EDITION CARS en {city}. Llámanos, escríbenos o visítanos. Estamos aquí para ayudarte con la compra, venta o financiación de tu vehículo."
+      "title": "Contacto | MDG CAR CENTER {city}",
+      "description": "Contacta con MDG CAR CENTER en {city}. Llámanos, escríbenos o visítanos. Estamos aquí para ayudarte con la compra, venta o financiación de tu vehículo."
     },
     "not_found": {
-      "title": "Página no encontrada | EDITION CARS",
-      "description": "La página que buscas no existe. Vuelve a la página principal de EDITION CARS."
+      "title": "Página no encontrada | MDG CAR CENTER",
+      "description": "La página que buscas no existe. Vuelve a la página principal de MDG CAR CENTER."
     }
   },
   "common": {
@@ -65,21 +65,21 @@
     "placeholder": "Buscar por marca, modelo..."
   },
   "services": {
-    "title": "Nuestros servicios en EDITION CARS",
-    "subtitle": "Comercialización e importación de vehículos premium a la carta, de ocasión, seminuevos y Km0.",
+    "title": "Nuestras garantías MDG",
+    "subtitle": "Compra, venta e importación de vehículos a la carta, de ocasión y seminuevos, con el toque MDG.",
     "vip": {
-      "title": "Servicio VIP",
-      "description": "Nos encargamos de todo: recogida, entrega, limpieza y otras gestiones que necesites. Solo tendrás que preocuparte por ponerte al volante de tu nuevo vehículo.",
+      "title": "Entrega a domicilio",
+      "description": "Te llevamos tu nuevo vehículo hasta la puerta de tu casa, estés donde estés. Nos encargamos de todo para que solo te preocupes de disfrutarlo.",
       "additional_info": "Envío a toda España."
     },
     "warranty": {
-      "title": "Garantía Plus (Ampliable a 3 años)",
-      "description": "Tu vehículo de ocasión con garantía de 12 meses (Ampliable a 3 años).",
-      "additional_info": "Para vehículos de todo tipo como: berlinas, coupés, descapotables, deportivos, SUV, 4×4, etc."
+      "title": "Garantía de 1 año",
+      "description": "Todos nuestros vehículos incluyen 12 meses de garantía MDG, con la tranquilidad y respaldo que mereces.",
+      "additional_info": "Para vehículos de todo tipo: berlinas, coupés, descapotables, deportivos, SUV, 4×4, etc."
     },
     "financing": {
-      "title": "Financiación disponible",
-      "description": "Trabajamos con los mejores bancos para ofrecerte opciones de financiación que se adapten a ti."
+      "title": "Financiación a medida",
+      "description": "Benefíciate de una financiación a medida. Trabajamos con las mejores entidades para adaptarnos a ti."
     }
   },
   "faq": {
@@ -92,7 +92,7 @@
       },
       "warranty": {
         "question": "¿Qué garantía ofrecéis en vuestros vehículos?",
-        "answer": "Todos nuestros vehículos incluyen una garantía mínima de 12 meses conforme a la legislación vigente. Además, ofrecemos la posibilidad de ampliar la cobertura hasta 3 años, incluyendo motor, caja de cambios, sistema eléctrico y componentes principales. Cada vehículo se entrega con un informe de garantía detallado."
+        "answer": "Todos nuestros vehículos incluyen 12 meses de garantía MDG conforme a la legislación vigente, cubriendo motor, caja de cambios, sistema eléctrico y componentes principales. Cada vehículo se entrega con su informe de garantía detallado para que compres con total tranquilidad."
       },
       "delivery": {
         "question": "¿Realizáis envíos a toda España?",
@@ -108,11 +108,11 @@
       },
       "trade_in": {
         "question": "¿Aceptáis mi vehículo actual como parte de pago?",
-        "answer": "Sí, en Edition Cars aceptamos vehículos como parte de pago. Realizamos una tasación profesional gratuita y sin compromiso, considerando marca, modelo, año, kilometraje, estado general e historial de mantenimiento. Te ofrecemos un precio justo y transparente que se descuenta directamente del precio de tu nuevo vehículo."
+        "answer": "Sí, en MDG Car Center aceptamos vehículos como parte de pago. Realizamos una tasación profesional gratuita y sin compromiso, considerando marca, modelo, año, kilometraje, estado general e historial de mantenimiento. Te ofrecemos un precio justo y transparente que se descuenta directamente del precio de tu nuevo vehículo."
       },
       "schedule": {
         "question": "¿Cuáles son vuestros horarios de atención?",
-        "answer": "Estamos disponibles de lunes a sábado de 10:00 a 14:00 y de 16:00 a 20:00. Puedes visitarnos dentro de este horario para ver nuestros vehículos sin necesidad de cita previa. Si prefieres una atención más personalizada o deseas ver un vehículo concreto con mayor detalle, te recomendamos solicitar cita previa, de esta forma podremos prepararte el coche y dedicarte más tiempo durante la visita. También puedes contactarnos por WhatsApp o email fuera del horario comercial y te responderemos lo antes posible."
+        "answer": "Estamos disponibles de lunes a viernes de 10:00 a 20:00. Puedes visitarnos dentro de este horario para ver nuestros vehículos sin necesidad de cita previa. Si prefieres una atención más personalizada o deseas ver un vehículo concreto con mayor detalle, te recomendamos solicitar cita previa, de esta forma podremos prepararte el coche y dedicarte más tiempo durante la visita. También puedes contactarnos por WhatsApp o email fuera del horario comercial y te responderemos lo antes posible."
       },
       "test_drive": {
         "question": "¿Puedo concertar una prueba de conducción?",
@@ -121,21 +121,21 @@
     }
   },
   "footer": {
-    "company_description": "Tu concesionario de confianza para vehículos premium de ocasión en",
+    "company_description": "Tu concesionario de confianza para la compra, venta e importación de vehículos en",
     "contact_title": "Contacto",
     "services_title": "Servicios",
     "services_list": {
       "vehicle_sales": "Venta de vehículos",
       "vehicle_purchase": "Compra de vehículos",
-      "financing": "Financiación",
-      "delivery": "Entrega en toda España",
-      "vip_service": "Servicio VIP"
+      "financing": "Financiación a medida",
+      "delivery": "Entrega a domicilio",
+      "vip_service": "Importación y personalización"
     },
     "hours_title": "Horarios",
     "hours": {
-      "weekday": "Lun-Sab: 10:00-14:00, 16:00-20:00",
+      "weekday": "Lun-Vie: 10:00-20:00",
       "saturday": "",
-      "sunday": "Dom: Cerrado"
+      "sunday": "Sáb-Dom: Cerrado"
     },
     "legal": {
       "legal_notice": "Aviso Legal",
@@ -143,7 +143,7 @@
       "terms_conditions": "Términos y Condiciones",
       "cookies": "Cookies"
     },
-    "copyright": "© 2026 EDITION CARS SL. Desarrollado por"
+    "copyright": "© 2026 MDG CAR CENTER SL. Desarrollado por"
   },
   "contact_page": {
     "title": "Contacta con nosotros",
@@ -192,9 +192,9 @@
       "address_title": "Dirección",
       "hours_title": "Horarios de atención",
       "hours": {
-        "weekday": "Lunes a Sábado: 10:00 - 14:00, 16:00 - 20:00",
+        "weekday": "Lunes a Viernes: 10:00 - 20:00",
         "saturday": "",
-        "sunday": "Domingo: Cerrado"
+        "sunday": "Sábado y Domingo: Cerrado"
       }
     }
   },
@@ -250,34 +250,34 @@
     "reviews_count": "reseñas",
     "testimonials": [
       {
-        "name": "Carlos M.",
-        "rating": 5,
-        "date": "Hace 1 semana",
-        "review": "Excelente experiencia en Edition Cars. Compré un BMW Serie 3 y el proceso fue impecable desde el principio. El equipo fue muy profesional y transparente con toda la información del vehículo. Totalmente recomendable."
-      },
-      {
-        "name": "Marta G.",
+        "name": "Fran Rodríguez",
         "rating": 5,
         "date": "Hace 2 semanas",
-        "review": "Muy satisfecha con mi compra. Encontré exactamente el Mercedes que buscaba y me ayudaron con la financiación sin ningún problema. El coche estaba en perfectas condiciones, tal como lo describían."
+        "review": "Siendo de Asturias, estuve buscando un Civic Type R a medida y gracias a Mario y Estíbaliz encontré la unidad ideal. Atención y trato inmejorable, personas muy cercanas y honestas. Un sitio al que volvería sin dudarlo. ¡Muy recomendado!"
       },
       {
-        "name": "David S.",
-        "rating": 4,
-        "date": "Hace 1 mes",
-        "review": "Buen servicio y trato muy amable. El proceso de compra fue rápido y sin complicaciones. El vehículo llegó en perfectas condiciones. Repetiría sin duda."
+        "name": "Hugo Huguet",
+        "rating": 5,
+        "date": "Hace 2 semanas",
+        "review": "Adquirí un Honda Civic Type R y estoy súper contento con la compra. Me transmitieron seguridad y confianza durante todo el proceso e incluso trajeron el coche hasta la puerta de mi casa en Madrid. Los recomendaría una y mil veces."
+      },
+      {
+        "name": "Carlos M.",
+        "rating": 5,
+        "date": "Hace 3 semanas",
+        "review": "Compré el coche a más de 800 km de distancia sin verlo en persona, solo por fotos y vídeos, y no podría estar más contento. Mario y Estíbaliz me ofrecieron un trato excelente, cercano y profesional. Todo tal y como me prometieron. 100% recomendables."
       },
       {
         "name": "Laura R.",
         "rating": 5,
-        "date": "Hace 3 semanas",
-        "review": "Compré un Audi Q5 y quedé encantada. El equipo de Edition Cars se tomó el tiempo para explicarme todo con detalle. Precio justo y servicio de primera. 100% recomendable."
+        "date": "Hace 1 mes",
+        "review": "Experiencia inmejorable de principio a fin. Encontré exactamente el coche que buscaba y me ayudaron con la financiación sin ningún problema. El vehículo estaba en perfectas condiciones, tal como lo describían."
       },
       {
-        "name": "Jordi P.",
-        "rating": 4,
+        "name": "David S.",
+        "rating": 5,
         "date": "Hace 2 meses",
-        "review": "Gran selección de coches de ocasión y trato muy correcto. La gestión de la documentación fue rápida y eficiente. El vehículo estaba exactamente como lo describieron."
+        "review": "Gran selección de vehículos y trato muy correcto. La gestión de la documentación fue rápida y eficiente y la entrega impecable. Repetiría sin duda. Un equipo profesional y de confianza."
       }
     ]
   },
@@ -304,7 +304,7 @@
       },
       "section_1_3": {
         "title": "1.3 Propiedad Intelectual e Industrial",
-        "content": "Todos los contenidos del sitio web (textos, imágenes, logotipos, diseños, etc.) son propiedad de EDITION CARS o de terceros autorizados. Queda prohibida su reproducción, distribución o modificación sin autorización expresa."
+        "content": "Todos los contenidos del sitio web (textos, imágenes, logotipos, diseños, etc.) son propiedad de MDG CAR CENTER o de terceros autorizados. Queda prohibida su reproducción, distribución o modificación sin autorización expresa."
       },
       "section_1_4": {
         "title": "1.4 Responsabilidad",
@@ -459,25 +459,25 @@
   },
   "services_page": {
     "hero": {
-      "title": "Servicios en EDITION CARS",
+      "title": "Servicios en MDG CAR CENTER",
       "subtitle": "Comercializamos e importamos vehículos premium a la carta, de ocasión, seminuevos y de KM 0 en"
     },
     "main_services": {
       "vip": {
-        "title": "Servicio VIP",
-        "description": "Nos encargamos de todo: recogida, entrega, limpieza y otras gestiones que necesites. Solo tendrás que preocuparte por ponerte al volante de tu nuevo vehículo."
+        "title": "Importación y personalización",
+        "description": "Buscamos, importamos y personalizamos el coche de tus sueños. Si quieres cualquier tipo de customización, te la hacemos con el toque MDG."
       },
       "warranty": {
-        "title": "Garantía Plus hasta 3 años",
-        "description": "Tu vehículo de ocasión con garantía de 12 meses y hasta 3 años. Para vehículos de todo tipo como: berlinas, coupés, descapotables, deportivos, SUV, 4×4, etc."
+        "title": "Garantía de 1 año",
+        "description": "Todos nuestros vehículos incluyen 12 meses de garantía MDG. Para vehículos de todo tipo: berlinas, coupés, descapotables, deportivos, SUV, 4×4, etc."
       },
       "shipping": {
-        "title": "Envío a toda España",
-        "description": "Si no puedes venir a recoger el vehículo, no te preocupes. Nos encargamos de todo lo necesario para que lo recibas en la puerta de tu casa."
+        "title": "Entrega a domicilio",
+        "description": "Si no puedes venir a recoger el vehículo, no te preocupes. Nos encargamos de todo para que lo recibas en la puerta de tu casa, en toda España."
       },
       "financing": {
-        "title": "Financiación disponible",
-        "description": "Trabajamos con los mejores bancos para ofrecerte opciones de financiación que se adapten a ti."
+        "title": "Financiación a medida",
+        "description": "Benefíciate de una financiación a medida. Trabajamos con las mejores entidades para ofrecerte opciones que se adapten a ti."
       }
     },
     "sell_section": {
@@ -486,7 +486,7 @@
       "button": "Tasar mi vehículo"
     },
     "alt_texts": {
-      "hero": "Vehículo premium con logo de EDITION CARS",
+      "hero": "Vehículo premium con logo de MDG CAR CENTER",
       "sell": "Porsche deportivo gris en pista - Servicios de tasación de vehículos premium"
     }
   },
@@ -541,6 +541,12 @@
         "monovolumen": "Monovolumen",
         "suv": "SUV",
         "pickup": "Pick Up",
+        "furgon": "Furgón",
+        "furgoneta": "Furgoneta",
+        "chasis": "Chasis-cabina",
+        "camion": "Camión",
+        "isotermo": "Isotermo",
+        "volquete": "Volquete",
         "otro": "Otro"
       },
       "transmission": "Tipo de cambio",
@@ -704,9 +710,9 @@
       "address": "Dirección",
       "address_placeholder": "Calle, número, piso, puerta",
       "postal_code": "Código postal",
-      "postal_code_placeholder": "08820",
+      "postal_code_placeholder": "18519",
       "city": "Población",
-      "city_placeholder": "El Prat de Llobregat",
+      "city_placeholder": "Purullena",
       "accept_privacy": "Acepto las comunicaciones comerciales y de ofertas. Acepto la",
       "privacy_policy": "política de privacidad",
       "continue": "Continuar",
@@ -756,7 +762,7 @@
       "success": "¡Reserva confirmada! Nos pondremos en contacto contigo pronto."
     },
     "appointment": {
-      "modal_title": "Reserva tu cita en EDITION CARS",
+      "modal_title": "Reserva tu cita en MDG CAR CENTER",
       "date_label": "Fecha de la cita",
       "time_label": "Hora",
       "time_placeholder": "Selecciona una hora",

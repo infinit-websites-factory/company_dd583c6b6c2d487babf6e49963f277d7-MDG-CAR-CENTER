@@ -150,18 +150,19 @@ const Stock = () => {
     filters.mileageRange[1] < FILTER_DEFAULTS.mileageRange[1];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#0B0B0C]">
       <SEO page="stock" />
       <Header />
 
       <main>
         {/* Page header */}
-        <div className="bg-white border-b border-gray-200 py-8">
-          <div className="container mx-auto px-4 max-w-7xl text-center">
-            <h1 className="text-4xl font-heading font-semibold text-gray-900 mb-2">
+        <div className="relative border-b border-[#27272A] py-12 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,0,0.04)_0%,transparent_70%)] pointer-events-none" />
+          <div className="relative z-10 container mx-auto px-4 max-w-7xl text-center">
+            <h1 className="text-4xl font-heading font-semibold text-white mb-2">
               {t("stock_page.title")}
             </h1>
-            <p className="text-gray-500 max-w-xl mx-auto">
+            <p className="text-[#D4D4D8] max-w-xl mx-auto">
               {t("stock_page.subtitle")}
             </p>
           </div>
@@ -199,37 +200,37 @@ const Stock = () => {
             </div>
 
             {/* Results area */}
-            <div className="lg:col-span-3">
+            <div id="stock-results" className="lg:col-span-3 scroll-mt-24">
               {/* Sort + results count bar */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[#D4D4D8]">
                   {isLoading ? (
                     "Cargando vehículos..."
                   ) : (
                     <>
-                      <span className="font-semibold text-gray-900">{totalVehicles}</span>{" "}
+                      <span className="font-bold text-lg text-[#ffff00]">{totalVehicles}</span>{" "}
                       {totalVehicles !== 1
                         ? t("stock_page.results_count_plural")
                         : t("stock_page.results_count")}
                       {hasActiveFilters && (
-                        <> · <span className="text-gray-400">{t("stock_page.found")}</span></>
+                        <> · <span className="text-white/85">{t("stock_page.found")}</span></>
                       )}
                     </>
                   )}
                 </p>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-500">{t("stock_page.sort_by")}</span>
+                  <span className="text-sm text-[#D4D4D8]">{t("stock_page.sort_by")}</span>
                   <Select
                     value={filters.sortBy}
                     onValueChange={(v) => updateFilter("sortBy", v)}
                   >
-                    <SelectTrigger className="w-52 bg-white border-gray-200 text-gray-900">
+                    <SelectTrigger className="w-52 bg-[#F5F5F4] border-[#E7E5E4] text-slate-900 focus:ring-[#ffff00]/40">
                       <SelectValue placeholder={t("stock_page.sort_placeholder")} />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-[#F5F5F4] border-[#E7E5E4] text-slate-900">
                       {sortOptions.map((opt) => (
-                        <SelectItem key={opt.value} value={opt.value}>
+                        <SelectItem key={opt.value} value={opt.value} className="text-slate-900 focus:bg-[#ffff00]/20 focus:text-slate-900">
                           {opt.label}
                         </SelectItem>
                       ))}
@@ -240,7 +241,7 @@ const Stock = () => {
 
               {/* Error state */}
               {isError && (
-                <Alert className="mb-6">
+                <Alert className="mb-6 bg-white border-slate-200 text-slate-900">
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
                     {t("vehicle_gallery.error_loading")}
@@ -253,10 +254,10 @@ const Stock = () => {
                 {isLoading
                   ? Array.from({ length: 12 }).map((_, i) => (
                       <div key={i} className="space-y-3">
-                        <Skeleton className="h-48 w-full rounded-lg bg-gray-200" />
-                        <Skeleton className="h-4 w-3/4 bg-gray-200" />
-                        <Skeleton className="h-4 w-1/2 bg-gray-200" />
-                        <Skeleton className="h-8 w-full bg-gray-200" />
+                        <Skeleton className="h-48 w-full rounded-lg bg-white/10" />
+                        <Skeleton className="h-4 w-3/4 bg-white/10" />
+                        <Skeleton className="h-4 w-1/2 bg-white/10" />
+                        <Skeleton className="h-8 w-full bg-white/10" />
                       </div>
                     ))
                   : vehicles.length > 0
@@ -265,12 +266,12 @@ const Stock = () => {
                     ))
                   : !isLoading && (
                       <div className="col-span-full text-center py-16">
-                        <p className="text-gray-500 text-lg mb-4">
+                        <p className="text-[#D4D4D8] text-lg mb-4">
                           {t("stock_page.no_results")}
                         </p>
                         <button
                           onClick={clearFilters}
-                          className="text-gray-900 underline hover:no-underline text-sm"
+                          className="text-[#ffff00] underline hover:no-underline text-sm"
                         >
                           {t("stock_page.clear_filters")}
                         </button>
@@ -281,13 +282,13 @@ const Stock = () => {
               {/* Infinite scroll sentinel */}
               <div ref={loadMoreRef} className="flex justify-center py-8">
                 {isFetchingNextPage && (
-                  <div className="flex items-center gap-2 text-gray-400 text-sm">
-                    <Loader2 className="h-5 w-5 animate-spin" />
+                  <div className="flex items-center gap-2 text-[#D4D4D8] text-sm">
+                    <Loader2 className="h-5 w-5 animate-spin text-[#ffff00]" />
                     <span>Cargando más vehículos...</span>
                   </div>
                 )}
                 {!hasNextPage && vehicles.length > 0 && !isLoading && (
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-white/85 text-sm">
                     Mostrando {vehicles.length} de {totalVehicles} vehículos
                   </p>
                 )}

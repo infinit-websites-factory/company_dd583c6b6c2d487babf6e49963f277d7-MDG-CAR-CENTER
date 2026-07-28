@@ -91,15 +91,20 @@ const Sell = () => {
   // Generate years from 2025 down to 2000
   const years = Array.from({ length: 26 }, (_, i) => (2025 - i).toString());
 
+  // Body-type options depend on the vehicle type
+  const carroceriaTurismo = ["berlina", "coupe", "cabrio", "familiar", "monovolumen", "suv", "pickup", "otro"];
+  const carroceriaIndustrial = ["furgon", "furgoneta", "chasis", "camion", "isotermo", "volquete", "otro"];
+  const carroceriaOptions = formData.tipoVehiculo === "industrial" ? carroceriaIndustrial : carroceriaTurismo;
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   const handleSelectChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
-    // Reset marca when vehicle type changes
+    // Reset marca + carrocería when vehicle type changes (option lists differ)
     if (field === "tipoVehiculo") {
-      setFormData({ ...formData, [field]: value, marca: "" });
+      setFormData({ ...formData, [field]: value, marca: "", carroceria: "" });
     }
   };
 
@@ -121,7 +126,7 @@ const Sell = () => {
     if (!formData.tipoCambio) {
       newErrors.tipoCambio = t("sell_page.form.required_field");
     }
-    if (formData.tipoVehiculo === "turismo" && !formData.carroceria) {
+    if (!formData.carroceria) {
       newErrors.carroceria = t("sell_page.form.required_field");
     }
 
@@ -191,7 +196,7 @@ Modelo: ${formData.modelo}
 Versión: ${formData.version}
 Año: ${formData.ano}`;
 
-      if (formData.tipoVehiculo === "turismo" && formData.carroceria) {
+      if (formData.carroceria) {
         message += `\nCarrocería: ${formData.carroceria.charAt(0).toUpperCase() + formData.carroceria.slice(1)}`;
       }
 
@@ -251,77 +256,75 @@ Kilometraje: ${formData.kilometraje} km`;
 
       <main className="flex-1">
         {/* Hero Section with Form */}
-        <section className="relative pt-8 pb-20 px-4 overflow-hidden bg-[#f3f4f6]">
+        <section className="relative pt-12 pb-20 px-4 overflow-hidden bg-[#0B0B0C]">
+          {/* Radial spotlight */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,rgba(255,255,0,0.04)_0%,transparent_55%)] pointer-events-none" />
 
           <div className="container mx-auto max-w-7xl relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
               {/* Left side - Title, subtitle, and benefits */}
               <div className="lg:col-span-2 space-y-8">
                 <div className="space-y-4">
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-600 text-sm font-medium">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#161618] border border-[#ffff00]/40 text-[#ffff00] text-sm font-semibold">
                     <Car className="w-4 h-4" />
-                    {t("sell_page.hero.title")}
+                    Tasación Gratuita de tu Vehículo
                   </div>
-                  <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                  <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
                     {t("sell_page.hero.title")}
                   </h1>
-                  <p className="text-xl text-gray-500 leading-relaxed">
+                  <p className="text-xl text-[#D4D4D8] leading-relaxed">
                     {t("sell_page.hero.subtitle")}
                   </p>
                 </div>
 
                 {/* Benefits checklist */}
                 <div className="space-y-5">
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-amber-50 border border-amber-100 hover:bg-amber-100/60 transition-colors shadow-sm">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-200 flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-amber-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.best_price.title")}</h3>
-                      <p className="text-gray-500 text-sm">{t("sell_page.benefits.best_price.description")}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-blue-50 border border-blue-100 hover:bg-blue-100/60 transition-colors shadow-sm">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-200 flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.fast_process.title")}</h3>
-                      <p className="text-gray-500 text-sm">{t("sell_page.benefits.fast_process.description")}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-green-50 border border-green-100 hover:bg-green-100/60 transition-colors shadow-sm">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-200 flex items-center justify-center">
-                      <Shield className="w-5 h-5 text-green-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.no_commitment.title")}</h3>
-                      <p className="text-gray-500 text-sm">{t("sell_page.benefits.no_commitment.description")}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-purple-50 border border-purple-100 hover:bg-purple-100/60 transition-colors shadow-sm">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-200 flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5 text-purple-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-gray-900 mb-0.5">{t("sell_page.benefits.any_vehicle.title")}</h3>
-                      <p className="text-gray-500 text-sm">{t("sell_page.benefits.any_vehicle.description")}</p>
-                    </div>
-                  </div>
+                  {[
+                    { icon: Sparkles, titleKey: "sell_page.benefits.best_price.title", descKey: "sell_page.benefits.best_price.description" },
+                    { icon: Clock, titleKey: "sell_page.benefits.fast_process.title", descKey: "sell_page.benefits.fast_process.description" },
+                    { icon: Shield, titleKey: "sell_page.benefits.no_commitment.title", descKey: "sell_page.benefits.no_commitment.description" },
+                    { icon: CheckCircle2, titleKey: "sell_page.benefits.any_vehicle.title", descKey: "sell_page.benefits.any_vehicle.description" },
+                  ].map((b, i) => {
+                    const BIcon = b.icon;
+                    return (
+                      <div key={i} className="flex items-start gap-4 p-4 rounded-3xl bg-[#161618]/90 backdrop-blur-md border-2 border-[#ffff00]/60 shadow-[0_18px_40px_-18px_rgba(0,0,0,0.8),0_0_36px_-14px_rgba(255,255,0,0.28)] hover:border-[#ffff00] hover:-translate-y-0.5 hover:shadow-[0_20px_45px_-16px_rgba(0,0,0,0.85),0_0_48px_-10px_rgba(255,255,0,0.42)] transition-all duration-300">
+                        <div className="flex-shrink-0 bg-[#ffff00] text-black rounded-xl p-3 shadow-md flex items-center justify-center">
+                          <BIcon className="w-5 h-5 text-black" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-base text-white mb-1">{t(b.titleKey as any)}</h3>
+                          <p className="text-slate-300 text-xs font-normal">{t(b.descKey as any)}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
               {/* Right side - Form */}
               <div className="lg:col-span-3">
-                <Card className="bg-white border border-gray-200 shadow-lg">
+                <Card className="mdg-form-light bg-[#161618] border rounded-3xl shadow-2xl">
                   <CardHeader className="space-y-4">
+                    {/* Step indicator */}
+                    {currentStep !== 3 && (
+                      <div className="mb-1">
+                        <div className="flex items-center justify-between text-xs font-semibold mb-2">
+                          <span className={currentStep >= 1 ? "text-[#ffff00]" : "text-white/85"}>Paso 01 · Datos del Vehículo</span>
+                          <span className={currentStep >= 2 ? "text-[#ffff00]" : "text-white/85"}>Paso 02 · Contacto</span>
+                        </div>
+                        <div className="h-1.5 w-full bg-[#0B0B0C] rounded-full overflow-hidden border border-[#27272A]">
+                          <div
+                            className="h-full bg-[#ffff00] rounded-full transition-all duration-500"
+                            style={{ width: currentStep >= 2 ? "100%" : "50%" }}
+                          />
+                        </div>
+                      </div>
+                    )}
+
                     {currentStep === 1 && (
                       <div className="space-y-2">
-                        <CardTitle className="text-2xl text-primary">{t("sell_page.form.step1.title")}</CardTitle>
-                        <p className="text-sm text-gray-500">
+                        <CardTitle className="text-2xl text-white">{t("sell_page.form.step1.title")}</CardTitle>
+                        <p className="text-sm text-[#D4D4D8]">
                           {t("sell_page.form.step1.subtitle")}
                         </p>
                       </div>
@@ -329,8 +332,8 @@ Kilometraje: ${formData.kilometraje} km`;
 
                     {currentStep === 2 && (
                       <div className="space-y-2">
-                        <CardTitle className="text-2xl text-primary">{t("sell_page.form.step2.title")}</CardTitle>
-                        <p className="text-sm text-gray-500">
+                        <CardTitle className="text-2xl text-white">{t("sell_page.form.step2.title")}</CardTitle>
+                        <p className="text-sm text-[#D4D4D8]">
                           {t("sell_page.form.step2.subtitle")}
                         </p>
                       </div>
@@ -346,18 +349,18 @@ Kilometraje: ${formData.kilometraje} km`;
                       <div className="space-y-6 animate-fade-in">
                         {/* Vehicle Type Toggle Buttons */}
                         <div className="space-y-2">
-                          <Label className="text-gray-600">{t("sell_page.form.vehicle_type")} {t("sell_page.form.required")}</Label>
+                          <Label className="text-slate-800 text-xs font-bold">{t("sell_page.form.vehicle_type")} {t("sell_page.form.required")}</Label>
                           <div className="grid grid-cols-2 gap-3">
                             <button
                               type="button"
-                              className={`h-10 rounded-md border px-4 text-sm font-medium transition-colors ${formData.tipoVehiculo === "turismo" ? "bg-gray-900 text-white border-gray-900" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
+                              className={`h-11 rounded-xl border px-4 text-sm transition-all ${formData.tipoVehiculo === "turismo" ? "bg-[#ffff00] text-black border-[#ffff00] font-bold shadow-sm" : "bg-slate-100 text-slate-700 border-transparent hover:bg-slate-200 font-medium"}`}
                               onClick={() => handleSelectChange("tipoVehiculo", "turismo")}
                             >
                               {t("sell_page.form.vehicle_type_tourism")}
                             </button>
                             <button
                               type="button"
-                              className={`h-10 rounded-md border px-4 text-sm font-medium transition-colors ${formData.tipoVehiculo === "industrial" ? "bg-gray-900 text-white border-gray-900" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
+                              className={`h-11 rounded-xl border px-4 text-sm transition-all ${formData.tipoVehiculo === "industrial" ? "bg-[#ffff00] text-black border-[#ffff00] font-bold shadow-sm" : "bg-slate-100 text-slate-700 border-transparent hover:bg-slate-200 font-medium"}`}
                               onClick={() => handleSelectChange("tipoVehiculo", "industrial")}
                             >
                               {t("sell_page.form.vehicle_type_industrial")}
@@ -368,7 +371,7 @@ Kilometraje: ${formData.kilometraje} km`;
                         {/* Marca - Modelo */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="marca" className="text-gray-600">{t("sell_page.form.brand")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="marca" className="text-slate-800 text-xs font-bold">{t("sell_page.form.brand")} {t("sell_page.form.required")}</Label>
                             <Select
                               value={formData.marca}
                               onValueChange={(value) => {
@@ -378,7 +381,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               required
                               disabled={!formData.tipoVehiculo}
                             >
-                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.marca ? "border-red-500" : "border-gray-200"}`}>
+                              <SelectTrigger className={`bg-[#0B0B0C] data-[placeholder]:text-[#D4D4D8] text-white focus:border-[#ffff00] focus:shadow-[0_0_12px_rgba(255,255,0,0.25)] ${errors.marca ? "border-red-500" : "border-[#27272A]"}`}>
                                 <SelectValue placeholder={t("sell_page.form.brand_placeholder")} />
                               </SelectTrigger>
                               <SelectContent>
@@ -390,77 +393,58 @@ Kilometraje: ${formData.kilometraje} km`;
                             {errors.marca && <p className="text-sm text-red-500">{errors.marca}</p>}
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="modelo" className="text-gray-600">{t("sell_page.form.model")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="modelo" className="text-slate-800 text-xs font-bold">{t("sell_page.form.model")} {t("sell_page.form.required")}</Label>
                             <Input
                               id="modelo"
                               placeholder={t("sell_page.form.model_placeholder")}
                               value={formData.modelo}
                               onChange={handleInputChange}
                               required
-                              className="bg-white border-gray-200 text-gray-900"
+                              className="bg-[#0B0B0C] border-[#27272A] text-white focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_12px_rgba(255,255,0,0.25)]"
                             />
                           </div>
                         </div>
 
                         {/* Versión - Carrocería */}
-                        {formData.tipoVehiculo === "turismo" ? (
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="version" className="text-gray-600">{t("sell_page.form.version")} {t("sell_page.form.required")}</Label>
-                              <Input
-                                id="version"
-                                placeholder={t("sell_page.form.version_placeholder")}
-                                value={formData.version}
-                                onChange={handleInputChange}
-                                required
-                                className="bg-white border-gray-200 text-gray-900"
-                              />
-                            </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="carroceria" className="text-gray-600">{t("sell_page.form.body_type")} {t("sell_page.form.required")}</Label>
-                              <Select
-                                value={formData.carroceria}
-                                onValueChange={(value) => {
-                                  handleSelectChange("carroceria", value);
-                                  setErrors({ ...errors, carroceria: "" });
-                                }}
-                                required
-                              >
-                                <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.carroceria ? "border-red-500" : "border-gray-200"}`}>
-                                  <SelectValue placeholder={t("sell_page.form.body_type_placeholder")} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="berlina">{t("sell_page.form.body_types.berlina")}</SelectItem>
-                                  <SelectItem value="coupe">{t("sell_page.form.body_types.coupe")}</SelectItem>
-                                  <SelectItem value="cabrio">{t("sell_page.form.body_types.cabrio")}</SelectItem>
-                                  <SelectItem value="familiar">{t("sell_page.form.body_types.familiar")}</SelectItem>
-                                  <SelectItem value="monovolumen">{t("sell_page.form.body_types.monovolumen")}</SelectItem>
-                                  <SelectItem value="suv">{t("sell_page.form.body_types.suv")}</SelectItem>
-                                  <SelectItem value="pickup">{t("sell_page.form.body_types.pickup")}</SelectItem>
-                                  <SelectItem value="otro">{t("sell_page.form.body_types.otro")}</SelectItem>
-                                </SelectContent>
-                              </Select>
-                              {errors.carroceria && <p className="text-sm text-red-500">{errors.carroceria}</p>}
-                            </div>
-                          </div>
-                        ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="version" className="text-gray-600">{t("sell_page.form.version")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="version" className="text-slate-800 text-xs font-bold">{t("sell_page.form.version")} {t("sell_page.form.required")}</Label>
                             <Input
                               id="version"
                               placeholder={t("sell_page.form.version_placeholder")}
                               value={formData.version}
                               onChange={handleInputChange}
                               required
-                              className="bg-white border-gray-200 text-gray-900"
+                              className="bg-[#0B0B0C] border-[#27272A] text-white focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_12px_rgba(255,255,0,0.25)]"
                             />
                           </div>
-                        )}
+                          <div className="space-y-2">
+                            <Label htmlFor="carroceria" className="text-slate-800 text-xs font-bold">{t("sell_page.form.body_type")} {t("sell_page.form.required")}</Label>
+                            <Select
+                              value={formData.carroceria}
+                              onValueChange={(value) => {
+                                handleSelectChange("carroceria", value);
+                                setErrors({ ...errors, carroceria: "" });
+                              }}
+                              required
+                            >
+                              <SelectTrigger className={`bg-[#0B0B0C] data-[placeholder]:text-[#D4D4D8] text-white focus:border-[#ffff00] focus:shadow-[0_0_12px_rgba(255,255,0,0.25)] ${errors.carroceria ? "border-red-500" : "border-[#27272A]"}`}>
+                                <SelectValue placeholder={t("sell_page.form.body_type_placeholder")} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {carroceriaOptions.map((c) => (
+                                  <SelectItem key={c} value={c}>{t(`sell_page.form.body_types.${c}` as any)}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            {errors.carroceria && <p className="text-sm text-red-500">{errors.carroceria}</p>}
+                          </div>
+                        </div>
 
                         {/* Tipo de cambio - Combustible */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="tipoCambio" className="text-gray-600">{t("sell_page.form.transmission")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="tipoCambio" className="text-slate-800 text-xs font-bold">{t("sell_page.form.transmission")} {t("sell_page.form.required")}</Label>
                             <Select
                               value={formData.tipoCambio}
                               onValueChange={(value) => {
@@ -469,7 +453,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               }}
                               required
                             >
-                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.tipoCambio ? "border-red-500" : "border-gray-200"}`}>
+                              <SelectTrigger className={`bg-[#0B0B0C] data-[placeholder]:text-[#D4D4D8] text-white focus:border-[#ffff00] focus:shadow-[0_0_12px_rgba(255,255,0,0.25)] ${errors.tipoCambio ? "border-red-500" : "border-[#27272A]"}`}>
                                 <SelectValue placeholder={t("sell_page.form.transmission_placeholder")} />
                               </SelectTrigger>
                               <SelectContent>
@@ -480,7 +464,7 @@ Kilometraje: ${formData.kilometraje} km`;
                             {errors.tipoCambio && <p className="text-sm text-red-500">{errors.tipoCambio}</p>}
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="combustible" className="text-gray-600">{t("sell_page.form.fuel")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="combustible" className="text-slate-800 text-xs font-bold">{t("sell_page.form.fuel")} {t("sell_page.form.required")}</Label>
                             <Select
                               value={formData.combustible}
                               onValueChange={(value) => {
@@ -489,7 +473,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               }}
                               required
                             >
-                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.combustible ? "border-red-500" : "border-gray-200"}`}>
+                              <SelectTrigger className={`bg-[#0B0B0C] data-[placeholder]:text-[#D4D4D8] text-white focus:border-[#ffff00] focus:shadow-[0_0_12px_rgba(255,255,0,0.25)] ${errors.combustible ? "border-red-500" : "border-[#27272A]"}`}>
                                 <SelectValue placeholder={t("sell_page.form.fuel_placeholder")} />
                               </SelectTrigger>
                               <SelectContent>
@@ -508,7 +492,7 @@ Kilometraje: ${formData.kilometraje} km`;
                         {/* Año - Color */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="ano" className="text-gray-600">{t("sell_page.form.year")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="ano" className="text-slate-800 text-xs font-bold">{t("sell_page.form.year")} {t("sell_page.form.required")}</Label>
                             <Select
                               value={formData.ano}
                               onValueChange={(value) => {
@@ -517,7 +501,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               }}
                               required
                             >
-                              <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.ano ? "border-red-500" : "border-gray-200"}`}>
+                              <SelectTrigger className={`bg-[#0B0B0C] data-[placeholder]:text-[#D4D4D8] text-white focus:border-[#ffff00] focus:shadow-[0_0_12px_rgba(255,255,0,0.25)] ${errors.ano ? "border-red-500" : "border-[#27272A]"}`}>
                                 <SelectValue placeholder={t("sell_page.form.year_placeholder")} />
                               </SelectTrigger>
                               <SelectContent>
@@ -529,14 +513,14 @@ Kilometraje: ${formData.kilometraje} km`;
                             {errors.ano && <p className="text-sm text-red-500">{errors.ano}</p>}
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="color" className="text-gray-600">{t("sell_page.form.color")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="color" className="text-slate-800 text-xs font-bold">{t("sell_page.form.color")} {t("sell_page.form.required")}</Label>
                             <Input
                               id="color"
                               placeholder={t("sell_page.form.color_placeholder")}
                               value={formData.color}
                               onChange={handleInputChange}
                               required
-                              className="bg-white border-gray-200 text-gray-900"
+                              className="bg-[#0B0B0C] border-[#27272A] text-white focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_12px_rgba(255,255,0,0.25)]"
                             />
                           </div>
                         </div>
@@ -544,7 +528,7 @@ Kilometraje: ${formData.kilometraje} km`;
                         {/* Kilometraje - Matrícula */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="kilometraje" className="text-gray-600">{t("sell_page.form.mileage")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="kilometraje" className="text-slate-800 text-xs font-bold">{t("sell_page.form.mileage")} {t("sell_page.form.required")}</Label>
                             <Input
                               id="kilometraje"
                               type="number"
@@ -552,17 +536,17 @@ Kilometraje: ${formData.kilometraje} km`;
                               value={formData.kilometraje}
                               onChange={handleInputChange}
                               required
-                              className="bg-white border-gray-200 text-gray-900"
+                              className="bg-[#0B0B0C] border-[#27272A] text-white focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_12px_rgba(255,255,0,0.25)]"
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="matricula" className="text-gray-600">{t("sell_page.form.license_plate")}</Label>
+                            <Label htmlFor="matricula" className="text-slate-800 text-xs font-bold">{t("sell_page.form.license_plate")}</Label>
                             <Input
                               id="matricula"
                               placeholder={t("sell_page.form.license_plate_placeholder")}
                               value={formData.matricula}
                               onChange={handleInputChange}
-                              className="bg-white border-gray-200 text-gray-900"
+                              className="bg-[#0B0B0C] border-[#27272A] text-white focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_12px_rgba(255,255,0,0.25)]"
                             />
                           </div>
                         </div>
@@ -583,7 +567,7 @@ Kilometraje: ${formData.kilometraje} km`;
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="space-y-6 animate-fade-in">
                         <div className="space-y-2">
-                          <Label htmlFor="cuandoVender" className="text-gray-600">{t("sell_page.form.when_to_sell")} {t("sell_page.form.required")}</Label>
+                          <Label htmlFor="cuandoVender" className="text-slate-800 text-xs font-bold">{t("sell_page.form.when_to_sell")} {t("sell_page.form.required")}</Label>
                           <Select
                             value={formData.cuandoVender}
                             onValueChange={(value) => {
@@ -592,7 +576,7 @@ Kilometraje: ${formData.kilometraje} km`;
                             }}
                             required
                           >
-                            <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.cuandoVender ? "border-red-500" : "border-gray-200"}`}>
+                            <SelectTrigger className={`bg-[#0B0B0C] data-[placeholder]:text-[#D4D4D8] text-white focus:border-[#ffff00] focus:shadow-[0_0_12px_rgba(255,255,0,0.25)] ${errors.cuandoVender ? "border-red-500" : "border-[#27272A]"}`}>
                               <SelectValue placeholder={t("sell_page.form.when_to_sell_placeholder")} />
                             </SelectTrigger>
                             <SelectContent>
@@ -606,7 +590,7 @@ Kilometraje: ${formData.kilometraje} km`;
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="interesIntercambio" className="text-gray-600">{t("sell_page.form.interested_trade")} {t("sell_page.form.required")}</Label>
+                          <Label htmlFor="interesIntercambio" className="text-slate-800 text-xs font-bold">{t("sell_page.form.interested_trade")} {t("sell_page.form.required")}</Label>
                           <Select
                             value={formData.interesIntercambio}
                             onValueChange={(value) => {
@@ -615,7 +599,7 @@ Kilometraje: ${formData.kilometraje} km`;
                             }}
                             required
                           >
-                            <SelectTrigger className={`bg-white data-[placeholder]:text-gray-600 ${errors.interesIntercambio ? "border-red-500" : "border-gray-200"}`}>
+                            <SelectTrigger className={`bg-[#0B0B0C] data-[placeholder]:text-[#D4D4D8] text-white focus:border-[#ffff00] focus:shadow-[0_0_12px_rgba(255,255,0,0.25)] ${errors.interesIntercambio ? "border-red-500" : "border-[#27272A]"}`}>
                               <SelectValue placeholder={t("sell_page.form.interested_trade_placeholder")} />
                             </SelectTrigger>
                             <SelectContent>
@@ -628,7 +612,7 @@ Kilometraje: ${formData.kilometraje} km`;
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="nombre" className="text-gray-600">{t("sell_page.form.first_name")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="nombre" className="text-slate-800 text-xs font-bold">{t("sell_page.form.first_name")} {t("sell_page.form.required")}</Label>
                             <Input
                               id="nombre"
                               name="nombre"
@@ -636,11 +620,11 @@ Kilometraje: ${formData.kilometraje} km`;
                               value={formData.nombre}
                               onChange={handleInputChange}
                               required
-                              className="bg-white border-gray-200 text-gray-900"
+                              className="bg-[#0B0B0C] border-[#27272A] text-white focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_12px_rgba(255,255,0,0.25)]"
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="apellido" className="text-gray-600">{t("sell_page.form.last_name")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="apellido" className="text-slate-800 text-xs font-bold">{t("sell_page.form.last_name")} {t("sell_page.form.required")}</Label>
                             <Input
                               id="apellido"
                               name="apellido"
@@ -648,14 +632,14 @@ Kilometraje: ${formData.kilometraje} km`;
                               value={formData.apellido}
                               onChange={handleInputChange}
                               required
-                              className="bg-white border-gray-200 text-gray-900"
+                              className="bg-[#0B0B0C] border-[#27272A] text-white focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_12px_rgba(255,255,0,0.25)]"
                             />
                           </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="email" className="text-gray-600">{t("sell_page.form.email")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="email" className="text-slate-800 text-xs font-bold">{t("sell_page.form.email")} {t("sell_page.form.required")}</Label>
                             <Input
                               id="email"
                               name="email"
@@ -664,11 +648,11 @@ Kilometraje: ${formData.kilometraje} km`;
                               value={formData.email}
                               onChange={handleInputChange}
                               required
-                              className="bg-white border-gray-200 text-gray-900"
+                              className="bg-[#0B0B0C] border-[#27272A] text-white focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_12px_rgba(255,255,0,0.25)]"
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="telefono" className="text-gray-600">{t("sell_page.form.phone")} {t("sell_page.form.required")}</Label>
+                            <Label htmlFor="telefono" className="text-slate-800 text-xs font-bold">{t("sell_page.form.phone")} {t("sell_page.form.required")}</Label>
                             <div className="flex">
                               <div className="flex items-center px-3 bg-[#101318] border border-r-0 border-[#1F232A] rounded-l-md">
                                 <span className="text-sm text-red-600 font-semibold">{getFlag()}</span>
@@ -681,7 +665,7 @@ Kilometraje: ${formData.kilometraje} km`;
                                 value={formData.telefono}
                                 onChange={handleInputChange}
                                 required
-                                className="bg-white border-gray-200 text-gray-900 rounded-l-none"
+                                className="bg-[#0B0B0C] border-[#27272A] text-white focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_12px_rgba(255,255,0,0.25)] rounded-l-none"
                               />
                             </div>
                           </div>
@@ -696,12 +680,12 @@ Kilometraje: ${formData.kilometraje} km`;
                                 setFormData({ ...formData, acceptPrivacy: checked as boolean })
                               }
                             />
-                            <Label htmlFor="acceptPrivacy" className="text-sm text-white/50">
+                            <Label htmlFor="acceptPrivacy" className="text-sm text-white/85">
                               {t("sell_page.form.accept_privacy")}{" "}
                               <button
                                 type="button"
                                 onClick={() => setOpenPrivacyModal(true)}
-                                className="text-primary hover:text-white/50 underline"
+                                className="text-white font-medium hover:text-[#D4D4D8] underline"
                               >
                                 {t("sell_page.form.privacy_policy")}
                               </button>.
@@ -710,15 +694,15 @@ Kilometraje: ${formData.kilometraje} km`;
                         </div>
 
                         {/* Photo upload hint */}
-                        <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/25">
+                        <div className="flex items-start gap-3 p-4 rounded-xl bg-[#ffff00]/10 border border-[#ffff00]/40">
                           <span className="text-2xl flex-shrink-0">📸</span>
                           <div>
-                            <p className="text-sm font-semibold text-amber-400 mb-1">Añade fotos de tu vehículo</p>
-                            <p className="text-xs text-white/50 leading-relaxed">
+                            <p className="text-sm font-semibold text-white mb-1">Añade fotos de tu vehículo</p>
+                            <p className="text-xs text-[#D4D4D8] leading-relaxed">
                               Tras enviar el formulario, te recomendamos enviar fotos del vehículo (delantera, trasera, laterales, interior y cuentakilómetros) por WhatsApp al{" "}
-                              <a href="tel:+34610202100" className="text-amber-400 font-medium underline">610 20 21 00</a>
+                              <a href="tel:+34633406310" className="text-white font-semibold underline">633 406 310</a>
                               {" "}o por email a{" "}
-                              <a href="mailto:info@editioncars.es" className="text-amber-400 font-medium underline">info@editioncars.es</a>
+                              <a href="mailto:info@mdgcarcenter.com" className="text-white font-semibold underline">info@mdgcarcenter.com</a>
                               . Las fotos nos ayudan a ofrecerte una valoración más precisa.
                             </p>
                           </div>
@@ -758,7 +742,7 @@ Kilometraje: ${formData.kilometraje} km`;
                                 acceptPrivacy: false
                               });
                             }}
-                            className="w-full text-center text-sm text-gray-500 hover:text-foreground underline"
+                            className="w-full text-center text-sm text-[#D4D4D8] hover:text-foreground underline"
                           >
                             {t("sell_page.form.cancel")}
                           </button>
@@ -789,12 +773,12 @@ Kilometraje: ${formData.kilometraje} km`;
                           <p className="text-sm font-semibold text-green-400 flex items-center gap-2">
                             <span>📸</span> Siguiente paso: envía las fotos
                           </p>
-                          <p className="text-xs text-white/50 leading-relaxed">
+                          <p className="text-xs text-white/85 leading-relaxed">
                             Para recibir una valoración más precisa, envíanos fotos de tu vehículo (delantera, trasera, laterales, interior y cuentakilómetros).
                           </p>
                           <div className="flex flex-col gap-2 pt-1">
                             <a
-                              href={`https://wa.me/34610202100?text=${encodeURIComponent('Hola, acabo de enviar el formulario de tasación y quiero adjuntar las fotos de mi vehículo.')}`}
+                              href={`https://wa.me/34633406310?text=${encodeURIComponent('Hola, acabo de enviar el formulario de tasación y quiero adjuntar las fotos de mi vehículo.')}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-[#25D366] text-white text-sm font-semibold rounded-lg hover:bg-[#1ebe5a] transition-colors"
@@ -805,8 +789,8 @@ Kilometraje: ${formData.kilometraje} km`;
                               Enviar fotos por WhatsApp
                             </a>
                             <a
-                              href="mailto:info@editioncars.es?subject=Fotos tasación vehículo"
-                              className="flex items-center justify-center gap-2 w-full py-2.5 px-4 border border-white/20 text-white/70 text-sm font-medium rounded-lg hover:bg-white/5 transition-colors"
+                              href="mailto:info@mdgcarcenter.com?subject=Fotos tasación vehículo"
+                              className="flex items-center justify-center gap-2 w-full py-2.5 px-4 border border-white/20 text-white/90 text-sm font-medium rounded-lg hover:bg-white/5 transition-colors"
                             >
                               Enviar fotos por email
                             </a>
@@ -852,6 +836,86 @@ Kilometraje: ${formData.kilometraje} km`;
             </div>
           </div>
         </section>
+
+        {/* ¿Cómo vender tu coche? — 3-step process */}
+        <section className="relative py-20 px-4 bg-[#0B0B0C] border-t border-[#27272A] overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(255,255,0,0.05)_0%,transparent_60%)] pointer-events-none" />
+          <div className="container mx-auto max-w-6xl relative z-10">
+            {/* Header */}
+            <div className="text-center mb-14">
+              <p className="text-[#ffff00] text-sm tracking-[0.28em] uppercase mb-3 font-semibold">
+                ¿Cómo vender tu coche en MDG?
+              </p>
+              <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4 leading-tight">
+                Vende o tasa tu coche<br className="hidden md:block" /> en 3 sencillos pasos.
+              </h2>
+              <p className="text-[#D4D4D8] max-w-2xl mx-auto leading-relaxed">
+                Te acompañamos durante todo el proceso para que vender o cambiar tu coche sea fácil, transparente y sin compromiso.
+              </p>
+            </div>
+
+            {/* Timeline */}
+            <div className="relative">
+              {/* Glowing dotted connector (desktop) */}
+              <div
+                className="hidden md:block absolute top-[52px] left-[16.66%] right-[16.66%] h-px z-0"
+                style={{
+                  backgroundImage: "repeating-linear-gradient(90deg, rgba(255,255,0,0.55) 0 8px, transparent 8px 18px)",
+                  filter: "drop-shadow(0 0 6px rgba(255,255,0,0.5))",
+                }}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                {[
+                  {
+                    n: "01",
+                    title: "Solicita tu tasación gratuita",
+                    desc: "Rellena el formulario con los datos de tu vehículo. Recibirás una valoración profesional y sin compromiso en el menor tiempo posible.",
+                  },
+                  {
+                    n: "02",
+                    title: "Inspección y recogida",
+                    desc: "Revisamos tu coche en nuestras instalaciones de Purullena (Granada) o coordinamos la recogida. Nos desplazamos por toda España.",
+                  },
+                  {
+                    n: "03",
+                    title: "Cierre y trámites",
+                    desc: "Acordamos el precio y realizamos el pago por transferencia bancaria. Nos encargamos del cambio de nombre y de todo el papeleo por ti.",
+                  },
+                ].map((step) => (
+                  <div
+                    key={step.n}
+                    className="mdg-feature-card group relative backdrop-blur-xl rounded-2xl p-7 text-center hover:-translate-y-1.5 transition-all duration-500"
+                  >
+                    {/* Number badge */}
+                    <div className="w-14 h-14 mx-auto mb-5 rounded-full bg-[#ffff00] flex items-center justify-center font-heading font-bold text-xl text-black shadow-[0_0_22px_rgba(255,255,0,0.5)] group-hover:scale-110 transition-transform duration-300">
+                      {step.n}
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-3">{step.title}</h3>
+                    <p className="text-[#D4D4D8] text-sm leading-relaxed">{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Trust badges strip */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-14 max-w-3xl mx-auto">
+              {[
+                "Tasación gratuita y sin compromiso",
+                "Entrega y recogida en toda España",
+                "Aceptamos tu coche como parte de pago",
+                "Gestionamos todos los trámites por ti",
+              ].map((label) => (
+                <span
+                  key={label}
+                  className="group inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#161618]/80 backdrop-blur-md border border-[#ffff00]/30 text-white/85 text-sm font-medium text-center shadow-[0_4px_14px_rgba(0,0,0,0.5)] hover:border-[#ffff00] hover:text-white hover:-translate-y-0.5 hover:shadow-[0_8px_22px_-6px_rgba(255,255,0,0.4)] transition-all duration-300"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-[#ffff00] flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <FAQ />
@@ -860,15 +924,15 @@ Kilometraje: ${formData.kilometraje} km`;
 
       {/* Privacy Policy Modal */}
       <Dialog open={openPrivacyModal} onOpenChange={setOpenPrivacyModal}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="mdg-form-light max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">{t('legal.privacy_policy.title')}</DialogTitle>
           </DialogHeader>
-          <div className="mt-4 text-sm text-gray-500">
+          <div className="mt-4 text-sm text-[#D4D4D8]">
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">{t('legal.privacy_policy.section_2_1.title')}</h3>
               <div className="bg-muted/50 p-4 rounded-lg">
-                <p><strong>{t('legal.privacy_policy.section_2_1.company_name')}:</strong> EDITION CARS</p>
+                <p><strong>{t('legal.privacy_policy.section_2_1.company_name')}:</strong> MDG CAR CENTER</p>
                 <p><strong>{t('legal.privacy_policy.section_2_1.address')}:</strong> {address.full}</p>
                 <p><strong>{t('legal.privacy_policy.section_2_1.phone')}:</strong> {getPhoneNumber()}</p>
               </div>

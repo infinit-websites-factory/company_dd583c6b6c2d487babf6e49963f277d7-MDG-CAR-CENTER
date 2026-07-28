@@ -26,7 +26,7 @@ const LanguageSelector = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center space-x-2 px-3 py-2 rounded-md border-2 border-border hover:border-white/30 hover:text-white/60 transition-colors cursor-pointer outline-none text-nav-muted bg-background/50">
+      <DropdownMenuTrigger className="flex items-center space-x-2 px-3 py-2 rounded-md border-2 border-border hover:border-white/30 hover:text-white/85 transition-colors cursor-pointer outline-none text-nav-muted bg-background/50">
         <span className="flex items-center space-x-2">
           <span className="text-xl">{currentLanguage.flag}</span>
           <span className="text-base">{currentLanguage.name}</span>

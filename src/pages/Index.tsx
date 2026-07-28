@@ -22,9 +22,9 @@ const Index = () => {
         <div className="flex items-center gap-4">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-blue-400" />
-            <span className="w-2 h-2 rounded-full bg-violet-400" />
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span className="w-2 h-2 rounded-full bg-[#ffff00]" />
+            <span className="w-2 h-2 rounded-full bg-black" />
+            <span className="w-2 h-2 rounded-full bg-[#ffff00]" />
           </div>
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
         </div>

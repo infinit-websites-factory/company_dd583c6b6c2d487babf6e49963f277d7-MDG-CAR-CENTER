@@ -13,6 +13,8 @@ import Financing from "./pages/Financing";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import BajoPedido from "./pages/BajoPedido";
+import Presupuestos from "./pages/Presupuestos";
 import NotFound from "./pages/NotFound";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 
@@ -35,6 +37,8 @@ const App = () => (
               <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/nosotros" element={<About />} />
+              <Route path="/bajo-pedido" element={<BajoPedido />} />
+              <Route path="/presupuestos" element={<Presupuestos />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

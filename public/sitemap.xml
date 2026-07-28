@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- REPLACE_DOMAIN: Update https://www.tbc.com with your actual domain -->
+<!-- MDG CAR CENTER -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.tbc.com/</loc>
+    <loc>https://mdgcarcenter.com/</loc>
   </url>
   <url>
-    <loc>https://www.tbc.com/stock</loc>
+    <loc>https://mdgcarcenter.com/stock</loc>
   </url>
   <url>
-    <loc>https://www.tbc.com/sell</loc>
+    <loc>https://mdgcarcenter.com/sell</loc>
   </url>
   <url>
-    <loc>https://www.tbc.com/financing</loc>
+    <loc>https://mdgcarcenter.com/financing</loc>
   </url>
   <url>
-    <loc>https://www.tbc.com/services</loc>
+    <loc>https://mdgcarcenter.com/services</loc>
   </url>
   <url>
-    <loc>https://www.tbc.com/contact</loc>
+    <loc>https://mdgcarcenter.com/contact</loc>
   </url>
 </urlset>

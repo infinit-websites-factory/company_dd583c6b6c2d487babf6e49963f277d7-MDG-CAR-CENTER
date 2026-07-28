@@ -2,16 +2,7 @@ import { useState } from "react";
 import { ShieldCheck, CreditCard, Truck, Car, Clock, Wrench, Key, HelpCircle, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const faqData = [
-  { icon: ShieldCheck, color: "blue",    bg: "bg-blue-500",    light: "bg-blue-50",   border: "border-blue-200",   text: "text-blue-600",   ring: "ring-blue-500"   },
-  { icon: ShieldCheck, color: "emerald", bg: "bg-emerald-500", light: "bg-emerald-50",border: "border-emerald-200",text: "text-emerald-600",ring: "ring-emerald-500" },
-  { icon: CreditCard,  color: "violet",  bg: "bg-violet-500",  light: "bg-violet-50", border: "border-violet-200", text: "text-violet-600", ring: "ring-violet-500"  },
-  { icon: Truck,       color: "amber",   bg: "bg-amber-500",   light: "bg-amber-50",  border: "border-amber-200",  text: "text-amber-600",  ring: "ring-amber-500"   },
-  { icon: Car,         color: "rose",    bg: "bg-rose-500",    light: "bg-rose-50",   border: "border-rose-200",   text: "text-rose-600",   ring: "ring-rose-500"    },
-  { icon: Clock,       color: "cyan",    bg: "bg-cyan-500",    light: "bg-cyan-50",   border: "border-cyan-200",   text: "text-cyan-600",   ring: "ring-cyan-500"    },
-  { icon: Key,         color: "indigo",  bg: "bg-indigo-500",  light: "bg-indigo-50", border: "border-indigo-200", text: "text-indigo-600", ring: "ring-indigo-500"  },
-  { icon: Wrench,      color: "fuchsia", bg: "bg-fuchsia-500", light: "bg-fuchsia-50",border: "border-fuchsia-200",text: "text-fuchsia-600",ring: "ring-fuchsia-500" },
-];
+const faqIcons = [ShieldCheck, ShieldCheck, CreditCard, Truck, Car, Clock, Key, Wrench];
 
 const FAQ = () => {
   const { t } = useLanguage();
@@ -30,59 +21,62 @@ const FAQ = () => {
   ];
 
   const faqs = showAll ? allFaqs : allFaqs.slice(0, 5);
-  const current = faqData[active % faqData.length];
-  const ActiveIcon = current.icon;
+  const ActiveIcon = faqIcons[active % faqIcons.length];
 
   return (
-    <section className="py-24 bg-gray-50 overflow-hidden">
+    <section className="relative py-24 bg-[#0B0B0C] overflow-hidden">
+      {/* Soft top-down spotlight */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "linear-gradient(180deg, rgba(255,255,0,0.03) 0%, transparent 40%)" }}
+      />
 
       {/* Section header */}
-      <div className="container mx-auto max-w-6xl px-4 mb-14 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-gray-200 rounded-full text-gray-500 text-sm mb-5 shadow-sm">
+      <div className="relative z-10 container mx-auto max-w-6xl px-4 mb-14 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#161618] border border-[#ffff00]/40 rounded-full text-[#ffff00] text-sm mb-5 font-semibold">
           <HelpCircle className="w-4 h-4" />
           Preguntas frecuentes
         </div>
-        <h2 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-3">
-          Todo lo que necesitas <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-violet-500">saber</span>
+        <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-3">
+          Todo lo que necesitas <span className="text-[#ffff00]">saber</span>
         </h2>
-        <p className="text-gray-400 text-lg">{t('faq.subtitle')}</p>
+        <p className="text-[#D4D4D8] text-lg">{t('faq.subtitle')}</p>
       </div>
 
       {/* Two-panel layout */}
-      <div className="container mx-auto max-w-6xl px-4">
+      <div className="relative z-10 container mx-auto max-w-6xl px-4">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
           {/* LEFT — question list */}
           <div className="lg:col-span-2 space-y-2">
             {faqs.map((faq, i) => {
-              const cfg = faqData[i % faqData.length];
-              const Icon = cfg.icon;
+              const Icon = faqIcons[i % faqIcons.length];
               const isActive = active === i;
               return (
                 <button
                   key={i}
                   onClick={() => setActive(i)}
-                  className={`w-full text-left flex items-center gap-4 px-5 py-4 rounded-2xl border-2 transition-all duration-300 group
+                  className={`w-full text-left flex items-center gap-4 px-5 py-4 rounded-xl border-2 border-l-4 transition-all duration-300 group
                     ${isActive
-                      ? `${cfg.light} ${cfg.border} shadow-md`
-                      : "bg-white border-gray-100 hover:border-gray-200 hover:shadow-sm"
+                      ? "bg-[#1F1F23] border-[#27272A] border-l-[#ffff00] shadow-[0_0_24px_-8px_rgba(255,255,0,0.4)]"
+                      : "bg-[#18181B] border-[#27272A] border-l-transparent hover:border-l-[#ffff00]/50"
                     }`}
                 >
-                  {/* Coloured icon */}
+                  {/* Icon */}
                   <div className={`w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center transition-all duration-300
-                    ${isActive ? `${cfg.bg} shadow-lg scale-110` : "bg-gray-100 group-hover:bg-gray-200"}`}>
-                    <Icon className={`w-5 h-5 ${isActive ? "text-white" : "text-gray-400"}`} />
+                    ${isActive ? "bg-[#ffff00] shadow-lg scale-110" : "bg-white/5 group-hover:bg-[#ffff00]/15"}`}>
+                    <Icon className={`w-5 h-5 ${isActive ? "text-black" : "text-[#D4D4D8] group-hover:text-[#ffff00]"}`} />
                   </div>
 
                   {/* Question text */}
                   <span className={`text-sm font-semibold leading-snug flex-1 transition-colors duration-200
-                    ${isActive ? "text-gray-900" : "text-gray-600 group-hover:text-gray-800"}`}>
+                    ${isActive ? "text-white" : "text-white/80 group-hover:text-white"}`}>
                     {faq.question}
                   </span>
 
                   {/* Arrow */}
                   <ArrowRight className={`w-4 h-4 flex-shrink-0 transition-all duration-300
-                    ${isActive ? `${cfg.text} translate-x-0.5` : "text-gray-300 group-hover:text-gray-400"}`} />
+                    ${isActive ? "text-[#ffff00] translate-x-0.5" : "text-white/85 group-hover:text-white/85"}`} />
                 </button>
               );
             })}
@@ -91,60 +85,62 @@ const FAQ = () => {
             {allFaqs.length > 5 && (
               <button
                 onClick={() => setShowAll(!showAll)}
-                className="w-full py-3 rounded-2xl border-2 border-dashed border-gray-200 text-gray-400 text-sm hover:border-gray-300 hover:text-gray-600 transition-all duration-200"
+                className="w-full py-3 rounded-xl border-2 border-dashed border-[#27272A] text-[#D4D4D8] text-sm font-medium hover:border-[#ffff00] hover:text-white transition-all duration-200"
               >
                 {showAll ? "← Ver menos" : `+ Ver ${allFaqs.length - 5} preguntas más`}
               </button>
             )}
           </div>
 
-          {/* RIGHT — answer panel */}
+          {/* RIGHT — answer panel (premium dark) */}
           <div className="lg:col-span-3">
             <div
               key={active}
-              className={`h-full ${current.light} border-2 ${current.border} rounded-3xl p-8 md:p-10 relative overflow-hidden`}
+              className="h-full bg-[#161618] border border-[#27272A] rounded-2xl p-8 md:p-10 relative overflow-hidden"
               style={{ animation: "fadeSlideIn 0.3s ease" }}
             >
               {/* Big decorative icon background */}
-              <div className="absolute -right-8 -bottom-8 opacity-[0.06]">
-                <ActiveIcon className="w-48 h-48" style={{ color: "currentColor" }} />
+              <div className="absolute -right-8 -bottom-8 opacity-[0.05] text-[#ffff00]">
+                <ActiveIcon className="w-48 h-48" />
               </div>
+              {/* Brand glow */}
+              <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#ffff00]/10 rounded-full blur-3xl pointer-events-none" />
 
-              {/* Number badge */}
-              <div className={`inline-flex items-center gap-2 px-3 py-1 ${current.bg} rounded-full mb-6`}>
-                <span className="text-white text-xs font-bold tracking-wider">
+              {/* Number badge — yellow text */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#ffff00]/10 border border-[#ffff00]/30 rounded-full mb-6 relative z-10">
+                <span className="text-[#ffff00] text-xs font-bold tracking-wider">
                   {String(active + 1).padStart(2, "0")} / {String(faqs.length).padStart(2, "0")}
                 </span>
               </div>
 
-              {/* Icon */}
-              <div className={`w-16 h-16 ${current.bg} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
-                <ActiveIcon className="w-8 h-8 text-white" />
+              {/* Icon — circular yellow badge */}
+              <div className="w-16 h-16 bg-[#ffff00] rounded-full flex items-center justify-center mb-6 shadow-lg relative z-10">
+                <ActiveIcon className="w-8 h-8 text-black" />
               </div>
 
               {/* Question */}
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-5 leading-snug">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-5 leading-snug relative z-10">
                 {allFaqs[active]?.question}
               </h3>
 
               {/* Divider */}
-              <div className={`w-12 h-1 ${current.bg} rounded-full mb-5`} />
+              <div className="w-12 h-1 bg-[#ffff00] rounded-full mb-5 relative z-10" />
 
               {/* Answer */}
-              <p className="text-gray-600 leading-relaxed text-base">
+              <p className="text-[#E4E4E7] leading-relaxed text-base relative z-10">
                 {allFaqs[active]?.answer}
               </p>
 
               {/* Navigation dots */}
-              <div className="flex items-center gap-2 mt-8 pt-6 border-t border-white/60">
+              <div className="flex items-center gap-2 mt-8 pt-6 border-t border-white/10 relative z-10">
                 {faqs.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setActive(i)}
                     className={`rounded-full transition-all duration-300 ${
                       i === active
-                        ? `w-6 h-2.5 ${current.bg}`
-                        : "w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400"
+                        ? "w-6 h-2.5 bg-[#ffff00]"
+                        : "w-2.5 h-2.5 bg-white/20 hover:bg-white/40"
                     }`}
                   />
                 ))}

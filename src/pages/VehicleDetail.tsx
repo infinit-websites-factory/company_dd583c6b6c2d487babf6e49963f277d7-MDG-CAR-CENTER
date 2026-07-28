@@ -97,7 +97,7 @@ const VehicleDetail = () => {
     }
   }, [isError, navigate]);
   if (isLoading || !vehicle) {
-    return <div className="min-h-screen bg-background">
+    return <div className="min-h-screen bg-[#0B0B0C]">
         <Header />
         <div className="container mx-auto px-4 pt-8 pb-8">
           <div className="animate-pulse">
@@ -314,7 +314,7 @@ const VehicleDetail = () => {
       setIsSubmittingContact(false);
     }
   };
-  return <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-[#0B0B0C]">
       <SEO page="vehicle_detail" vehicleName={vehicle ? `${vehicle.brand} ${vehicle.model}` : undefined} />
       <Header />
       
@@ -330,17 +330,27 @@ const VehicleDetail = () => {
         {/* Vehicle Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold text-white">
               {vehicle.brand} {vehicle.model}
             </h1>
-            <div className="flex flex-wrap gap-2 mt-2">
-              <Badge variant="secondary">{vehicle.year}</Badge>
-              <Badge variant="secondary">{translateVehicleAttribute('transmission', vehicle.transmission)}</Badge>
-              <Badge variant="secondary">{translateVehicleAttribute('fuel', vehicle.fuel)}</Badge>
-              <Badge variant="secondary">{vehicle.mileage.toLocaleString()} {vehicle.mileageUnit}</Badge>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {[
+                vehicle.year,
+                translateVehicleAttribute('transmission', vehicle.transmission),
+                translateVehicleAttribute('fuel', vehicle.fuel),
+                `${vehicle.mileage.toLocaleString()} ${vehicle.mileageUnit}`,
+              ].map((b, i) => (
+                <span
+                  key={i}
+                  style={{ animationDelay: `${i * 0.07}s` }}
+                  className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#161618] border border-[#27272A] text-white/80 text-xs font-medium cursor-default transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ffff00] hover:text-white hover:shadow-[0_0_12px_rgba(255,255,0,0.25)] animate-[mdgPillIn_0.45s_ease-out_both]"
+                >
+                  {b}
+                </span>
+              ))}
             </div>
           </div>
-          <Button variant="outline" size="sm" onClick={handleShare} className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={handleShare} className="flex items-center gap-2 bg-white border-slate-200 text-slate-900/80 hover:border-[#ffff00] hover:text-white hover:bg-[#161618]">
             <Share2 className="w-4 h-4" />
             {t('vehicle_detail.actions.share')}
           </Button>
@@ -350,44 +360,56 @@ const VehicleDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           {/* Image Gallery */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="relative aspect-video rounded-lg overflow-hidden bg-muted group">
+            <div className="relative aspect-video rounded-2xl overflow-hidden bg-[#161618] border border-[#27272A] group">
               {vehicle.status === 'Reserved' && <ReservedBanner size="large" />}
               <img src={vehicle.images[currentImageIndex]} alt={`${vehicle.brand} ${vehicle.model}`} className="w-full h-full object-cover" />
-              
+              {/* inner vignette */}
+              <div className="pointer-events-none absolute inset-0 rounded-2xl shadow-[inset_0_0_80px_rgba(0,0,0,0.55)]" />
+
               {vehicle.images.length > 1 && <>
-                  <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-white opacity-0 group-hover:opacity-100 hover:bg-[#ffff00] hover:text-black hover:border-[#ffff00] transition-all">
                     <ChevronLeft className="w-5 h-5" />
                   </button>
-                  <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-white opacity-0 group-hover:opacity-100 hover:bg-[#ffff00] hover:text-black hover:border-[#ffff00] transition-all">
                     <ChevronRight className="w-5 h-5" />
                   </button>
-                  
-                  <div className="absolute bottom-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-sm">
+
+                  <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md border border-white/10 text-white/90 px-2.5 py-1 rounded-full text-xs">
                     {currentImageIndex + 1} / {vehicle.images.length}
                   </div>
                 </>}
             </div>
 
-            {/* Thumbnail Navigation */}
-            {vehicle.images.length > 1 && <div className="grid grid-cols-5 gap-2">
-                {vehicle.images.slice(0, 5).map((image, index) => <button key={index} onClick={() => setCurrentImageIndex(index)} className={`aspect-video rounded overflow-hidden border-2 transition-colors ${currentImageIndex === index ? 'border-primary' : 'border-transparent hover:border-muted-foreground'}`}>
+            {/* Thumbnail strip — horizontal scroll with yellow scrollbar */}
+            {vehicle.images.length > 1 && <div className="mdg-thumbs flex gap-2 overflow-x-auto pb-2.5 snap-x">
+                {vehicle.images.map((image, index) => <button key={index} onClick={() => setCurrentImageIndex(index)} className={`snap-start shrink-0 w-28 sm:w-32 aspect-video rounded-lg overflow-hidden border-2 transition-all duration-300 ${currentImageIndex === index ? 'border-[#ffff00] opacity-100 shadow-[0_0_14px_-2px_rgba(255,255,0,0.5)]' : 'border-[#27272A] opacity-50 hover:opacity-90'}`}>
                     <img src={image} alt={`${t('vehicle_detail.gallery.view_label')} ${index + 1}`} className="w-full h-full object-cover" />
                   </button>)}
               </div>}
 
+            <style>{`
+              .mdg-thumbs { scrollbar-width: thin; scrollbar-color: #ffff00 #161618; }
+              .mdg-thumbs::-webkit-scrollbar { height: 8px; }
+              .mdg-thumbs::-webkit-scrollbar-track { background: #161618; border-radius: 9999px; }
+              .mdg-thumbs::-webkit-scrollbar-thumb { background: #ffff00; border-radius: 9999px; }
+              .mdg-thumbs::-webkit-scrollbar-thumb:hover { background: #e6e600; }
+              @keyframes mdgPillIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+            `}</style>
+
             {/* Vehicle Description */}
-            <Card>
-              <CardHeader className="bg-muted">
-                <CardTitle>{t('vehicle_detail.details.title')}</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
+            <div className="bg-[#161618] border border-[#27272A] rounded-2xl overflow-hidden">
+              <div className="px-6 py-4 border-b border-[#27272A] flex items-center gap-2">
+                <span className="w-1.5 h-5 bg-[#ffff00] rounded-full" />
+                <h2 className="font-bold text-white">{t('vehicle_detail.details.title')}</h2>
+              </div>
+              <div className="p-6">
                 {vehicle.description ? (
-                  <div className="text-sm whitespace-pre-line">
+                  <div className="text-sm text-white/90 leading-relaxed whitespace-pre-line">
                     {vehicle.description}
                   </div>
                 ) : (
-                  <div className="space-y-3 text-sm">
-                    <p><strong>{vehicle.brand} {vehicle.model}</strong></p>
+                  <div className="space-y-3 text-sm text-white/90">
+                    <p><strong className="text-white">{vehicle.brand} {vehicle.model}</strong></p>
                     <p>{t('vehicle_detail.details.financing')}</p>
                     <p>{t('vehicle_detail.details.warranty')}</p>
                     <p>{t('vehicle_detail.details.transfer_costs')} {formatPrice(260)}.</p>
@@ -395,97 +417,71 @@ const VehicleDetail = () => {
                     <p>{t('vehicle_detail.details.delivery')}</p>
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            {/* Basic Data */}
-            <Card>
-              <CardHeader className="bg-muted">
-                <CardTitle>{t('vehicle_detail.specifications.title')}</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.year')}</div>
-                    <div className="font-semibold">{vehicle.year}</div>
+            {/* Spec sheet grid */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-1.5 h-5 bg-[#ffff00] rounded-full" />
+                <h2 className="text-xl font-bold text-white">{t('vehicle_detail.specifications.title')}</h2>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { label: t('vehicle_detail.specifications.year'), value: vehicle.year },
+                  { label: t('vehicle_detail.specifications.mileage'), value: `${vehicle.mileage.toLocaleString()} ${vehicle.mileageUnit}` },
+                  { label: t('vehicle_detail.specifications.fuel'), value: translateVehicleAttribute('fuel', vehicle.fuel) },
+                  { label: t('vehicle_detail.specifications.transmission'), value: translateVehicleAttribute('transmission', vehicle.transmission) },
+                  { label: t('vehicle_detail.specifications.body_type'), value: translateVehicleAttribute('body_type', vehicle.type) },
+                  vehicle.enginePower ? { label: t('vehicle_detail.specifications.engine_power'), value: `${vehicle.enginePower} CV` } : null,
+                  vehicle.engineSize ? { label: t('vehicle_detail.specifications.engine_size'), value: `${vehicle.engineSize} ${vehicle.engineSizeUnit}` } : null,
+                  vehicle.color ? { label: t('vehicle_detail.specifications.color'), value: translateVehicleAttribute('color', vehicle.color) } : null,
+                  vehicle.doors ? { label: t('vehicle_detail.specifications.doors'), value: vehicle.doors } : null,
+                  vehicle.seats ? { label: t('vehicle_detail.specifications.seats'), value: vehicle.seats } : null,
+                ].filter(Boolean).map((sp: { label: string; value: string | number }, i) => (
+                  <div key={i} className="mdg-feature-card rounded-xl p-4 transition-all duration-300">
+                    <div className="text-lg font-bold text-white leading-tight truncate">{sp.value}</div>
+                    <div className="text-[10px] uppercase tracking-[0.15em] text-[#D4D4D8] mt-1">{sp.label}</div>
                   </div>
-                  <div>
-                    <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.mileage')}</div>
-                    <div className="font-semibold">{vehicle.mileage.toLocaleString()} {vehicle.mileageUnit}</div>
+                ))}
+                {badgeImage && (
+                  <div className="mdg-feature-card rounded-xl p-4 flex flex-col items-start transition-all duration-300">
+                    <img src={badgeImage} alt={`Badge ${vehicle.environmentalBadge}`} className="w-9 h-9" />
+                    <div className="text-[10px] uppercase tracking-[0.15em] text-[#D4D4D8] mt-1">{t('vehicle_detail.specifications.environmental_badge')}</div>
                   </div>
-                  <div>
-                    <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.fuel')}</div>
-                    <div className="font-semibold">{translateVehicleAttribute('fuel', vehicle.fuel).toUpperCase()}</div>
-                  </div>
-                  <div>
-                    <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.transmission')}</div>
-                    <div className="font-semibold">{translateVehicleAttribute('transmission', vehicle.transmission).toUpperCase()}</div>
-                  </div>
-                  <div>
-                    <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.body_type')}</div>
-                    <div className="font-semibold">{translateVehicleAttribute('body_type', vehicle.type).toUpperCase()}</div>
-                  </div>
-                  {vehicle.color && <div>
-                      <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.color')}</div>
-                      <div className="font-semibold">{translateVehicleAttribute('color', vehicle.color).toUpperCase()}</div>
-                    </div>}
-                  {vehicle.doors && <div>
-                      <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.doors')}</div>
-                      <div className="font-semibold">{vehicle.doors}</div>
-                    </div>}
-                  {vehicle.seats && <div>
-                      <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.seats')}</div>
-                      <div className="font-semibold">{vehicle.seats}</div>
-                    </div>}
-                  {vehicle.engineSize && <div>
-                      <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.engine_size')}</div>
-                      <div className="font-semibold">{vehicle.engineSize} {vehicle.engineSizeUnit}</div>
-                    </div>}
-                  {vehicle.enginePower && <div>
-                      <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.engine_power')}</div>
-                      <div className="font-semibold">{vehicle.enginePower} CV</div>
-                    </div>}
-                  {badgeImage && <div>
-                      <div className="text-muted-foreground mb-1">{t('vehicle_detail.specifications.environmental_badge')}</div>
-                      <div className="font-semibold">
-                        <img src={badgeImage} alt={`Badge ${vehicle.environmentalBadge}`} className="w-12 h-12" />
-                      </div>
-                    </div>}
-                </div>
-              </CardContent>
-            </Card>
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Vehicle Information */}
-          <div className="space-y-6 sticky top-8 self-start">
+          <div className="space-y-6 sticky top-24 self-start">
             {/* Pricing */}
-            <div>
-              <div className="text-sm text-muted-foreground mb-2">{t('vehicle_detail.pricing.label')}</div>
-              <div className="bg-[#101318] px-3 py-1 rounded inline-block mb-4">
-                <div className="text-2xl font-bold text-white">
-                  {formatPrice(vehicle.price)}
-                </div>
+            <div className="bg-[#161618] border border-[#27272A] rounded-2xl p-5">
+              <div className="text-xs uppercase tracking-[0.15em] text-[#D4D4D8] mb-1">{t('vehicle_detail.pricing.label')}</div>
+              <div className="text-4xl font-heading font-bold text-[#ffff00]">
+                {formatPrice(vehicle.price)}
               </div>
             </div>
 
             {/* Reserve Button */}
             {vehicle.status !== 'Reserved' && (
-            <Card className="bg-primary text-primary-foreground">
-              <CardContent className="p-4">
+            <Card className="bg-[#ffff00]/[0.08] border border-[#ffff00]/40 shadow-[0_0_30px_rgba(255,255,0,0.06)]">
+              <CardContent className="p-5">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 bg-primary-foreground rounded-full"></div>
-                  <span className="font-semibold">{t('vehicle_detail.reserve.title')}</span>
+                  <div className="w-2 h-2 bg-[#ffff00] rounded-full animate-pulse"></div>
+                  <span className="font-bold text-white">{t('vehicle_detail.reserve.title')} {vehicle.brand} {vehicle.model}</span>
                 </div>
-                <p className="text-sm mb-4 opacity-90">
+                <p className="text-sm mb-4 text-[#D4D4D8]">
                   {t('vehicle_detail.reserve.description')}
                 </p>
                 <Dialog open={isReservationModalOpen} onOpenChange={setIsReservationModalOpen}>
                   <DialogTrigger asChild>
-                    <Button variant="secondary" className="w-full">
+                    <Button className="w-full bg-[#ffff00] hover:bg-[#e6e600] text-black font-bold rounded-xl hover:scale-[1.02] hover:shadow-[0_10px_25px_-5px_rgba(255,255,0,0.4)] transition-all duration-300">
                       {t('vehicle_detail.reserve.button')}
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-md bg-background">
+                  <DialogContent className="sm:max-w-md mdg-form-light">
                     <DialogHeader>
                       <DialogTitle className="text-lg font-semibold text-foreground">
                         {t('vehicle_detail.reserve.modal_title')} {vehicle.brand} {vehicle.model}
@@ -494,23 +490,23 @@ const VehicleDetail = () => {
                     <form onSubmit={handleReservationSubmit} className="space-y-6 mt-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="reservationName" className="text-white/50">{t('vehicle_detail.form.name')}</Label>
+                          <Label htmlFor="reservationName" className="text-[#D4D4D8]">{t('vehicle_detail.form.name')}</Label>
                           <Input
                             id="reservationName"
                             placeholder={t('vehicle_detail.form.name_placeholder')}
                             required
-                            className="bg-[#101318] border-[#1F232A]"
+                            className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)]"
                             value={reservationFormData.nombre}
                             onChange={(e) => setReservationFormData({ ...reservationFormData, nombre: e.target.value })}
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="reservationSurname" className="text-white/50">{t('vehicle_detail.form.surname')}</Label>
+                          <Label htmlFor="reservationSurname" className="text-[#D4D4D8]">{t('vehicle_detail.form.surname')}</Label>
                           <Input
                             id="reservationSurname"
                             placeholder={t('vehicle_detail.form.surname_placeholder')}
                             required
-                            className="bg-[#101318] border-[#1F232A]"
+                            className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)]"
                             value={reservationFormData.apellido}
                             onChange={(e) => setReservationFormData({ ...reservationFormData, apellido: e.target.value })}
                           />
@@ -519,27 +515,27 @@ const VehicleDetail = () => {
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="reservationEmail" className="text-white/50">{t('vehicle_detail.form.email')}</Label>
+                          <Label htmlFor="reservationEmail" className="text-[#D4D4D8]">{t('vehicle_detail.form.email')}</Label>
                           <Input
                             id="reservationEmail"
                             type="email"
                             placeholder={t('vehicle_detail.form.email_placeholder')}
                             required
-                            className="bg-[#101318] border-[#1F232A]"
+                            className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)]"
                             value={reservationFormData.email}
                             onChange={(e) => setReservationFormData({ ...reservationFormData, email: e.target.value })}
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="reservationPhone" className="text-white/50">{t('vehicle_detail.form.phone')}</Label>
+                          <Label htmlFor="reservationPhone" className="text-[#D4D4D8]">{t('vehicle_detail.form.phone')}</Label>
                           <div className="flex">
-                            <div className="flex items-center px-3 bg-[#101318] border border-r-0 border-[#1F232A] rounded-l-md">
+                            <div className="flex items-center px-3 bg-[#0B0B0C] border border-r-0 border-[#27272A] rounded-l-md">
                               <span className="text-sm text-red-600 font-semibold">{getFlag()}</span>
                             </div>
                             <Input
                               id="reservationPhone"
                               placeholder={t('vehicle_detail.form.phone_placeholder')}
-                              className="bg-[#101318] border-[#1F232A] rounded-l-none"
+                              className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)] rounded-l-none"
                               required
                               value={reservationFormData.telefono}
                               onChange={(e) => setReservationFormData({ ...reservationFormData, telefono: e.target.value })}
@@ -549,11 +545,11 @@ const VehicleDetail = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="reservationMessage" className="text-white/50">{t('vehicle_detail.form.message')}</Label>
+                        <Label htmlFor="reservationMessage" className="text-[#D4D4D8]">{t('vehicle_detail.form.message')}</Label>
                         <Textarea
                           id="reservationMessage"
                           placeholder={`${t('vehicle_detail.form.message_placeholder_reserve')} ${vehicle.brand} ${vehicle.model}`}
-                          className="min-h-[80px] resize-none bg-[#101318] border-[#1F232A]"
+                          className="min-h-[80px] resize-none bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)]"
                           required
                           rows={5}
                           value={reservationFormData.mensaje}
@@ -569,9 +565,9 @@ const VehicleDetail = () => {
                           checked={reservationFormData.acceptTerms}
                           onCheckedChange={(checked) => setReservationFormData({ ...reservationFormData, acceptTerms: checked as boolean })}
                         />
-                        <Label htmlFor="reservationTerms" className="text-sm text-white/50">
+                        <Label htmlFor="reservationTerms" className="text-sm text-[#D4D4D8]">
                           {t('vehicle_detail.form.accept_terms')}{" "}
-                          <button type="button" onClick={() => setOpenPrivacyModal(true)} className="text-primary hover:text-white/50 underline cursor-pointer">
+                          <button type="button" onClick={() => setOpenPrivacyModal(true)} className="text-[#ffff00] hover:text-[#ffff00]/70 underline cursor-pointer">
                             {t('vehicle_detail.form.privacy_policy')}
                           </button>.
                         </Label>
@@ -589,20 +585,18 @@ const VehicleDetail = () => {
 
             {/* Action Buttons */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-              <Button variant="outline" className="flex items-center gap-2" asChild>
-                <a href={`tel:${getPhoneNumber()}`}>
-                  <Phone className="w-4 h-4" />
-                  {t('vehicle_detail.actions.call_now')}
-                </a>
-              </Button>
+              <a href={`tel:${getPhoneNumber()}`} className="mdg-feature-card flex items-center justify-center gap-2 rounded-xl py-3 px-4 text-sm font-semibold text-white transition-all duration-300">
+                <Phone className="w-4 h-4" />
+                {t('vehicle_detail.actions.call_now')}
+              </a>
               <Dialog open={isAppointmentModalOpen} onOpenChange={setIsAppointmentModalOpen}>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <button type="button" className="mdg-feature-card flex items-center justify-center gap-2 rounded-xl py-3 px-4 text-sm font-semibold text-white transition-all duration-300">
                     <Calendar className="w-4 h-4" />
                     {t('vehicle_detail.actions.schedule_appointment')}
-                  </Button>
+                  </button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-md bg-background">
+                <DialogContent className="sm:max-w-md mdg-form-light">
                   <DialogHeader>
                     <DialogTitle className="text-lg font-semibold text-foreground">
                       {t('vehicle_detail.appointment.modal_title')}
@@ -611,23 +605,23 @@ const VehicleDetail = () => {
                   <form onSubmit={handleAppointmentSubmit} className="space-y-6 mt-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="appointmentName" className="text-white/50">{t('vehicle_detail.form.name')}</Label>
+                        <Label htmlFor="appointmentName" className="text-[#D4D4D8]">{t('vehicle_detail.form.name')}</Label>
                         <Input
                           id="appointmentName"
                           placeholder={t('vehicle_detail.form.name_placeholder')}
                           required
-                          className="bg-[#101318] border-[#1F232A]"
+                          className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)]"
                           value={appointmentFormData.nombre}
                           onChange={(e) => setAppointmentFormData({ ...appointmentFormData, nombre: e.target.value })}
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="appointmentSurname" className="text-white/50">{t('vehicle_detail.form.surname')}</Label>
+                        <Label htmlFor="appointmentSurname" className="text-[#D4D4D8]">{t('vehicle_detail.form.surname')}</Label>
                         <Input
                           id="appointmentSurname"
                           placeholder={t('vehicle_detail.form.surname_placeholder')}
                           required
-                          className="bg-[#101318] border-[#1F232A]"
+                          className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)]"
                           value={appointmentFormData.apellido}
                           onChange={(e) => setAppointmentFormData({ ...appointmentFormData, apellido: e.target.value })}
                         />
@@ -636,27 +630,27 @@ const VehicleDetail = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="appointmentEmail" className="text-white/50">{t('vehicle_detail.form.email')}</Label>
+                        <Label htmlFor="appointmentEmail" className="text-[#D4D4D8]">{t('vehicle_detail.form.email')}</Label>
                         <Input
                           id="appointmentEmail"
                           type="email"
                           placeholder={t('vehicle_detail.form.email_placeholder')}
                           required
-                          className="bg-[#101318] border-[#1F232A]"
+                          className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)]"
                           value={appointmentFormData.email}
                           onChange={(e) => setAppointmentFormData({ ...appointmentFormData, email: e.target.value })}
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="appointmentPhone" className="text-white/50">{t('vehicle_detail.form.phone')}</Label>
+                        <Label htmlFor="appointmentPhone" className="text-[#D4D4D8]">{t('vehicle_detail.form.phone')}</Label>
                         <div className="flex">
-                          <div className="flex items-center px-3 bg-[#101318] border border-r-0 border-[#1F232A] rounded-l-md">
+                          <div className="flex items-center px-3 bg-[#0B0B0C] border border-r-0 border-[#27272A] rounded-l-md">
                             <span className="text-sm text-red-600 font-semibold">{getFlag()}</span>
                           </div>
                           <Input
                             id="appointmentPhone"
                             placeholder={t('vehicle_detail.form.phone_placeholder')}
-                            className="bg-[#101318] border-[#1F232A] rounded-l-none"
+                            className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)] rounded-l-none"
                             required
                             value={appointmentFormData.telefono}
                             onChange={(e) => setAppointmentFormData({ ...appointmentFormData, telefono: e.target.value })}
@@ -667,24 +661,24 @@ const VehicleDetail = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="appointmentDate" className="text-white/50">{t('vehicle_detail.appointment.date_label')}</Label>
+                        <Label htmlFor="appointmentDate" className="text-[#D4D4D8]">{t('vehicle_detail.appointment.date_label')}</Label>
                         <Input
                           id="appointmentDate"
                           type="date"
                           required
-                          className="bg-[#101318] border-[#1F232A] text-foreground placeholder:text-muted-foreground"
+                          className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)] text-foreground placeholder:text-muted-foreground"
                           value={appointmentFormData.fecha}
                           onChange={(e) => setAppointmentFormData({ ...appointmentFormData, fecha: e.target.value })}
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="appointmentTime" className="text-white/50">{t('vehicle_detail.appointment.time_label')}</Label>
+                        <Label htmlFor="appointmentTime" className="text-[#D4D4D8]">{t('vehicle_detail.appointment.time_label')}</Label>
                         <Select
                           required
                           value={appointmentFormData.hora}
                           onValueChange={(value) => setAppointmentFormData({ ...appointmentFormData, hora: value })}
                         >
-                          <SelectTrigger className="bg-[#101318] border-[#1F232A] text-foreground data-[placeholder]:text-muted-foreground">
+                          <SelectTrigger className="bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)] text-foreground data-[placeholder]:text-muted-foreground">
                             <SelectValue placeholder={t('vehicle_detail.appointment.time_placeholder')} />
                           </SelectTrigger>
                           <SelectContent>
@@ -708,11 +702,11 @@ const VehicleDetail = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="appointmentMessage" className="text-white/50">{t('vehicle_detail.form.message')}</Label>
+                      <Label htmlFor="appointmentMessage" className="text-[#D4D4D8]">{t('vehicle_detail.form.message')}</Label>
                       <Textarea
                         id="appointmentMessage"
                         placeholder={`${t('vehicle_detail.appointment.message_placeholder')} ${vehicle.brand} ${vehicle.model}`}
-                        className="min-h-[80px] resize-none bg-[#101318] border-[#1F232A]"
+                        className="min-h-[80px] resize-none bg-[#0B0B0C] border-[#27272A] text-white placeholder:text-white/85 focus-visible:border-[#ffff00] focus-visible:shadow-[0_0_10px_rgba(255,255,0,0.2)]"
                         required
                         rows={5}
                         value={appointmentFormData.mensaje}
@@ -728,9 +722,9 @@ const VehicleDetail = () => {
                         checked={appointmentFormData.acceptTerms}
                         onCheckedChange={(checked) => setAppointmentFormData({ ...appointmentFormData, acceptTerms: checked as boolean })}
                       />
-                      <Label htmlFor="appointmentTerms" className="text-sm text-white/50">
+                      <Label htmlFor="appointmentTerms" className="text-sm text-[#D4D4D8]">
                         {t('vehicle_detail.form.accept_terms')}{" "}
-                        <button type="button" onClick={() => setOpenPrivacyModal(true)} className="text-primary hover:text-white/50 underline cursor-pointer">
+                        <button type="button" onClick={() => setOpenPrivacyModal(true)} className="text-[#ffff00] hover:text-[#ffff00]/70 underline cursor-pointer">
                           {t('vehicle_detail.form.privacy_policy')}
                         </button>.
                       </Label>
@@ -745,31 +739,31 @@ const VehicleDetail = () => {
             </div>
 
             {/* Contact Form */}
-            <Card>
+            <Card className="mdg-form-light border rounded-2xl">
               <CardHeader>
-                <CardTitle className="text-lg">
+                <CardTitle className="text-lg text-slate-900">
                   {t('vehicle_detail.contact.title')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 {isContactSubmitted ? (
                   <div className="text-center py-8">
-                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-900/30 flex items-center justify-center">
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
                       <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-3">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">
                       {t('vehicle_detail.contact.success_title')}
                     </h3>
-                    <p className="text-muted-foreground mb-6">
+                    <p className="text-slate-600 mb-6">
                       {t('vehicle_detail.contact.success_description')}
                     </p>
                     <Button
                       onClick={() => {
                         setIsContactSubmitted(false);
                       }}
-                      variant="outline"
+                      className="bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold border border-slate-300"
                     >
                       {t('vehicle_detail.contact.send_another')}
                     </Button>
@@ -782,6 +776,7 @@ const VehicleDetail = () => {
                         id="name"
                         placeholder={t('vehicle_detail.form.name_placeholder')}
                         required
+                        className="bg-white border border-slate-300"
                         value={contactFormData.nombre}
                         onChange={(e) => setContactFormData({ ...contactFormData, nombre: e.target.value })}
                       />
@@ -792,6 +787,7 @@ const VehicleDetail = () => {
                         id="surname"
                         placeholder={t('vehicle_detail.form.surname_placeholder')}
                         required
+                        className="bg-white border border-slate-300"
                         value={contactFormData.apellido}
                         onChange={(e) => setContactFormData({ ...contactFormData, apellido: e.target.value })}
                       />
@@ -803,6 +799,7 @@ const VehicleDetail = () => {
                         type="email"
                         placeholder={t('vehicle_detail.form.email_placeholder')}
                         required
+                        className="bg-white border border-slate-300"
                         value={contactFormData.email}
                         onChange={(e) => setContactFormData({ ...contactFormData, email: e.target.value })}
                       />
@@ -810,13 +807,13 @@ const VehicleDetail = () => {
                     <div>
                       <Label htmlFor="phone">{t('vehicle_detail.form.phone')}</Label>
                       <div className="flex">
-                        <div className="flex items-center px-3 border border-r-0 border-input rounded-l-md bg-muted text-sm whitespace-nowrap">
+                        <div className="flex items-center px-3 border border-r-0 border-slate-300 rounded-l-md bg-slate-100 text-slate-700 text-sm whitespace-nowrap">
                           {getFlag()} {language === "es" ? "+34" : language === "en" ? "+44" : "+33"}
                         </div>
                         <Input
                           id="phone"
                           placeholder={t('vehicle_detail.form.phone_placeholder')}
-                          className="rounded-l-none"
+                          className="rounded-l-none bg-white border border-slate-300"
                           required
                           value={contactFormData.telefono}
                           onChange={(e) => setContactFormData({ ...contactFormData, telefono: e.target.value })}
@@ -828,7 +825,7 @@ const VehicleDetail = () => {
                       <Textarea
                         id="message"
                         placeholder={`${t('vehicle_detail.contact.message_placeholder')} ${vehicle.brand} ${vehicle.model}`}
-                        className="min-h-[80px]"
+                        className="min-h-[80px] bg-white border border-slate-300"
                         required
                         value={contactFormData.mensaje}
                         onChange={(e) => setContactFormData({ ...contactFormData, mensaje: e.target.value })}
@@ -853,7 +850,7 @@ const VehicleDetail = () => {
 
       {/* Privacy Policy Modal */}
       <Dialog open={openPrivacyModal} onOpenChange={setOpenPrivacyModal}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="mdg-form-light max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">{t('legal.privacy_policy.title')}</DialogTitle>
           </DialogHeader>
@@ -861,7 +858,7 @@ const VehicleDetail = () => {
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">{t('legal.privacy_policy.section_2_1.title')}</h3>
               <div className="bg-muted/50 p-4 rounded-lg">
-                <p><strong>{t('legal.privacy_policy.section_2_1.company_name')}:</strong> EDITION CARS</p>
+                <p><strong>{t('legal.privacy_policy.section_2_1.company_name')}:</strong> MDG CAR CENTER</p>
                 <p><strong>{t('legal.privacy_policy.section_2_1.address')}:</strong> {address.full}</p>
                 <p><strong>{t('legal.privacy_policy.section_2_1.phone')}:</strong> {getPhoneNumber()}</p>
               </div>

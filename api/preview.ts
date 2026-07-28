@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const CARS_API_URL = 'https://multipost-public.app.infinit.cc/api/public/inventory/profiles/630688fb-a7f8-44b8-ac55-4d853dc8cfa7';
+const CARS_API_URL = 'https://multipost-public.app.infinit.cc/api/public/inventory/profiles/8b63dccc-8f74-43ab-a058-2084c2988b68';
 
 interface Vehicle {
   id: string;
@@ -116,20 +116,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Build title parts, filtering out undefined/empty values
     const titleParts = [vehicle.brand, vehicle.model, vehicle.year].filter(Boolean);
-    const pageTitle = `${titleParts.join(' ')} - ${formattedPrice} | EDITION CARS`;
+    const pageTitle = `${titleParts.join(' ')} - ${formattedPrice} | MDG CAR CENTER`;
 
     // Build description parts
     const descParts = [vehicle.brand, vehicle.model, vehicle.year].filter(Boolean);
-    const pageDescription = `${descParts.join(' ')} - ${mileageText}, ${vehicle.fuel}, ${vehicle.transmission}. Vehículo de alta gama disponible en EDITION CARS El Prat de Llobregat.`;
+    const pageDescription = `${descParts.join(' ')} - ${mileageText}, ${vehicle.fuel}, ${vehicle.transmission}. Vehículo de alta gama disponible en MDG CAR CENTER Purullena, Granada.`;
 
-    const pageUrl = `https://www.editioncars.es/stock/${id}`;
-    let carImage = vehicle.images && vehicle.images.length > 0 ? vehicle.images[0] : 'https://www.editioncars.es/placeholder.svg';
+    const pageUrl = `https://mdgcarcenter.com/stock/${id}`;
+    let carImage = vehicle.images && vehicle.images.length > 0 ? vehicle.images[0] : 'https://mdgcarcenter.com/placeholder.svg';
 
     // Use Vercel Image Optimization to resize images for WhatsApp compatibility (max 600KB recommended)
     // Resize to 1600px width to ensure file size stays under 600KB
     if (carImage && carImage.includes('alxproduction.blob.core.windows.net')) {
       const encodedUrl = encodeURIComponent(carImage);
-      carImage = `https://www.editioncars.es/_vercel/image?url=${encodedUrl}&w=1600&q=80`;
+      carImage = `https://mdgcarcenter.com/_vercel/image?url=${encodedUrl}&w=1600&q=80`;
     }
 
     // Serve static HTML with meta tags for previews (only bots reach this function now)
@@ -137,8 +137,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="https://www.editioncars.es/edition-cars-favicon.png" />
-    <link rel="shortcut icon" type="image/png" href="https://www.editioncars.es/edition-cars-favicon.png" />
+    <link rel="icon" type="image/x-icon" href="https://mdgcarcenter.com/mdg-favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://mdgcarcenter.com/mdg-favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${pageTitle}</title>
     <meta name="description" content="${pageDescription}" />
@@ -154,7 +154,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="${titleParts.join(' ')}" />
-    <meta property="og:site_name" content="EDITION CARS" />
+    <meta property="og:site_name" content="MDG CAR CENTER" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
