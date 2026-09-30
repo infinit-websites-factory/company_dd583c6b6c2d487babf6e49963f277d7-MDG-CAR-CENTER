@@ -27,9 +27,9 @@ interface LanguageContextType {
 }
 
 const PHONE_NUMBERS = {
-  es: "+34858711456",
-  en: "+34858711456",
-  fr: "+34858711456",
+  es: "+34633406310",
+  en: "+34633406310",
+  fr: "+34633406310",
 };
 
 const MDG_MAPS_URL = "https://www.google.es/maps/place/mdg+car+center/@37.3173657,-3.1955497,17z/data=!3m1!4b1!4m6!3m5!1s0xd6e29d5807258d3:0x588dc54ac7e99612!8m2!3d37.3173615!4d-3.1929748!16s%2Fg%2F11s693c34x";
@@ -66,10 +66,10 @@ const CURRENCIES: Record<Language, { code: string; symbol: string }> = {
 };
 
 const formatPhoneNumber = (phone: string, language: Language): string => {
-  // Returns: 858 711 456
+  // Returns: +34 633 40 63 10
   const digits = phone.replace('+34', '');
   if (digits.length === 9) {
-    return `${digits.substring(0, 3)} ${digits.substring(3, 6)} ${digits.substring(6)}`;
+    return `+34 ${digits.substring(0, 3)} ${digits.substring(3, 5)} ${digits.substring(5, 7)} ${digits.substring(7)}`;
   }
   return digits;
 };

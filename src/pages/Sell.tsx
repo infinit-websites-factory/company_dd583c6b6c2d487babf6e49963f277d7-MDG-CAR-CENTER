@@ -700,7 +700,7 @@ Kilometraje: ${formData.kilometraje} km`;
                             <p className="text-sm font-semibold text-white mb-1">Añade fotos de tu vehículo</p>
                             <p className="text-xs text-[#D4D4D8] leading-relaxed">
                               Tras enviar el formulario, te recomendamos enviar fotos del vehículo (delantera, trasera, laterales, interior y cuentakilómetros) por WhatsApp al{" "}
-                              <a href="tel:+34633406310" className="text-white font-semibold underline">633 406 310</a>
+                              <a href="tel:+34633406310" className="text-white font-semibold underline">+34 633 40 63 10</a>
                               {" "}o por email a{" "}
                               <a href="mailto:info@mdgcarcenter.com" className="text-white font-semibold underline">info@mdgcarcenter.com</a>
                               . Las fotos nos ayudan a ofrecerte una valoración más precisa.

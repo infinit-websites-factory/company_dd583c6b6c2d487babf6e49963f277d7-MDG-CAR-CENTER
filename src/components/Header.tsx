@@ -37,9 +37,9 @@ const Header = () => {
         <div className="container mx-auto max-w-7xl px-4 flex h-10 items-center justify-between text-xs">
           {/* Left */}
           <div className="flex items-center gap-5 text-[#F4F4F5] font-medium">
-            <a href="tel:+34858711456" className="flex items-center gap-1.5 hover:text-[#ffff00] transition-colors">
+            <a href="tel:+34633406310" className="flex items-center gap-1.5 hover:text-[#ffff00] transition-colors">
               <Phone size={12} className="text-[#ffff00]" />
-              <span>858 711 456</span>
+              <span>+34 633 40 63 10</span>
             </a>
             <a href="mailto:info@mdgcarcenter.com" className="hidden sm:flex items-center gap-1.5 hover:text-[#ffff00] transition-colors">
               <Mail size={12} className="text-[#ffff00]" />
@@ -102,7 +102,7 @@ const Header = () => {
         {/* Right: call button + mobile toggle */}
         <div className="flex items-center gap-3 flex-shrink-0">
           <a
-            href="tel:+34858711456"
+            href="tel:+34633406310"
             className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-[#ffff00] text-black text-sm font-bold rounded-lg hover:bg-[#e6e600] hover:shadow-[0_8px_22px_-6px_rgba(255,255,0,0.5)] transition-all duration-300"
           >
             <Phone size={15} />
@@ -135,11 +135,11 @@ const Header = () => {
             </a>
           ))}
           <a
-            href="tel:+34858711456"
+            href="tel:+34633406310"
             className="mt-2 flex items-center justify-center gap-2 px-4 py-3 bg-[#ffff00] text-black text-sm font-bold rounded-lg"
           >
             <Phone size={16} />
-            Llámanos · 858 711 456
+            Llámanos · +34 633 40 63 10
           </a>
         </nav>
       )}

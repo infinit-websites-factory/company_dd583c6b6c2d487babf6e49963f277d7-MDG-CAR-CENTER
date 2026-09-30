@@ -24,7 +24,7 @@ const Footer = () => {
           <div className="bg-muted/50 p-4 rounded-lg">
             <p><strong>{t('legal.privacy_policy.section_2_1.company_name')}:</strong> MDG CAR CENTER</p>
             <p><strong>{t('legal.privacy_policy.section_2_1.address')}:</strong> {address.full}</p>
-            <p><strong>{t('legal.privacy_policy.section_2_1.phone')}:</strong> 858 711 456</p>
+            <p><strong>{t('legal.privacy_policy.section_2_1.phone')}:</strong> +34 633 40 63 10</p>
           </div>
           <h3 className="text-lg font-semibold">{t('legal.privacy_policy.section_2_2.title')}</h3>
           <p>{t('legal.privacy_policy.section_2_2.intro')}</p>
@@ -54,7 +54,7 @@ const Footer = () => {
           <div className="bg-muted/50 p-4 rounded-lg">
             <p><strong>{t('legal.legal_notice.section_1_1.owner')}:</strong> MDG CAR CENTER SL</p>
             <p><strong>{t('legal.legal_notice.section_1_1.address')}:</strong> {address.full}</p>
-            <p><strong>{t('legal.legal_notice.section_1_1.phone')}:</strong> 858 711 456</p>
+            <p><strong>{t('legal.legal_notice.section_1_1.phone')}:</strong> +34 633 40 63 10</p>
           </div>
           <h3 className="text-lg font-semibold">{t('legal.legal_notice.section_1_2.title')}</h3>
           <p>{t('legal.legal_notice.section_1_2.content')}</p>
@@ -174,11 +174,11 @@ const Footer = () => {
               Contacto
             </h3>
             <div className="space-y-3">
-              <a href="tel:+34858711456" className="flex items-center gap-3 text-white/90 text-sm hover:text-[#ffff00] transition-colors group">
+              <a href="tel:+34633406310" className="flex items-center gap-3 text-white/90 text-sm hover:text-[#ffff00] transition-colors group">
                 <div className="w-8 h-8 rounded-md bg-[#ffff00]/15 border border-[#ffff00]/30 flex items-center justify-center group-hover:bg-[#ffff00]/25 transition-colors">
                   <Phone size={14} className="text-[#ffff00]" />
                 </div>
-                <span>858 711 456</span>
+                <span>+34 633 40 63 10</span>
               </a>
               <a href="mailto:info@mdgcarcenter.com" className="flex items-center gap-3 text-white/90 text-sm hover:text-[#ffff00] transition-colors group">
                 <div className="w-8 h-8 rounded-md bg-[#ffff00]/15 border border-[#ffff00]/30 flex items-center justify-center group-hover:bg-[#ffff00]/25 transition-colors">

@@ -269,9 +269,9 @@ const Services = () => {
           </h2>
           <p className="text-[#D4D4D8] mb-8">Nuestro equipo está disponible para ayudarte de lunes a viernes de 10:00 a 20:00.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+34858711456" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#161618] border border-[#ffff00]/50 text-[#ffff00] text-sm font-bold rounded-lg hover:border-[#ffff00] hover:shadow-[0_0_15px_rgba(255,255,0,0.25)] transition-all duration-300">
+            <a href="tel:+34633406310" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#161618] border border-[#ffff00]/50 text-[#ffff00] text-sm font-bold rounded-lg hover:border-[#ffff00] hover:shadow-[0_0_15px_rgba(255,255,0,0.25)] transition-all duration-300">
               <Phone className="w-4 h-4" />
-              858 711 456
+              +34 633 40 63 10
             </a>
             <a href="/contact" className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#ffff00] text-black text-sm font-bold rounded-lg hover:bg-[#e6e600] hover:shadow-[0_8px_24px_-4px_rgba(255,255,0,0.4)] transition-all duration-300">
               Enviar mensaje
