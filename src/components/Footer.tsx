@@ -180,11 +180,11 @@ const Footer = () => {
                 </div>
                 <span>+34 633 40 63 10</span>
               </a>
-              <a href="mailto:info@mdgcarcenter.com" className="flex items-center gap-3 text-white/90 text-sm hover:text-[#ffff00] transition-colors group">
+              <a href="mailto:mdgcarcenter@gmail.com" className="flex items-center gap-3 text-white/90 text-sm hover:text-[#ffff00] transition-colors group">
                 <div className="w-8 h-8 rounded-md bg-[#ffff00]/15 border border-[#ffff00]/30 flex items-center justify-center group-hover:bg-[#ffff00]/25 transition-colors">
                   <Mail size={14} className="text-[#ffff00]" />
                 </div>
-                <span>info@mdgcarcenter.com</span>
+                <span>mdgcarcenter@gmail.com</span>
               </a>
               <a href={address.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-white/90 text-sm hover:text-[#ffff00] transition-colors group">
                 <div className="w-8 h-8 rounded-md bg-[#ffff00]/15 border border-[#ffff00]/30 flex items-center justify-center flex-shrink-0 group-hover:bg-[#ffff00]/25 transition-colors">

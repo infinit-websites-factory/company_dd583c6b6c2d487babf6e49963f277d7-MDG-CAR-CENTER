@@ -702,7 +702,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               Tras enviar el formulario, te recomendamos enviar fotos del vehículo (delantera, trasera, laterales, interior y cuentakilómetros) por WhatsApp al{" "}
                               <a href="tel:+34633406310" className="text-white font-semibold underline">+34 633 40 63 10</a>
                               {" "}o por email a{" "}
-                              <a href="mailto:info@mdgcarcenter.com" className="text-white font-semibold underline">info@mdgcarcenter.com</a>
+                              <a href="mailto:mdgcarcenter@gmail.com" className="text-white font-semibold underline">mdgcarcenter@gmail.com</a>
                               . Las fotos nos ayudan a ofrecerte una valoración más precisa.
                             </p>
                           </div>
@@ -789,7 +789,7 @@ Kilometraje: ${formData.kilometraje} km`;
                               Enviar fotos por WhatsApp
                             </a>
                             <a
-                              href="mailto:info@mdgcarcenter.com?subject=Fotos tasación vehículo"
+                              href="mailto:mdgcarcenter@gmail.com?subject=Fotos tasación vehículo"
                               className="flex items-center justify-center gap-2 w-full py-2.5 px-4 border border-white/20 text-white/90 text-sm font-medium rounded-lg hover:bg-white/5 transition-colors"
                             >
                               Enviar fotos por email

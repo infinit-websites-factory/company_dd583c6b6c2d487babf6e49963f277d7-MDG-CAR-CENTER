@@ -41,9 +41,9 @@ const Header = () => {
               <Phone size={12} className="text-[#ffff00]" />
               <span>+34 633 40 63 10</span>
             </a>
-            <a href="mailto:info@mdgcarcenter.com" className="hidden sm:flex items-center gap-1.5 hover:text-[#ffff00] transition-colors">
+            <a href="mailto:mdgcarcenter@gmail.com" className="hidden sm:flex items-center gap-1.5 hover:text-[#ffff00] transition-colors">
               <Mail size={12} className="text-[#ffff00]" />
-              <span>info@mdgcarcenter.com</span>
+              <span>mdgcarcenter@gmail.com</span>
             </a>
           </div>
           {/* Right */}
